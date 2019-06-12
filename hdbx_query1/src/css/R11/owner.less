@@ -1,0 +1,81 @@
+.owner {
+  >.owner-type {
+    margin-bottom: 30px;
+    padding-top: 10px;
+
+    >input {
+      cursor: pointer;
+    }
+
+    >label {
+      cursor: pointer;
+      margin-right: 50px;
+    }
+  }
+
+  >.trunk {
+    margin-bottom: 30px;
+    position: relative;
+
+    >span {
+      display: inline-block;
+      width: 70px;
+      margin-right: 10px;
+      text-align: right;
+      position: relative;
+
+      &:after {
+        display: block;
+        content: '*';
+        position: absolute;
+        color: red;
+        top: 3px;
+        left: 0;
+      }
+    }
+
+    >.el-cascader {
+      width: auto;
+      margin-right: 0;
+
+      .el-cascader__label {
+        display: none;
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+
+    >.el-select {
+      width: 228px;
+
+      >.el-input {
+        min-width: auto;
+      }
+    }
+
+    >input {
+      width: 226px;
+      height: 38px;
+      outline: none;
+      border: 1px solid #cccccc;
+      text-indent: 10px;
+    }
+
+    >.error {
+      position: absolute;
+      left: 90px;
+      bottom: -24px;
+      color: red;
+    }
+
+    >.hd-input {
+      >label {
+        >.text {
+          width: 70px;
+        }
+      }
+    }
+  }
+}

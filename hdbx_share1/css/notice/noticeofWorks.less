@@ -1,0 +1,113 @@
+@fs14: 14px;
+@fs16: 16px;
+@fs18: 18px;
+@fmSun: SimSun;
+@fmYH: Microsoft YaHei;
+.box{
+  width: 1000px;
+  height: 1335px;
+  margin: 0 auto;
+  background: #fff;
+  font-size: @fs18;
+  font-family: @fmSun;
+  position: relative;
+  header {
+    width: 100%;
+    height: 120px;
+    background: #f2f2f2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+    box-sizing: border-box;
+    .left {
+      margin-left: 40px;
+    }
+    .right {
+      width: 100px;
+      height: 100px;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+  }
+  .formLeft {
+    padding-left: 54px;
+    line-height: 36px;
+    position: relative;
+  }
+  .rowRight {
+    border-bottom: 1px solid #333;
+    line-height: initial;
+    position: absolute;
+    bottom: 4px;
+    width: 80%;
+    display: inline-block;
+  }
+  .one {
+    padding-left: 54px;
+    font-size: @fs18;
+    font-family: @fmSun;
+    .text1 {
+      margin-bottom: 20px;
+      font-size: 15px;
+      margin-top: 30px;
+    }
+    .text2 {
+
+    }
+    .list {
+      margin-bottom: 120px;
+    }
+  }
+  .bao {
+    position: absolute;
+    right: 50px;
+    bottom: 200px;
+    p{
+      line-height: 30px;
+    }
+  }
+
+  .footer {
+    width: 896px;
+    padding: 0 52px;
+    position: absolute;
+    bottom: 82px;
+    left: 0;
+    height: 82px;
+
+    .line {
+      border-bottom: 3px solid #666;
+    }
+
+    > .footerPhone {
+      font-size: @fs14;
+      margin-bottom: 22px;
+      font-family: @fmSun;
+      > div {
+        width: 33%;
+        float: left;
+      }
+    }
+
+    > .footerAddress {
+      margin-top: @fs18;
+      font-size: @fs16;
+      font-family: @fmSun;
+
+      > span {
+        margin-left: 35px;
+      }
+    }
+  }
+}
+.indentation {
+  padding-left: 30px;
+}

@@ -1,0 +1,101 @@
+.oups-owner {
+  margin-top: 40px;
+  position: relative;
+}
+.oups-owner > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+}
+.oups-owner > .oups-owner-left {
+  float: left;
+}
+.oups-owner > .oups-owner-left > .owner-type {
+  margin-left: 60px;
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+.oups-owner > .oups-owner-left > .owner-type > input {
+  cursor: pointer;
+}
+.oups-owner > .oups-owner-left > .owner-type > label {
+  cursor: pointer;
+  margin-right: 50px;
+}
+.oups-owner > .oups-owner-left > .trunk {
+  margin-left: 40px;
+  margin-bottom: 30px;
+  position: relative;
+}
+.oups-owner > .oups-owner-left > .trunk > span {
+  display: inline-block;
+  width: 70px;
+  margin-right: 10px;
+  text-align: right;
+  position: relative;
+}
+.oups-owner > .oups-owner-left > .trunk > span:after {
+  display: block;
+  content: '*';
+  position: absolute;
+  color: red;
+  top: 3px;
+  left: 0;
+}
+.oups-owner > .oups-owner-left > .trunk > .el-select {
+  width: 228px;
+}
+.oups-owner > .oups-owner-left > .trunk > .el-select > .el-input {
+  min-width: auto;
+}
+.oups-owner > .oups-owner-left > .trunk > input {
+  width: 226px;
+  height: 38px;
+  outline: none;
+  border: 1px solid #cccccc;
+  text-indent: 10px;
+}
+.oups-owner > .oups-owner-left > .trunk > .error {
+  position: absolute;
+  left: 90px;
+  bottom: -24px;
+  color: red;
+}
+.oups-owner > .oups-owner-left > .trunk > .hd-input > label > .text {
+  width: 70px;
+}
+.oups-owner > .oups-owner-right {
+  float: left;
+  margin-left: 50px;
+  padding-top: 60px;
+}
+.oups-owner > .oups-owner-right > div {
+  float: left;
+  margin-right: 40px;
+  position: relative;
+}
+.oups-owner > .oups-owner-right > div > .error {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  color: red;
+  text-align: center;
+  line-height: 1;
+}
+.oups-owner > .oups-owner-right > .hd-button {
+  margin-top: 80px;
+  margin-right: 0;
+}
+.oups-owner > .disabled {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}

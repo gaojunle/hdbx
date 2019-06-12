@@ -1,0 +1,88 @@
+
+.addressEdit {
+   position: absolute;
+   top: -10px;
+   left: 160px;
+   width: 800px;
+}
+  .trunk {
+    margin-bottom: 30px;
+    position: relative;
+    > span {
+      display: inline-block;
+      width: 80px;
+      text-align: center;
+    }
+    > input {
+      outline: none;
+    }
+    > textarea {
+      width: 217px;
+      height: 50px;
+      resize: none;
+      border: 1px solid #dcdfe6;
+      outline: none;
+      border-radius: 5px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    > .error {
+      position: absolute;
+      z-index: 5;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ff2553;
+      bottom: -24px;
+      left: 82px;
+      padding-left: 6px;
+      background-position: 0px -20px;
+      background-size: 20px auto;
+    }
+    > .detailAddress {
+      vertical-align: 38px;
+    }
+    > .tel-input {
+      width: 300px;
+      position: absolute;
+      top: -10px;
+      left: 82px;
+    }
+    > .codeBtn {
+      cursor: pointer;
+      color: #333333;
+    }
+    > .unClick {
+      pointer-events: none;
+      color: #999999;
+    }
+    > .left, > .right {
+      display: inline-block;
+      width: 300px;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+      background-color: pink;
+      position: relative;
+    }
+    > .left {
+    //   margin-right: 30px;
+    }
+    > .button {
+      width: 200px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      margin: 0 auto;
+      background-color: #128BED;
+      cursor: pointer;
+    }
+  }
+  .el-select-dropdown {
+    z-index: 9999 !important;
+  }
+  .el-input--suffix, .el-cascader {
+    min-width: 300px;
+  }
+  .el-cascader-menus {
+    z-index: 9999 !important;
+  }

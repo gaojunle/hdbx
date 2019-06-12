@@ -1,0 +1,92 @@
+.receive-mode {
+  width: 100%;
+  position: relative;
+}
+.receive-mode > .title {
+  height: 50px;
+  background-color: #f2f2f2;
+  color: #333333;
+  font-size: 20px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.receive-mode > .receive-type {
+  padding: 10px 0 20px 30px;
+}
+.receive-mode > .receive-type > li {
+  float: left;
+  margin-right: 150px;
+  cursor: pointer;
+}
+.receive-mode > .receive-type > li > input {
+  cursor: pointer;
+}
+.receive-mode > .receive-type > li > label {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+}
+.receive-mode > .receive-type-child {
+  padding: 10px 0 20px 50px;
+  min-height: 60px;
+}
+.receive-mode > .receive-type-child > li {
+  margin-bottom: 20px;
+}
+.receive-mode > .receive-type-child > li > input {
+  cursor: pointer;
+}
+.receive-mode > .receive-type-child > li > label {
+  cursor: pointer;
+}
+.receive-mode > .receive-type-child > li > label > .hall {
+  display: inline-block;
+  width: 300px;
+}
+.receive-mode > .address-list > li > .hd-radio {
+  float: left;
+  margin-top: 6px;
+  margin-right: 10px;
+}
+.receive-mode > .address-list > li > .address-box {
+  float: left;
+}
+.receive-mode > .address-list > li > .address-box > div {
+  float: left;
+  font-size: 16px;
+  line-height: 30px;
+}
+.receive-mode > .address-list > li > .address-box > .name {
+  width: 80px;
+}
+.receive-mode > .address-list > li > .address-box > .address {
+  width: 300px;
+}
+.receive-mode > .address-list > li > .address-box > .phone {
+  width: 150px;
+}
+.receive-mode > .address-list > li > .address-box > .default {
+  width: 100px;
+  height: 30px;
+  margin-right: 156px;
+  background-color: #d7d7d7;
+  text-align: center;
+  cursor: pointer;
+}
+.receive-mode > .address-list > li > .address-box > .set-default {
+  margin-left: 110px;
+  margin-right: 50px;
+  cursor: pointer;
+}
+.receive-mode > .address-list > li > .address-box > .updata {
+  cursor: pointer;
+}
+.receive-mode > .disabled {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}

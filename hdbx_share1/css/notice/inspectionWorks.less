@@ -1,0 +1,144 @@
+@fs14: 14px;
+@fs16: 16px;
+@fs18: 18px;
+@fmSun: SimSun;
+@fmYH: Microsoft YaHei;
+.box{
+  width: 800px;
+  height: 1335px;
+  margin: 0 auto;
+  background: #fff;
+  // font-size: @fs18;
+  // font-family: @fmSun;
+  position: relative;
+  header {
+    width: 100%;
+    height: 120px;
+    background: #f2f2f2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+    box-sizing: border-box;
+    .left {
+      margin-left: 40px;
+    }
+    .right {
+      width: 180px;
+      height: 180px;
+      .p1 {
+        font-weight: bold;
+        color: #c00;
+      }
+      .p2 {
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+  .h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+  }
+  .formLeft {
+    padding-left: 54px;
+    line-height: 36px;
+    position: relative;
+  }
+  .rowRight {
+    border-bottom: 1px solid #333;
+    line-height: initial;
+    position: absolute;
+    bottom: 4px;
+    width: 80%;
+    display: inline-block;
+  }
+  .one {
+    padding-left: 20px;
+    padding-top: 10px;
+    .text1 {
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+    .hr {
+      span {
+        border-bottom: 1px solid #000;
+      }
+    }
+    .text2 {
+
+    }
+    .list {
+      margin-bottom: 20px;
+      margin-top: 20px;
+      .p{
+        position: relative;
+        .kou {
+          position: absolute;
+          left: 10px;
+          top: 3px;
+          width: 15px;
+          height: 15px;
+          border: 1px solid #000;
+          text-align: center;
+          line-height: 15px;
+        }
+      }
+    }
+  }
+  .pp {
+    p {
+      line-height: 35px;
+    }
+  }
+  .bao {
+    position: absolute;
+    right: 50px;
+    bottom: 300px;
+    p{
+      line-height: 30px;
+    }
+    .p {
+      float: right;
+    }
+  }
+
+  .footer {
+    width: 800px;
+    position: absolute;
+    bottom: 140px;
+    left: -30px;
+    height: 82px;
+    .zu {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .line {
+      border-bottom: 3px solid #666;
+    }
+
+    > .footerPhone {
+      font-size: @fs14;
+      margin-bottom: 22px;
+      // font-family: @fmSun;
+      > div {
+        width: 33%;
+        float: left;
+      }
+    }
+
+    > .footerAddress {
+      margin-top: @fs18;
+      // font-size: @fs16;
+      // font-family: @fmSun;
+
+      > span {
+        margin-left: 35px;
+      }
+    }
+  }
+}
+.indentation {
+  padding-left: 30px;
+}

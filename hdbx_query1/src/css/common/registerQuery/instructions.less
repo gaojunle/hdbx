@@ -1,0 +1,117 @@
+.instructions {
+  width: 100%;
+  margin-bottom: 50px;
+  > .title {
+    height: 50px;
+    background-color: #f2f2f2;
+    color: #333333;
+    font-size: 20px;
+    line-height: 50px;
+    padding-left: 10px;
+  }
+  > .content {
+    margin-left: 10px;
+    > .title {
+      height: 60px;
+      font-size: 16px;
+      line-height: 60px;
+    }
+    > .term {
+      > .term-left {
+        float: left;
+        margin-right: 20px;
+        position: relative;
+        > p {
+          float: left;
+          line-height: 40px;
+          margin-right: 20px;
+        }
+        > div {
+          float: left;
+          margin-right: 20px;
+        }
+      }
+      > .term-right {
+        float: left;
+        > li {
+          line-height: 40px;
+          margin-bottom: 10px;
+          position: relative;
+          > input {
+            margin-right: 10px;
+            cursor: pointer;
+          }
+          > label {
+            cursor: pointer;
+          }
+          > span {
+            margin-left: 10px;
+          }
+          > .error {
+            position: absolute;
+            top: 36px;
+            left: 28px;
+            color: red;
+          }
+        }
+      }
+    }
+    > .bailee-list {
+      position: relative;
+      margin-bottom: 20px;
+      > li {
+        float: left;
+        margin-right: 80px;
+        > input {
+          cursor: pointer;
+        }
+        > label {
+          vertical-align: 2px;
+          cursor: pointer;
+        }
+      }
+      > .error {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        color: red;
+      }
+    }
+    > .button {
+      width: 160px;
+      height: 40px;
+      background-color: #169bd5;
+      border-radius: 6px;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  > .instructions-alert {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 99;
+    > .alert-box {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 800px;
+      height: 500px;
+      background-color: #fff;
+      margin: auto;
+      > .close-alert {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}

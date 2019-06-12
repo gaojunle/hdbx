@@ -1,0 +1,211 @@
+/** 用户登录块 **/
+.userLoginBox {
+  display: none;
+  width: 300px;
+  height: 480px;
+  border-radius: 8px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #fff;
+}
+.userLoginBox > .close {
+  width: 30px;
+  height: 30px;
+  background-color: pink;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+.userLoginBox > .infoBox {
+  max-width: 300px;
+  width: 90%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 5;
+  left: 0%;
+  right: 0%;
+  margin: 0 auto;
+}
+.userLoginBox > .infoBox > .loginNav {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+  padding: 40px 0px 20px;
+  margin-bottom: 30px;
+}
+.userLoginBox > .infoBox > .loginNav > div {
+  width: 50%;
+  display: block;
+  float: left;
+  text-align: center;
+  position: relative;
+}
+.userLoginBox > .infoBox > .loginNav > div > .text {
+  height: 30px;
+  font-size: 18px;
+  line-height: 30px;
+  cursor: pointer;
+  color: #333333;
+}
+.userLoginBox > .infoBox > .loginNav > div > .line {
+  width: 60px;
+  height: 3px;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  bottom: -5px;
+  left: 0%;
+  right: 0%;
+  margin: 0 auto;
+}
+.userLoginBox > .infoBox > .loginNav > .onSel > .text {
+  color: #3C9FF1;
+}
+.userLoginBox > .infoBox > .loginNav > .onSel > .line {
+  background: #128BED;
+}
+.userLoginBox > .infoBox > .password-login > div,
+.userLoginBox > .infoBox > .code-login > div {
+  width: 100%;
+  height: 40px;
+  display: block;
+  position: relative;
+}
+.userLoginBox > .infoBox > .password-login > div > input,
+.userLoginBox > .infoBox > .code-login > div > input {
+  height: 40px;
+  display: block;
+  outline: none;
+  padding: 0% 2%;
+  background: none;
+  border: 1px solid #DFDFDF;
+}
+.userLoginBox > .infoBox > .password-login > div > input::-ms-clear,
+.userLoginBox > .infoBox > .code-login > div > input::-ms-clear,
+.userLoginBox > .infoBox > .password-login > div > input::-ms-reveal,
+.userLoginBox > .infoBox > .code-login > div > input::-ms-reveal {
+  display: none;
+}
+.userLoginBox > .infoBox > .password-login > div > .error,
+.userLoginBox > .infoBox > .code-login > div > .error {
+  position: absolute;
+  z-index: 5;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ff2553;
+  bottom: -24px;
+  left: 0%;
+  padding-left: 6px;
+  background-position: 0px -20px;
+  background-size: 20px auto;
+}
+.userLoginBox > .infoBox > .password-login > div > .show-pd,
+.userLoginBox > .infoBox > .code-login > div > .show-pd {
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  z-index: 5;
+  right: 10px;
+  background-position: 0px 0px;
+  background-size: 20px auto;
+  cursor: pointer;
+  top: 10px;
+  background-color: red;
+}
+.userLoginBox > .infoBox > .password-login > div > .hide-pd,
+.userLoginBox > .infoBox > .code-login > div > .hide-pd {
+  background-color: blue;
+}
+.userLoginBox > .infoBox > .password-login > .bottomLine,
+.userLoginBox > .infoBox > .code-login > .bottomLine {
+  margin-bottom: 30px;
+}
+.userLoginBox > .infoBox > .password-login > .userAccount > input,
+.userLoginBox > .infoBox > .code-login > .userAccount > input {
+  width: 96%;
+}
+.userLoginBox > .infoBox > .password-login > .slider,
+.userLoginBox > .infoBox > .code-login > .slider {
+  width: 270px;
+  margin-bottom: 30px;
+}
+.userLoginBox > .infoBox > .password-login > .userPass > input,
+.userLoginBox > .infoBox > .code-login > .userPass > input {
+  width: 60%;
+  float: left;
+}
+.userLoginBox > .infoBox > .password-login > .userPass > .codeBtn,
+.userLoginBox > .infoBox > .code-login > .userPass > .codeBtn {
+  height: 100%;
+  display: block;
+  float: right;
+  font-size: 12px;
+  line-height: 40px;
+  cursor: pointer;
+  color: #333333;
+}
+.userLoginBox > .infoBox > .password-login > .userPass > .unClick,
+.userLoginBox > .infoBox > .code-login > .userPass > .unClick {
+  pointer-events: none;
+  color: #999999;
+}
+.userLoginBox > .infoBox > .remember-forget {
+  height: 40px;
+  margin-bottom: 20px;
+}
+.userLoginBox > .infoBox > .remember-forget > .remember {
+  float: left;
+  height: 100%;
+  line-height: 40px;
+}
+.userLoginBox > .infoBox > .remember-forget > .remember > input {
+  vertical-align: middle;
+  cursor: pointer;
+}
+.userLoginBox > .infoBox > .remember-forget > .forget {
+  float: right;
+  line-height: 40px;
+  color: #2D99EF;
+  cursor: pointer;
+}
+.userLoginBox > .infoBox > .btnBox {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.userLoginBox > .infoBox > .btnBox > .btnBox-text {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #128BED;
+}
+.userLoginBox > .infoBox > .register {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.userLoginBox > .infoBox > .register > span {
+  font-size: 20px;
+  color: #29A4F3;
+  cursor: pointer;
+  vertical-align: -4%;
+}
+.logins .closeBtn {
+  display: none;
+}
+.topnavs .closeBtn {
+  display: block;
+}

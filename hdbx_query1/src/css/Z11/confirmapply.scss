@@ -1,0 +1,44 @@
+.confirmItem{
+    font-size:16px;
+    margin-bottom:40px;
+    h3{
+        font-size:18px;
+        background:#f6f6f6;
+        height:40px;
+        line-height:40px;
+        padding-left:38px;
+    }
+    .cont{
+        padding:20px 38px;
+        .item{
+            line-height:40px;
+            span{
+                width:120px;
+            }
+            label{
+                margin-right:40px;
+            }
+        }
+
+        .item.w50{
+            width:50%;
+        }
+    }
+}
+
+.hd-button.prev {
+    margin-left: 174px;
+    display:inline-block;
+    background-color:#efefef;
+    color:#666;
+}
+
+.hd-button.next {
+    margin-left: 40px;
+    display:inline-block;
+}
+
+.red{
+    color:#f00;
+    font-size:14px;
+}

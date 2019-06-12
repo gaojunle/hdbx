@@ -1,0 +1,132 @@
+.star {
+    color: #f00;
+    font-size: 20px;
+    font-weight: bold;
+}
+.natrue {
+    font-size: 18px;
+}
+.wrap {
+    box-sizing: border-box;
+    padding: 0 100px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+    .titles {
+        margin-left: 250px;
+        margin-top: 30px;
+    }
+    .pross {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .attribution {
+        margin-left: 340px;
+        margin-top: 50px;
+        .div {
+            display: inline;
+            .radio {
+                margin-left: 30px;
+            }
+        }
+        .load {
+            height: 80px;
+            width: 300px;
+            margin-top: 30px;
+            margin-left: 150px;
+            div {
+                display: inline-block;
+                width: 100px;
+                height: 60px;
+                border: 1px solid #ccc;
+                text-align: center;
+                line-height: 60px;
+            }
+        }
+    }
+    .copyright {
+        margin-left: 340px;
+        margin-top: 50px;
+        .one {
+            display: inline;
+            
+            .names {
+                margin-left: 120px;
+                .s1 {
+                    font-size: 18px;
+                    margin-left: 40px;
+                    color: #000;
+                }
+                .s2 {
+                    margin-left: 200px;
+                    margin-right: 100px;
+                    color: skyblue;
+                    cursor: pointer;
+                    font-weight: 100;
+                    font-size: 14px;
+                }
+                .s3 {
+                    color: skyblue;
+                    cursor: pointer;
+                    font-weight: 100;
+                    font-size: 14px;
+                }
+            }
+            .name {
+                display: inline;
+                .s1 {
+                    font-size: 18px;
+                    margin-left: 40px;
+                    color: #000;
+                }
+                .s2 {
+                    margin-left: 200px;
+                    margin-right: 100px;
+                    color: skyblue;
+                    cursor: pointer;
+                    font-weight: 100;
+                    font-size: 14px;
+                }
+                .s3 {
+                    color: skyblue;
+                    cursor: pointer;
+                    font-weight: 100;
+                    font-size: 14px;
+                }
+            }
+            .peo {
+                margin-left: 150px;
+                margin-top: 20px;
+                .i {
+                    display: inline;
+                }
+                .is {
+                    margin-left: -22px;
+                }
+            }
+        }
+
+        .application {
+            margin-top: 20px;
+            margin-left: 150px;
+            p {
+                display: inline;
+            }
+        }
+        .btn {
+            margin-left: 150px;
+            margin-top: 20px;
+        }
+    }
+
+    .obtain {
+        margin-left: 340px;
+        margin-top: 50px;
+        .div {
+            display: inline;
+            .radio {
+                margin-left: 30px;
+            }
+        }
+    }
+}

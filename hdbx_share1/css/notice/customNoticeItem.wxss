@@ -1,0 +1,141 @@
+.page {
+  width: 1000px;
+  height: 1335px;
+  margin: 0 auto;
+  background: white;
+}
+.page > .subpage {
+  height: inherit;
+  position: relative;
+}
+.page > .subpage > .noticeHeader {
+  padding: 82px 52px 0 52px;
+}
+.page > .subpage > .noticeHeader img {
+  float: right;
+  width: 150px;
+  height: 138px;
+}
+.page > .subpage > .noticeHeader > .noticeHeaderLeft {
+  float: left;
+  font-size: 18px;
+  font-family: SimSun;
+}
+.page > .subpage > .noticeHeader > .noticeHeaderLeft div {
+  margin-bottom: 20px;
+}
+.page > .subpage .mainForm {
+  padding: 0 52px;
+  font-size: 18px;
+  font-family: SimSun;
+}
+.page > .subpage .mainForm .noticeTitle {
+  text-align: center;
+  font-size: 26px;
+  font-family: Microsoft YaHei;
+}
+.page > .subpage .mainForm .noticeTitle .correctionTitle {
+  margin: 36px 0 112px;
+}
+.page > .subpage .mainForm .noticeTitle .acceptanceTitle {
+  margin: 0 0 112px;
+}
+.page > .subpage .mainForm .formLeft {
+  padding-left: 84px;
+  line-height: 36px;
+  position: relative;
+}
+.page > .subpage .mainForm .rowRight {
+  border-bottom: 1px solid #333;
+  line-height: initial;
+  position: absolute;
+  bottom: 4px;
+  width: 65%;
+  display: inline-block;
+}
+.page > .subpage .mainForm .acceptance {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+}
+.page > .subpage .mainForm .correction {
+  font-size: 16px;
+  font-family: SimSun;
+}
+.page > .subpage .mainForm .formInfo > p {
+  text-indent: 2em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+.page > .subpage .mainForm .formInfo > .infoFooter {
+  margin: 216px 0 0 0;
+}
+.page > .subpage .mainForm .formInfo > .infoFooter > div {
+  float: right;
+}
+.page > .subpage .mainForm .formInfo .infoDate {
+  text-align: right;
+  margin: 12px 0 0 0;
+}
+.page > .subpage .mainForm .formInfo .acceptanceFlex {
+  margin-top: 110px;
+}
+.page > .subpage .mainForm .formInfo .acceptanceFlex div {
+  float: left;
+  width: 50%;
+  text-align: center;
+  font-family: SimSun;
+  color: #040404;
+  font-size: 14px;
+}
+.page > .subpage .mainForm .formInfo .acceptFooter {
+  margin-top: 145px;
+}
+.page > .subpage .mainForm .formInfo .copyrightDate {
+  text-align: right;
+  font-size: 14px;
+  font-family: SimSun;
+}
+.page > .subpage .mainForm .formInfo .unAcceptFooter {
+  margin-top: 350px;
+}
+.page > .subpage .mainForm .formInfo .receiveFooter {
+  margin-top: 250px;
+}
+.page > .subpage .mainForm .acceptanceAttention {
+  font-family: Microsoft YaHei;
+  position: absolute;
+  font-size: 14px;
+  padding-right: 52px;
+  bottom: 210px;
+}
+.page > .subpage .footer {
+  width: 896px;
+  padding: 0 52px;
+  position: absolute;
+  bottom: 82px;
+  left: 0;
+  height: 82px;
+}
+.page > .subpage .footer .line {
+  border-bottom: 3px solid #666;
+}
+.page > .subpage .footer > .footerPhone {
+  font-size: 14px;
+  margin-bottom: 22px;
+  font-family: SimSun;
+}
+.page > .subpage .footer > .footerPhone > div {
+  width: 33%;
+  float: left;
+}
+.page > .subpage .footer > .footerAddress {
+  margin-top: 18px;
+  font-size: 16px;
+  font-family: SimSun;
+}
+.page > .subpage .footer > .footerAddress > span {
+  margin-left: 35px;
+}
+.indentation {
+  padding-left: 30px;
+}

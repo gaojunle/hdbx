@@ -1,0 +1,160 @@
+.query-oups {
+    width: 100%;
+    position: relative;
+    padding-bottom: 30px;
+
+    >.title {
+        height: 40px;
+        background-color: #f6f6f6;
+        color: #000;
+        font-size: 18px;
+        line-height: 40px;
+        padding-left: 38px;
+        position: relative;
+
+        >.hd-button {
+            position: absolute;
+            top: 5px;
+            right: 20px;
+        }
+    }
+
+    >.query-oups-box {
+        margin-left: 6px;
+        padding-top: 10px;
+
+        >.search {
+            >div {
+                float: left;
+            }
+
+            >.data {
+                margin: 0 40px;
+            }
+        }
+
+        >.opus-info {
+            padding-top: 20px;
+
+            >li {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .oups-handle {
+        height: 440px;
+        padding-top: 20px;
+        overflow-y: auto;
+
+        >li {
+            margin-bottom: 20px;
+        }
+    }
+
+    .oups-search,
+    .opus-info {
+        padding-top: 20px;
+
+        >li {
+            margin-bottom: 10px;
+
+            >div {
+                float: left;
+                height: 32px;
+                line-height: 32px;
+
+                >div {
+                    float: left;
+                }
+
+                >.title {
+                    font-size: 16px;
+
+                }
+
+                >.content {
+                    overflow: hidden;
+                }
+            }
+
+            >.add {
+                width: 20px;
+                height: 20px;
+                border: 1px solid #000;
+                line-height: 20px;
+                text-align: center;
+                margin-top: 5px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+
+            >.num {
+                margin-right: 20px;
+            }
+
+            >.register-number {
+                >.content {
+                    width: 182px;
+
+                }
+            }
+
+            >.opus-name {
+                margin: 0 30px;
+
+                >.content {
+                    width: 388px;
+                }
+            }
+
+            >.owner {
+                >.content {
+                    width: 200px;
+                }
+            }
+
+            >.hd-button {
+                margin-left: 40px;
+            }
+
+            >.delete {
+                margin-left: 20px;
+                color: #169bd5;
+                cursor: pointer;
+            }
+
+            &:after {
+                display: block;
+                content: '';
+                clear: both;
+                visibility: visible;
+            }
+        }
+    }
+
+    .oups-search {
+        height: 400px;
+        overflow-y: auto;
+    }
+
+    .el-pagination {
+        margin-bottom: 20px;
+    }
+
+    >.error {
+        position: absolute;
+        bottom: 0;
+        left: 6px;
+        color: red;
+    }
+
+    >.disabled {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}

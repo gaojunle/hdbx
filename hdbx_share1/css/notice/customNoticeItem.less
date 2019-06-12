@@ -1,0 +1,203 @@
+@fs14: 14px;
+@fs16: 16px;
+@fs18: 18px;
+@fmSun: SimSun;
+@fmYH: Microsoft YaHei;
+
+.page {
+  width: 1000px;
+  height: 1335px;
+  margin: 0 auto;
+  background: white;
+
+  > .subpage {
+    height: inherit;
+    position: relative;
+
+    > .noticeHeader {
+      padding: 82px 52px 0 52px;
+
+      img {
+        float: right;
+        width: 150px;
+        height: 138px;
+      }
+
+      > .noticeHeaderLeft {
+        float: left;
+        font-size: @fs18;
+        font-family: @fmSun;
+        div {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .mainForm {
+      padding: 0 52px;
+      font-size: @fs18;
+      font-family: @fmSun;
+
+      .noticeTitle {
+        text-align: center;
+        font-size: 26px;
+        font-family: @fmYH;
+
+        .correctionTitle {
+          margin: 36px 0 112px;
+        }
+
+        .acceptanceTitle {
+          margin: 0 0 112px;
+        }
+      }
+
+      .formLeft {
+        padding-left: 84px;
+        line-height: 36px;
+        position: relative;
+      }
+
+      .rowRight {
+        border-bottom: 1px solid #333;
+        line-height: initial;
+        position: absolute;
+        bottom: 4px;
+        width: 65%;
+        display: inline-block;
+      }
+
+      .acceptance {
+        font-size: @fs14;
+        font-family: @fmYH;
+      }
+
+      .correction {
+        font-size: @fs16;
+        font-family: @fmSun;
+      }
+
+      .formInfo {
+
+        > p {
+          text-indent: 2em;
+          margin-block-start: 1em;
+          margin-block-end: 1em;
+        }
+
+        > .infoFooter {
+          margin: 216px 0 0 0;
+
+          > div {
+            float: right
+          }
+        }
+
+        .infoDate {
+          text-align: right;
+          margin: 12px 0 0 0;
+        }
+
+        .acceptanceFlex {
+          margin-top: 110px;
+
+
+          div {
+            float: left;
+            width: 50%;
+            text-align: center;
+            font-family: @fmSun;
+            color: #040404;
+            font-size: @fs14;
+          }
+        }
+
+        .acceptFooter {
+          margin-top: 145px;
+
+        }
+
+        .copyrightDate {
+          text-align: right;
+          font-size: @fs14;
+          font-family: @fmSun;
+        }
+
+        .unAcceptFooter {
+          margin-top: 350px;
+        }
+
+        .receiveFooter {
+          margin-top: 250px;
+        }
+      }
+      .acceptanceAttention {
+        font-family: @fmYH;
+        position: absolute;
+        font-size: @fs14;
+        padding-right: 52px;
+        bottom: 210px;
+      }
+    }
+
+    .footer {
+      width: 896px;
+      padding: 0 52px;
+      position: absolute;
+      bottom: 82px;
+      left: 0;
+      height: 82px;
+
+      .line {
+        border-bottom: 3px solid #666;
+      }
+
+      > .footerPhone {
+        font-size: @fs14;
+        margin-bottom: 22px;
+        font-family: @fmSun;
+        > div {
+          width: 33%;
+          float: left;
+        }
+      }
+
+      > .footerAddress {
+        margin-top: @fs18;
+        font-size: @fs16;
+        font-family: @fmSun;
+
+        > span {
+          margin-left: 35px;
+        }
+      }
+    }
+  }
+}
+
+.indentation {
+  padding-left: 30px;
+}
+
+//@page {
+//  size: A4;
+//  margin: 0;
+//}
+//
+//@media print {
+//  html, body {
+//    width: 210mm;
+//    height: 297mm;
+//  }
+//
+//  .page {
+//    margin: 0;
+//    border: initial;
+//    border-radius: initial;
+//    width: initial;
+//    min-height: initial;
+//    box-shadow: initial;
+//    background: initial;
+//    page-break-after: always;
+//  }
+//}

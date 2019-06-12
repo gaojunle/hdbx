@@ -1,0 +1,32 @@
+.rights-scope {
+    width: 600px;
+    >ul {
+        padding-top: 6px;
+        margin-bottom: 20px;
+
+        >li {
+            float: left;
+            margin-right: 30px;
+        }
+    }
+    > .part {
+        position: relative;
+        > li {
+            margin-bottom: 20px;
+        }
+        > .disabled {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        > .error-rightScopePart {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            line-height: 1;
+            color: red;
+        }
+    }
+}

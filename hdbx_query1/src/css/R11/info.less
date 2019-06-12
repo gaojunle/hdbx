@@ -1,0 +1,151 @@
+.info {
+    width: 1200px;
+    margin: 0 auto;
+
+    >.from {
+        width: 800px;
+        margin: 0 auto;
+
+        >.trunk {
+            position: relative;
+            margin-bottom: 30px;
+
+            >.hd-input {
+                >label {
+                    >.text {
+                        width: 150px;
+
+                        >span {
+                            float: right;
+                        }
+                    }
+
+                    >input {
+                        margin-left: 50px;
+                    }
+                }
+            }
+
+
+            >label {
+                width: 150px;
+                height: 32px;
+                line-height: 32px;
+                float: left;
+                margin-right: 50px;
+
+                >span {
+                    float: right;
+                    position: relative;
+                    padding-left: 14px;
+
+                    &:after {
+                        display: block;
+                        content: "*";
+                        position: absolute;
+                        color: red;
+                        top: 3px;
+                        left: 0;
+                    }
+                }
+            }
+
+            > .explain {
+                float: left;
+            }
+
+            >.el-date-editor {
+                float: left;
+                width: 502px;
+            }
+
+            >ul {
+                float: left;
+
+                >li {
+                    float: left;
+                    margin-right: 80px;
+                    padding-top: 6px;
+                }
+            }
+
+            >.address {
+                float: left;
+            }
+
+            >textarea {
+                width: 478px;
+                border: 1px solid #d7d7d7;
+                resize: none;
+                outline: none;
+                padding: 10px;
+            }
+
+            >.el-select {
+                width: 500px;
+            }
+
+            >.input-box {
+                float: left;
+                > div {
+                    float: left;
+                    line-height: 32px;
+                    margin: 0 20px;
+                }
+
+                >.hd-input {
+                    margin: 0;
+                    > label {
+                        > input {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+
+            >.error {
+                position: absolute;
+                bottom: -20px;
+                left: 202px;
+                color: red;
+            }
+
+            > .error-page {
+                left: 460px;
+            }
+
+            >.tip {
+                position: absolute;
+                bottom: -20px;
+                left: 202px;
+                color: red;
+            }
+        }
+    }
+
+    >.buttons {
+        width: 500px;
+        margin: 50px auto 0;
+
+        >div {
+            width: 140px;
+            height: 40px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+        }
+
+        >.prev {
+            float: left;
+            border: 1px solid #c7c7c7;
+        }
+
+        >.next {
+            float: right;
+            color: #fff;
+            background-color: #169bd5;
+        }
+    }
+}

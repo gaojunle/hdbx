@@ -1,0 +1,138 @@
+.query-oups {
+  width: 100%;
+  position: relative;
+  padding-bottom: 30px;
+}
+.query-oups > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+  position: relative;
+}
+.query-oups > .title > .hd-button {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+.query-oups > .query-oups-box {
+  margin-left: 6px;
+  padding-top: 10px;
+}
+.query-oups > .query-oups-box > .search > div {
+  float: left;
+}
+.query-oups > .query-oups-box > .search > .data {
+  margin: 0 40px;
+}
+.query-oups > .query-oups-box > .opus-info {
+  padding-top: 20px;
+}
+.query-oups > .query-oups-box > .opus-info > li {
+  margin-bottom: 20px;
+}
+.query-oups .oups-handle {
+  height: 440px;
+  padding-top: 20px;
+  overflow-y: auto;
+}
+.query-oups .oups-handle > li {
+  margin-bottom: 20px;
+}
+.query-oups .oups-search,
+.query-oups .opus-info {
+  padding-top: 20px;
+}
+.query-oups .oups-search > li,
+.query-oups .opus-info > li {
+  margin-bottom: 10px;
+}
+.query-oups .oups-search > li > div,
+.query-oups .opus-info > li > div {
+  float: left;
+  height: 32px;
+  line-height: 32px;
+}
+.query-oups .oups-search > li > div > div,
+.query-oups .opus-info > li > div > div {
+  float: left;
+}
+.query-oups .oups-search > li > div > .title,
+.query-oups .opus-info > li > div > .title {
+  font-size: 16px;
+}
+.query-oups .oups-search > li > div > .content,
+.query-oups .opus-info > li > div > .content {
+  overflow: hidden;
+}
+.query-oups .oups-search > li > .add,
+.query-oups .opus-info > li > .add {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.query-oups .oups-search > li > .num,
+.query-oups .opus-info > li > .num {
+  margin-right: 20px;
+}
+.query-oups .oups-search > li > .register-number > .content,
+.query-oups .opus-info > li > .register-number > .content {
+  width: 182px;
+}
+.query-oups .oups-search > li > .opus-name,
+.query-oups .opus-info > li > .opus-name {
+  margin: 0 30px;
+}
+.query-oups .oups-search > li > .opus-name > .content,
+.query-oups .opus-info > li > .opus-name > .content {
+  width: 388px;
+}
+.query-oups .oups-search > li > .owner > .content,
+.query-oups .opus-info > li > .owner > .content {
+  width: 200px;
+}
+.query-oups .oups-search > li > .hd-button,
+.query-oups .opus-info > li > .hd-button {
+  margin-left: 40px;
+}
+.query-oups .oups-search > li > .delete,
+.query-oups .opus-info > li > .delete {
+  margin-left: 20px;
+  color: #169bd5;
+  cursor: pointer;
+}
+.query-oups .oups-search > li:after,
+.query-oups .opus-info > li:after {
+  display: block;
+  content: '';
+  clear: both;
+  visibility: visible;
+}
+.query-oups .oups-search {
+  height: 400px;
+  overflow-y: auto;
+}
+.query-oups .el-pagination {
+  margin-bottom: 20px;
+}
+.query-oups > .error {
+  position: absolute;
+  bottom: 0;
+  left: 6px;
+  color: red;
+}
+.query-oups > .disabled {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}

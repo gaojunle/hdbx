@@ -1,0 +1,37 @@
+.apply-type {
+  width: 100%;
+  position: relative;
+}
+.apply-type > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+}
+.apply-type > ul {
+  padding: 20px 0 0px 40px;
+}
+.apply-type > ul > li {
+  float: left;
+  width: 200px;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+.apply-type > ul > li > input {
+  cursor: pointer;
+}
+.apply-type > ul > li > label {
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+}
+.apply-type > .disabled {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}

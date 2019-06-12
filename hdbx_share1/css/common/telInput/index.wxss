@@ -1,0 +1,74 @@
+.tel-input {
+  height: 40px;
+  border: 1px solid #DFDFDF;
+}
+.tel-input > .select {
+  position: relative;
+  width: 88px;
+  height: 40px;
+  z-index: 9;
+}
+.tel-input > .select > .select-box {
+  position: relative;
+  width: 60px;
+  font-size: 12px;
+  color: #000;
+  line-height: 1;
+  padding-left: 8px;
+  padding-right: 15px;
+  margin-right: 5px;
+  line-height: 40px;
+}
+.tel-input > .select > .select-box:after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 30px;
+  position: absolute;
+  right: -5px;
+  top: 5px;
+  background-color: #DFDFDF;
+}
+.tel-input > .select > .option-box {
+  position: absolute;
+  top: 45px;
+  left: 0px;
+  width: 86px;
+  height: 130px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 1px 1px 10px #a0a0a0;
+}
+.tel-input > .select > .option-box > .option-hide {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.tel-input > .select > .option-box > .option-hide > .option {
+  width: 86px;
+  height: 38px;
+  font-size: 14px;
+  line-height: 38px;
+  text-align: center;
+  color: #969696;
+  cursor: pointer;
+}
+.tel-input > .select > .option-box > .option-hide > .current {
+  background-color: #f9f9f9;
+}
+.tel-input > .phone {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 168px;
+  height: 40px;
+  outline: none;
+  padding: 0 6px;
+  border: 0 none;
+  background: none;
+}
+.tel-input .inner-container::-webkit-scrollbar {
+  display: none;
+}

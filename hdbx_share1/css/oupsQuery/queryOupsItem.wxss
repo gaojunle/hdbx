@@ -1,0 +1,25 @@
+.query-oups-item {
+  position: relative;
+}
+.query-oups-item > div {
+  float: left;
+}
+.query-oups-item > div > div {
+  float: left;
+  line-height: 32px;
+}
+.query-oups-item > div > .title {
+  font-size: 16px;
+}
+.query-oups-item > .opus-name {
+  margin: 0 40px;
+}
+.query-oups-item > .hd-button {
+  margin-left: 40px;
+}
+.query-oups-item > .error {
+  position: absolute;
+  color: red;
+  bottom: -16px;
+  line-height: 1;
+}

@@ -1,0 +1,96 @@
+@height: 60px;
+
+.search {
+
+  // height: 60px;
+  >.tabs {
+    margin-bottom: 5px;
+
+    >li {
+      float: left;
+      width: 150px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    >.current {
+      border-bottom: 1px solid #169bd5;
+      color: #169bd5;
+    }
+  }
+
+  >.search-box {
+    > div {
+      float: left;
+    }
+    > .keyword {
+      line-height: @height;
+      margin-right: 20px;
+    }
+    >input {
+      float: left;
+      width: 500px;
+      height: @height;
+      outline: none;
+      text-indent: 15px;
+    }
+    > .date {
+      line-height: @height;
+      margin-left: 30px;
+      margin-right: 20px;
+    }
+    > .el-date-editor {
+      height: @height;
+      > .el-range-separator {
+        line-height: 52px;
+      }
+    }
+    >.button {
+      width: 100px;
+      height: @height;
+      text-align: center;
+      line-height: @height;
+      background-color: blue;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  > .types {
+    margin-top: 20px;
+    > .types-title {
+      float: left;
+    }
+    > ul {
+      float: left;
+      width: 1000px;
+      > li {
+        float: left;
+        height: 30px;
+        line-height: 30px;
+        padding: 0px 10px;
+        background-color: #e4e4e4;
+        border-radius: 4px;
+        margin-right: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+      }
+      > .current {
+        background-color: #3399ff;
+        color: #fff;
+      }
+    }
+  }
+
+}
+
+.page {
+  > .search-box {
+    > .button {
+      margin-left: 10px;
+    }
+  }
+}

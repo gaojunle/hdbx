@@ -1,0 +1,124 @@
+.addressEdit {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  > .content {
+    width: 800px;
+    position: absolute;
+    top: 160px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: #fff;
+    > .title {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      background-color: #e5e5e5;
+      > .title-left {
+        float: left;
+        line-height: 40px;
+      }
+      > .title-right {
+        float: right;
+        line-height: 40px;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+    }
+    > .trunk {
+      margin-bottom: 30px;
+      position: relative;
+      > span {
+        display: inline-block;
+        width: 80px;
+        text-align: center;
+      }
+      > input {
+        outline: none;
+      }
+      > textarea {
+        width: 217px;
+        height: 50px;
+        resize: none;
+        border: 1px solid #dcdfe6;
+        outline: none;
+        border-radius: 5px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      > .error {
+        position: absolute;
+        z-index: 5;
+        font-size: 14px;
+        line-height: 20px;
+        color: #ff2553;
+        bottom: -24px;
+        left: 82px;
+        padding-left: 6px;
+        background-position: 0px -20px;
+        background-size: 20px auto;
+      }
+      > .detailAddress {
+        vertical-align: 38px;
+      }
+      > .tel-input {
+        width: 300px;
+        position: absolute;
+        top: -10px;
+        left: 82px;
+      }
+      > .codeBtn {
+        cursor: pointer;
+        color: #333333;
+      }
+      > .unClick {
+        pointer-events: none;
+        color: #999999;
+      }
+      > .left, > .right {
+        display: inline-block;
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        background-color: pink;
+        position: relative;
+      }
+      > .left {
+        margin-right: 30px;
+      }
+      > .button {
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        margin: 0 auto;
+        background-color: #128BED;
+        cursor: pointer;
+      }
+    }
+    > .phone {
+      height: 42px;
+      margin-top: 40px;
+      > .error {
+        bottom: -18px;
+      }
+    }
+  }
+}
+
+.el-select-dropdown {
+  z-index: 9999 !important;
+}
+.el-input--suffix, .el-cascader {
+  min-width: 300px;
+}
+.el-cascader-menus {
+  z-index: 9999 !important;
+}

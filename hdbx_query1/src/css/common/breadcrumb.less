@@ -1,0 +1,23 @@
+.breadcrumb {
+  width: 1200px;
+  height: 30px;
+  margin: 0 auto 30px;
+  > li {
+    float: left;
+    > span {
+      line-height: 30px;
+      margin-right: 2px;
+      text-align: center;
+      cursor: pointer;
+    }
+    > .arrow {
+      margin-right: 6px;
+      cursor: default;
+    }
+    &:nth-last-of-type(1) {
+      > span {
+        cursor: default;
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+.oups-owner {
+  margin-top: 40px;
+  position: relative;
+
+  >.title {
+    height: 40px;
+    background-color: #f6f6f6;
+    color: #000;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 38px;
+  }
+
+  >.oups-owner-left {
+    float: left;
+    >.owner-type {
+      margin-left: 60px;
+      margin-bottom: 30px;
+      padding-top: 20px;
+
+      >input {
+        cursor: pointer;
+      }
+
+      >label {
+        cursor: pointer;
+        margin-right: 50px;
+      }
+    }
+
+    >.trunk {
+      margin-left: 40px;
+      margin-bottom: 30px;
+      position: relative;
+
+      >span {
+        display: inline-block;
+        width: 70px;
+        margin-right: 10px;
+        text-align: right;
+        position: relative;
+
+        &:after {
+          display: block;
+          content: '*';
+          position: absolute;
+          color: red;
+          top: 3px;
+          left: 0;
+        }
+      }
+
+      > .el-select {
+        width: 228px;
+        > .el-input {
+          min-width: auto;
+        }
+      }
+
+      >input {
+        width: 226px;
+        height: 38px;
+        outline: none;
+        border: 1px solid #cccccc;
+        text-indent: 10px;
+      }
+
+      >.error {
+        position: absolute;
+        left: 90px;
+        bottom: -24px;
+        color: red;
+      }
+
+      > .hd-input {
+        >label {
+          > .text {
+            width: 70px;
+          }
+        }
+      }
+    }
+  }
+
+  > .oups-owner-right {
+    float: left;
+    margin-left: 50px;
+    padding-top: 60px;
+    > div {
+      float: left;
+      margin-right: 40px;
+      position: relative;
+      > .error {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        color: red;
+        text-align: center;
+        line-height: 1;
+      }
+    }
+    > .hd-button {
+      margin-top: 80px;
+      margin-right: 0;
+    }
+  }
+
+  >.disabled {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+}

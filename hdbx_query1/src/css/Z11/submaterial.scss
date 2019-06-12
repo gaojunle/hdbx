@@ -1,0 +1,47 @@
+.submaterial{
+    margin-bottom:40px;
+    h3{
+        font-size:18px;
+        background:#f6f6f6;
+        height:40px;
+        line-height:40px;
+        padding-left:38px;
+    }
+
+    .table{
+        padding:20px 0;
+        table{
+            width:100%;
+            tr{
+                line-height:40px;
+                text-align:left;
+                td{
+                    p{
+                        line-height:1.5;
+                    }
+                }
+            }
+            .w80{width:80px;}
+            .w100{width:100px;}
+            .w450{width:450px;}
+        }
+    }
+}
+
+.hd-button.printSubmit{
+    margin:0 auto;
+    width:230px !important;
+}
+
+.hd-button.print{
+    margin:0 auto;
+    width:80px !important;
+}
+
+.center{
+    display:block;
+    width:2em;
+    margin:0 auto;
+}
+
+.pad_left_38{padding-left:38px;}

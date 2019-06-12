@@ -1,0 +1,111 @@
+.star {
+    color: #f00;
+    font-size: 20px;
+    font-weight: bold;
+}
+.natrue {
+    font-size: 18px;
+}
+.wrap {
+    .loadPapers {
+        height: 80px;
+        width: 300px;
+        div {
+            display: inline-block;
+            width: 100px;
+            height: 60px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 60px;
+        }
+    }
+
+    .attribution {
+        .loadPapers {
+            margin-top: 30px;
+            margin-left: 174px;
+        }
+    }
+
+    .papersBox{
+        .loadPapers {
+            margin-left: 34px;
+        }
+    }
+
+    .copyright,.authorBox{
+        margin-top: 50px;
+        .name {
+            display: inline;
+            color: skyblue;
+            cursor: pointer;
+            
+        }
+    }
+}
+
+.ownerShipBox{
+    .ownerShipItem{
+        margin-bottom:40px;
+        .peo{
+            margin:10px 0 0 40px;
+            color:#666;
+            .item{
+                font-size:16px;
+                line-height:2.4em;
+            }
+        }
+
+        .two{
+            .oups-owner {
+                .trunk{
+                    span{
+                        display:inline-block;
+                        width:96px;
+                        text-align:right;
+                    }
+                    .hd-input {
+                        label{padding-left:0;}
+                    }
+                }
+            }
+        }
+    }
+}
+
+.addBtn{
+    margin:30px 0 0 40px;
+}
+
+.authorItem{
+    margin-bottom:40px;
+    .trunk{
+        margin:30px 0 0 15px;
+        .hd-input{
+            display:inline-block;
+            input{border-radius:2px;}
+        }
+    }
+}
+
+.rightCheckBox{
+    margin-left:174px;
+    .hd-checkbox{margin-top:20px;}
+}
+
+
+label{
+    min-width:126px;
+}
+
+.hd-button.prev {
+    margin-left: 174px;
+    display:inline-block;
+    background-color:#efefef;
+    color:#666;
+}
+
+.hd-button.next {
+    margin-left: 40px;
+    display:inline-block;
+}

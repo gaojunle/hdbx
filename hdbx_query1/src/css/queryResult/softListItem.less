@@ -1,0 +1,87 @@
+@titleHeight: 40px;
+
+.soft-list-item {
+    width: 1200px;
+    border-bottom: 1px solid #000;
+    background-color: #F2F2F2;
+    margin-bottom: 5px;
+    &:nth-last-child(1) {
+      border: none;
+    }
+    > .title {
+      width: 100%;
+      height: @titleHeight;
+      background-color: #ccc;
+      > .title-left {
+        float: left;
+        font-size: 18px;
+        font-weight: 700;
+        margin-left: 10px;
+        line-height: @titleHeight;
+        > span {
+          display: inline-block;
+          font-size: 14px;
+          font-weight: normal;
+          margin-left: px;
+          line-height: @titleHeight;
+          vertical-align: top;
+        }
+      }
+      > .title-right {
+        float: right;
+        margin-right: 10px;
+        font-weight: 700;
+        line-height: @titleHeight;
+      }
+    }
+    > .query-data-box {
+      position: relative;
+      padding-top: 20px;
+      padding-left: 10px;
+      > div {
+        float: left;
+        width: 33%;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 10px;
+        > span {
+          font-weight: 400;
+        }
+      }
+      > .soft-name {
+          width: 100%;
+      }
+      > .soft-obligee {
+          width: 100%;
+      }
+      > .soft-zwqk {
+          width: 100%;
+      }
+      > .soft-after {
+          margin-left: 66%;
+          > span {
+              color: red;
+          }
+      }
+      > .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #4eb1fa;
+        background-color: #ccc;
+        cursor: pointer;
+      }
+      > .register-date {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+      }
+    }
+}

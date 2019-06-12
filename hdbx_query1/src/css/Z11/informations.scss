@@ -1,0 +1,214 @@
+.wrap {
+    box-sizing: border-box;
+    padding: 0 100px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+    .titles {
+        margin-left: 250px;
+        margin-top: 30px;
+    }
+    .pross {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+.el-upload-list__item-name {
+    margin-left: -310px;
+    margin-bottom: 10px;
+}
+label{
+	display:inline-block;
+    min-width:100px;
+    text-align: left;
+}
+.inp {
+    margin-top: 30px;
+    max-width: 1200px;
+    margin-left: 300px
+}
+.name {
+    margin-bottom: 30px;
+    position: relative;
+    span {
+        color: #f00;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    label {
+        font-size: 18px;
+    }
+    .lei {
+        position: absolute;
+        top: 0;
+        left: 500px;
+        // float: left;
+    }
+    .input {
+       margin-left: 120px;
+       margin-top: -25px;
+    }
+    .input-select {
+        min-width: 100px;
+        height: 25px;
+        line-height: 25px;
+        border: 1px solid #000;
+        position: absolute;
+        left: 120px;
+        z-index: 100000;
+        p{
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+        ul {
+            background: #fff;
+            position: absolute;
+            left: 0;
+            top: 30px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+            padding: 0 5px;
+            li {
+                border-bottom: 1px dotted #ccc;
+            }
+            .title {
+                color: #000;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+.form {
+    margin-bottom: 50px;
+    span {
+        color: #f00;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .natrue {
+        font-size: 18px;
+        margin-right: 50px;
+    }
+    label {
+        font-size: 16px;
+    }
+    .div{
+        display: inline;
+        margin-left: -20px;
+    }
+}
+.ri {
+    margin-bottom: 50px;
+    .qi {
+        display: inline;
+        margin-bottom: 30px;
+        margin-right: 50px;
+        position: relative;
+        .trunk {
+            display: inline;
+            margin-right: 150px;
+        }
+        .trunks {
+            float: right;
+        }
+        .span {
+            color: #f00;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        label {
+            font-size: 18px;
+        }
+    }
+}
+.lang {
+    position: relative;
+    margin-bottom: 50px;
+    span {
+        color: #f00;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    label {
+        font-size: 18px;
+    }
+    .right {
+        position: absolute;
+        left: 200px;
+        top: 0;
+        
+        .top {
+            width: 150px;
+            position: relative;
+            span {
+                display: inline;
+                color: #000;
+                font-size: 16px;
+                font-weight: normal;
+                position: absolute;
+                top: 5px;
+                right: 0px;
+            }
+        }
+        .bottom {
+            position: relative;
+            div {
+                display: inline;
+                // margin-right: 5px;
+            }
+            span {
+                display: inline;
+                color: #000;
+                font-size: 14px;
+                font-weight: normal;
+            }
+        }
+    }
+}
+.work {
+    margin-bottom: 30px;
+    position: relative;
+    span {
+        color: #f00;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    label {
+        font-size: 18px;
+    }
+    .up {
+        margin-top: -30px;
+        margin-left: 140px;
+    }
+    .xi {
+        margin-top: -30px;
+        margin-left: 140px;
+        span {
+            display: inline;
+            color: #000;
+            font-size: 14px;
+            font-weight: normal;
+            
+        }
+        .adds {
+            margin-top: 20px;
+        }
+        .item {
+            margin-top: 10px;
+        }
+        .xis {
+            margin-top: -25px;
+            margin-left: 60px;
+        }
+        .uplod {
+            margin-top: -35px;
+            margin-left: 300px;
+        }
+    }
+}
+
+.next {
+    margin-left: 140px;
+}

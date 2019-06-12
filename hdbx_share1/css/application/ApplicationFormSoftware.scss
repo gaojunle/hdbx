@@ -1,0 +1,744 @@
+.table-one {
+    width: 850px;
+    margin: 30px auto;
+    .title {
+      height: 70px;
+      border-bottom: 2px solid #000;
+      box-sizing: border-box;
+      padding: 10px 0;
+      div {
+        display: inline-block;
+      }
+      .one {
+        margin-right: 60px;
+        margin-bottom: 10px;
+        .hr {
+          border-bottom: 1px solid #000;
+          width: 100px;
+          display: inline-block
+        }
+      }
+      .two {
+        width: 150px;
+        height: 50px;
+        border: 1px solid #000;
+        float: right;
+        margin-top: -40px;
+      }
+    }
+    .h3 {
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .th {
+        height: 192px;
+        border: 1px solid #000;
+        position: relative;
+        border-bottom: none;
+        div {
+          float: left;
+        }
+        .td-one {
+          width: 28px;
+          border-right: 1px solid #000;
+          height: 192px;
+          text-align: center;
+          box-sizing: border-box;
+          padding-top: 40px;
+        }
+       .name {
+         height: 30px;
+         width: 96.6%;
+         border-bottom: 1px solid #000;
+         font-size: 14px;
+         line-height: 30px;
+         .top{
+          width: 122px;
+          height: 30px;
+          border-right: 1px solid #000;
+          text-align: center;
+          line-height: 30px;
+        }
+        .top1{
+          width: 180px;
+          height: 30px;
+          border-right: 1px solid #000;
+          text-align: left;
+          line-height: 30px;
+          box-sizing: border-box;
+          padding: 0px 10px;
+        }
+        .top2{
+          width: 210px;
+          height: 30px;
+          text-align: left;
+          line-height: 30px;
+          box-sizing: border-box;
+          padding: 0px 10px;
+        }
+       }
+       .short-box {
+        width: 96.6%;
+        height: 30px;
+        border-bottom: 1px solid #000;
+        div {
+          float: left;
+        }
+        .short {
+          width: 122px;
+          line-height: 30px;
+          text-align: center;
+          font-size: 14px;
+          border-right: 1px solid #000;
+        }
+        .short-detail {
+          text-align: float;
+          line-height: 30px;
+          width: 488px;
+          box-sizing: border-box;
+          padding: 0px 10px;
+        }
+      }
+      .status-box {
+        width: 95.6%;
+        height: 130px;
+        
+        div {
+          float: left;
+        }
+        .status {
+          width: 122px;
+          line-height: 130px;
+          text-align: center;
+          font-size: 14px;
+          border-right: 1px solid #000;
+        }
+        .status-detail {
+          width: 480px;
+          height: 130px;
+          .tops{
+            height: 20px;
+            margin-left: 5px;
+            margin-top: 10px;
+            input {
+              margin-top: -30px;
+            }
+          }
+          .description {
+            width: 500px;
+            height: 95px;
+            box-sizing: border-box;
+            padding-left: 5px;
+            div {
+                margin-top: 5px;
+            }
+          }
+        }
+      }
+    
+      .names {
+        height: 30px;
+        width: 95.6%;
+        font-size: 14px;
+        line-height: 30px;
+        .top{
+         width: 122px;
+         height: 30px;
+         border-right: 1px solid #000;
+         text-align: center;
+         line-height: 30px;
+       }
+       .top1{
+         width: 150px;
+         height: 30px;
+         border-right: 1px solid #000;
+         text-align: center;
+         line-height: 30px;
+       }
+       .top2{
+         width: 160px;
+         height: 30px;
+         text-align: center;
+         line-height: 30px;
+       }
+       .top3 {
+        width: 180px;
+        border-right: 1px solid #000;
+        text-align: center;
+       }
+      }
+    }
+    .date-box {
+        height: 30px;
+        border: 1px solid #000;
+        border-bottom: none;
+        div {
+          float: left;
+        }
+        .date {
+          width: 150px;
+          line-height: 30px;
+          text-align: center;
+          font-size: 14px;
+          border-right: 1px solid #000;
+        }
+        .date-detail {
+          text-align: left;
+          line-height: 30px;
+          width: 450px;
+          box-sizing: border-box;
+          padding-left: 5px;
+        }
+    }
+    .publish-box {
+        height: 100px;
+        border: 1px solid #000;
+        border-bottom: none;
+        div {
+          float: left;
+        }
+        .date {
+          width: 150px;
+          line-height: 100px;
+          text-align: center;
+          font-size: 14px;
+          border-right: 1px solid #000;
+        }
+        .date-detail {
+          text-align: left;
+          height: 100px;
+          width: 480px;
+          box-sizing: border-box;
+          padding-left: 5px;
+          div {
+              margin-top: 5px;
+          }
+          .first-date {
+            margin-right: 60px;
+            .hr {
+              border-bottom: 1px solid #000;
+              width: 130px;
+              display: inline-block
+            }
+          }
+        }
+    }
+    
+    .th1 {
+      height: 285px;
+      border: 1px solid #000;
+      div {
+        float: left;
+      }
+      .td-one {
+        width: 27px;
+        border-right: 1px solid #000;
+        height: 285px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 100px;
+      }
+      .td-box {
+        height: 100%;
+        width:96.5%;
+        .detail-title {
+          width: 100.4%;
+          height: 40px;
+          border-bottom: 1px solid #000;
+          .detail-name {
+            width: 123px;
+            height: 41px;
+            border-right: 1px solid #000;
+            line-height: 40px;
+            text-align: center;
+          }
+          .item {
+            width: 114px;
+            border-right: 1px solid #000;
+            height: 41px;
+            line-height: 40px;
+            text-align: center;
+          }
+        }
+        .detail {
+          width: 100.4%;
+          height: 40px;
+          border-bottom: 1px solid #000;
+          .detail-name {
+            width: 124px;
+            height: 41px;
+            border-right: 1px solid #000;
+            line-height: 15px;
+            text-align: left;
+            word-wrap:break-word;
+            box-sizing: border-box;
+            padding-left: 5px;
+            padding-top: 5px;
+          }
+          .item {
+            width: 115px;
+            border-right: 1px solid #000;
+            height: 41px;
+            line-height: 15px;
+            text-align: left;
+            word-wrap:break-word;
+            box-sizing: border-box;
+            padding-left: 5px;
+            padding-top: 5px;
+          }
+        } 
+      }
+    } 
+}
+
+.table-two {
+  width: 850px;
+  margin: 30px auto;
+
+  .th {
+      height: 200px;
+      border: 1px solid #000;
+      position: relative;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .td-one {
+        width: 28px;
+        border-right: 1px solid #000;
+        height: 200px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 40px;
+      }
+     
+    .acquisition-box {
+      width: 96.6%;
+      height: 110px;
+      border-bottom: 1px solid #000;
+      div {
+        float: left;
+      }
+      .status {
+        width: 122px;
+        line-height: 111px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .status-detail {
+        width: 680px;
+        height: 110px;
+        .top{
+          width: 680px;
+          height: 20px;
+          margin-left: 5px;
+          margin-top: 5px;
+         
+          input {
+            margin-top: -30px;
+          }
+        }
+        
+        .description {
+          width: 600px;
+          height: 95px;
+          box-sizing: border-box;
+          padding-left: 5px;
+          div {
+              margin-top: 5px;
+          }
+          span {
+            display: inline-block;
+            border-bottom: 1px solid #000;
+
+          }
+        }
+      }
+    }
+    
+    .scope-box {
+      width: 96.6%;
+      height: 90px;
+    
+      div {
+        float: left;
+      }
+      .status {
+        width: 122px;
+        line-height: 90px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .status-detail {
+        width: 680px;
+        height: 110px;
+        .top{
+          width: 680px;
+          height: 20px;
+          margin-left: 5px;
+          margin-top: 5px;
+         
+          input {
+            margin-top: -30px;
+          }
+        }
+        
+        .tops {
+          width: 680px;
+          height: 50px;
+          margin-left: 5px;
+          margin-top: 5px;   
+          div {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    .names {
+      height: 30px;
+      width: 95.6%;
+      font-size: 14px;
+      line-height: 30px;
+      .top{
+       width: 122px;
+       height: 30px;
+       border-right: 1px solid #000;
+       text-align: center;
+       line-height: 30px;
+     }
+     .top1{
+       width: 150px;
+       height: 30px;
+       border-right: 1px solid #000;
+       text-align: center;
+       line-height: 30px;
+     }
+     .top2{
+       width: 160px;
+       height: 30px;
+       text-align: center;
+       line-height: 30px;
+     }
+     .top3 {
+      width: 180px;
+      border-right: 1px solid #000;
+      text-align: center;
+     }
+    }
+  }
+  .date-box {
+      height: 30px;
+      border: 1px solid #000;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .date {
+        width: 150px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .date-detail {
+        text-align: left;
+        line-height: 30px;
+        width: 450px;
+        box-sizing: border-box;
+        padding-left: 5px;
+      }
+  }
+  .publish-box {
+      height: 100px;
+      border: 1px solid #000;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .date {
+        width: 150px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .date-detail {
+        text-align: left;
+        height: 100px;
+        width: 480px;
+        box-sizing: border-box;
+        padding-left: 5px;
+        div {
+            margin-top: 5px;
+        }
+        .first-date {
+          margin-right: 60px;
+          .hr {
+            border-bottom: 1px solid #000;
+            width: 130px;
+            display: inline-block
+          }
+        }
+      }
+  }
+  
+  .th1 {
+    height: 285px;
+    border: 1px solid #000;
+    div {
+      float: left;
+    }
+    .td-one {
+      width: 27px;
+      border-right: 1px solid #000;
+      height: 285px;
+      text-align: center;
+      box-sizing: border-box;
+      padding-top: 100px;
+    }
+    .td-box {
+      height: 100%;
+      width:96.5%;
+      .detail-title {
+        width: 100.4%;
+        height: 40px;
+        border-bottom: 1px solid #000;
+        .detail-name {
+          width: 123px;
+          height: 41px;
+          border-right: 1px solid #000;
+          line-height: 40px;
+          text-align: center;
+        }
+        .item {
+          width: 114px;
+          border-right: 1px solid #000;
+          height: 41px;
+          line-height: 40px;
+          text-align: center;
+        }
+      }
+      .detail {
+        width: 100.4%;
+        height: 40px;
+        border-bottom: 1px solid #000;
+        .detail-name {
+          width: 124px;
+          height: 41px;
+          border-right: 1px solid #000;
+          line-height: 15px;
+          text-align: left;
+          word-wrap:break-word;
+          box-sizing: border-box;
+          padding-left: 5px;
+          padding-top: 5px;
+        }
+        .item {
+          width: 115px;
+          border-right: 1px solid #000;
+          height: 41px;
+          line-height: 15px;
+          text-align: left;
+          word-wrap:break-word;
+          box-sizing: border-box;
+          padding-left: 5px;
+          padding-top: 5px;
+        }
+      } 
+    }
+  } 
+}
+  .ye {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .table1 {
+    width: 650px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    .th6 {
+      height: 30px;
+      border: 1px solid #000;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .name {
+        width: 150px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .name-detail {
+        text-align: center;
+        line-height: 30px;
+        width: 450px;
+      }
+    }
+  
+    .th3 {
+      height: 62px;
+      border: 1px solid #000;
+      position: relative;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .td-one {
+        width: 28px;
+        border-right: 1px solid #000;
+        height: 62px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 3px;
+      }
+     .name {
+       height: 30px;
+       width: 95.6%;
+       border-bottom: 1px solid #000;
+       font-size: 14px;
+       line-height: 30px;
+       .top{
+        width: 122px;
+        height: 30px;
+        border-right: 1px solid #000;
+        text-align: center;
+        line-height: 30px;
+      }
+      .top1{
+        width: 200px;
+        height: 30px;
+        border-right: 1px solid #000;
+        text-align: center;
+        line-height: 30px;
+      }
+      .top2{
+        width: 170px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+      }
+     }
+   
+    }
+  
+    .th4 {
+      height: 102px;
+      border: 1px solid #000;
+      position: relative;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .zi {
+        height: 40px;
+        width: 95.6%;
+       border-bottom: 1px solid #000;
+       box-sizing: border-box;
+       padding: 5px 10px;
+      }
+      .td-one {
+        width: 28px;
+        border-right: 1px solid #000;
+        height: 102px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 20px;
+      }
+     .name {
+       height: 30px;
+       width: 95.6%;
+       border-bottom: 1px solid #000;
+       font-size: 14px;
+       line-height: 30px;
+       .top{
+        width: 122px;
+        height: 30px;
+        border-right: 1px solid #000;
+        text-align: center;
+        line-height: 30px;
+      }
+      .top1{
+        width: 200px;
+        height: 30px;
+        border-right: 1px solid #000;
+        text-align: center;
+        line-height: 30px;
+      }
+      .top2{
+        width: 170px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+      }
+     }
+   
+    }
+  
+    .th2 {
+      height: 185px;
+      border: 1px solid #000;
+      position: relative;
+      border-bottom: none;
+      div {
+        float: left;
+      }
+      .td-one {
+        width: 28px;
+        border-right: 1px solid #000;
+        height: 185px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 30px;
+      }
+  
+     .nature-box {
+      width: 95.6%;
+      height: 30px;
+      border-bottom: 1px solid #000;
+     
+      div {
+        float: left;
+      }
+      .nature {
+        width: 200px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 14px;
+        border-right: 1px solid #000;
+      }
+      .nature-detail {
+        text-align: center;
+        line-height: 30px;
+        width: 416px;
+      }
+    }
+    }
+  
+    .signature {
+      height: 150px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      padding: 10px 10px;
+      position: relative;
+      .zhu {
+        position: absolute;
+        right: 150px;
+        bottom: 40px;
+      }
+      .data {
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+      }
+    }
+  }
+  
