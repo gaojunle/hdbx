@@ -1,9 +1,9 @@
 <template>
     <div class="oups-query">
         <top-nav></top-nav>
-        <breadcrumb :crumb="crumb"></breadcrumb>
-        <StepsList :steps="steplist" :curStep="curStep"></StepsList>
         <div class="content">
+            <div class="nav-title">Z11 作品著作权登记申请</div>
+            <StepsList :curStep="curStep"></StepsList>
             <div class="step step_0" v-show="curStep==0">
                 <div class="mbox">
                     <div class="person" @click="sdata.applyType=1;curStep=1;">
@@ -39,13 +39,13 @@
                 <form action="#">
                     <div class="f_box">
                         <span class="title required">作品名称：</span>
-                        <el-input v-model="sdata.opusName"></el-input>
+                        <el-input v-model="sdata.opusName" class="w100"></el-input>
                     </div>
                     <!--作品类型-->
-                    <div class="f_box">
+                    <div class="f_box opusType">
                         <span class="title required">作品类型：</span>
                         <div class="flex">
-                            <el-select v-model="sdata.opusType" placeholder="请选择作品类型">
+                            <el-select class="mr10" v-model="sdata.opusType" placeholder="请选择作品类型">
                                 <el-option
                                         v-for="item in options.options_opusType"
                                         value-key="val"
@@ -67,7 +67,7 @@
                         </el-radio-group>
                     </div>
                     <!--创作完成日期和地点-->
-                    <div class="f_box flex">
+                    <div class="f_box completeDate">
                         <span class="title required">创作完成日期：</span>
                         <el-date-picker
                                 v-model="sdata.completeDate"
@@ -105,7 +105,7 @@
                         </el-radio-group>
                     </div>
                     <!--首次发表日期、地点-->
-                    <div class="f_box flex">
+                    <div class="f_box completeDate">
                         <span class="title required">首次发表日期：</span>
                         <el-date-picker
                                 v-model="sdata.appearDate"
@@ -141,16 +141,16 @@
                     </div>
                     <div class="f_box p_nums" v-model="sdata.opusInfo">
                         <span class="title required">最长作品字数/时长：</span>
-                        <div class="flex" style="width:220px">
-                            <el-input placeholder=""></el-input>
+                        <div class="flex">
+                            <el-input class="w220" placeholder=""></el-input>
                             <span class="label">字</span>
                         </div>
-                        <div class="flex" style="width:220px">
-                            <el-input placeholder=""></el-input>
+                        <div class="flex">
+                            <el-input class="w220" placeholder=""></el-input>
                             <span class="label">时</span>
-                            <el-input placeholder=""></el-input>
+                            <el-input class="w220" placeholder=""></el-input>
                             <span class="label">分</span>
-                            <el-input placeholder=""></el-input>
+                            <el-input class="w220" placeholder=""></el-input>
                             <span class="label">秒</span>
                         </div>
                     </div>
@@ -174,11 +174,9 @@
                             <div class="ibox" v-for="(item,index) in sdata.attachments">
                                 <div class="multi-info">
                                     <span>第 {{index+1}} 件</span>
-                                    <div>
+                                    <div class="serial">
                                         <el-input v-model="item.segmentName" placeholder="请输入系列作品名称"></el-input>
                                     </div>
-                                    <FileUpload @fileSuccess="onFileUploaded" theme="btn" uptext="上传"
-                                                :splitor="'attachments['+index+'].attachmentList'"></FileUpload>
                                 </div>
                                 <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
                                     <div class="item" v-if="(i>=idx)&&i<(idx+3)"
@@ -188,8 +186,13 @@
                                               @click="removeUploadFile('attachments['+index+'].attachmentList',i)">删除</span>
                                     </div>
                                 </div>
+                                <FileUpload style="margin-top: 20px;"
+                                            @fileSuccess="onFileUploaded"
+                                            theme="btn"
+                                            uptext="上传"
+                                            :splitor="'attachments['+index+'].attachmentList'"></FileUpload>
                             </div>
-                            <el-button class="btn" @click="addApus">+添加作品</el-button>
+                            <el-button type="text" @click="addApus">+添加作品</el-button>
                         </div>
                     </div>
                 </form>
@@ -201,20 +204,21 @@
                 <form action="#">
                     <!--权利归属-->
                     <div class="f_box">
-                        <span class="title required">权利归属：<span class="tip">注意：请您务必查看下载示例</span></span>
+                        <span class="title required">权利归属：</span>
                         <el-radio-group v-model="sdata.rightOwnType">
                             <el-radio-button v-for="item in options.options_rightOwnType" :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
-                        <div class="flex">
+                        <div>
                             <FileUpload v-if="sdata.rightOwnType>1" @fileSuccess="onFileUploaded"
+                                        class="ptb20"
                                         splitor="rightOwnTypeAttachment"></FileUpload>
-                            <div class="examples">
-                                <div class="item">
-                                    <img src="../../assets/img/test.jpg" alt="">
-                                    <span>示例1</span>
-                                </div>
+                            <div class="tip ">
+                                <span style="color: red">注意：</span>
+                                <a href="#" class="cBlue">查看</a>
+                                <span class="cGray">示例，</span>
+                                <a href="#" class="cBlue">下载示例</a>
                             </div>
                         </div>
                     </div>
@@ -222,11 +226,11 @@
                     <div class="f_box copy_owner">
                         <span class="title required">著作权人：</span>
                         <div class="owner" v-for="(item,idx) in sdata.owners">
+                            <p class="sub_title">第 {{idx+1}} 位</p>
                             <div class="cont">
                                 <div class="f_left">
-                                    <p class="sub_title">第 {{idx+1}} 位</p>
                                     <div class="flex">
-                                        <el-select v-model="item.peopleKind" placeholder="请选择">
+                                        <el-select class="mr10" v-model="item.peopleKind" placeholder="请选择">
                                             <el-option
                                                     v-for="item in options.options_peopleKind"
                                                     value-key="val"
@@ -238,7 +242,7 @@
                                         <el-input v-model="item.name" placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
                                     </div>
                                     <div class="flex">
-                                        <el-select v-model="item.country" placeholder="选择国家">
+                                        <el-select class="mr10" v-model="item.country" placeholder="选择国家">
                                             <el-option
                                                     v-for="item in options.options_countrys"
                                                     value-key="val"
@@ -256,7 +260,7 @@
                                         ></el-cascader>
                                     </div>
                                     <div class="flex">
-                                        <el-select v-model="item.idType" placeholder="请选择">
+                                        <el-select class="mr10" v-model="item.idType" placeholder="请选择">
                                             <el-option
                                                     v-for="item in options.options_idType"
                                                     value-key="val"
@@ -276,7 +280,7 @@
                                     </div>
                                     <div class="fuben" v-if="item.applyCopy>0">
                                         <span>申请证书副本：</span>
-                                        <el-radio-group v-model="item.applyCopy">
+                                        <el-radio-group v-model="item.applyCopy" class="small">
                                             <el-radio-button v-for="item in options.options_applyCopy"
                                                              :label="item.val">
                                                 {{item.text}}
@@ -292,13 +296,13 @@
                                                     :splitor="'owners['+idx+'].cardBack'"></FileUpload>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="opts">
-                                <a href="">删除</a>
-                                <a href="">清空</a>
+                                <div class="opts">
+                                    <a href="">删除</a>
+                                    <a href="">清空</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="btn btn_blue">+添加著作权人</div>
+                        <el-button type="text">+添加著作权人</el-button>
                     </div>
                     <!--作者-->
                     <div class="f_box author">
@@ -307,8 +311,10 @@
                             <p class="sub_title">第 {{idx+1}} 位</p>
                             <div class="flex">
                                 <div class="flex">
-                                    <el-input v-model="item.name" placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
-                                    <el-input v-model="item.signature" placeholder="作者署名：作者的笔名、别名等"></el-input>
+                                    <el-input class="w400" v-model="item.name"
+                                              placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
+                                    <el-input class="w400" v-model="item.signature"
+                                              placeholder="作者署名：作者的笔名、别名等"></el-input>
                                 </div>
                                 <div class="opts">
                                     <a href="javascript:;" @click="removeAuthor(idx)">删除</a>
@@ -316,27 +322,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="btn btn_blue" @click="addAuthor">+添加作者</div>
+                        <el-button type="text" @click="addAuthor">+添加作者</el-button>
                     </div>
                     <!--权利取得方式-->
-                    <div class="f_box">
+                    <div class="f_box obtainType">
                         <span class="title required">权利取得方式：</span>
-                        <el-radio-group v-model="sdata.obtainType">
+                        <el-radio-group v-model="sdata.obtainType" class="small">
                             <el-radio-button v-for="item in options.options_obtainType" :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
                         <div class="upload-way" v-if="sdata.obtainType>1">
-                            <FileUpload @fileSuccess="onFileUploaded"
+                            <FileUpload class="ptb20"
+                                        @fileSuccess="onFileUploaded"
                                         v-for="(item,idx) in sdata.obtainTypeAttachment"
                                         :splitor="'obtainTypeAttachment['+idx+'].filePath'">
                             </FileUpload>
+                            <div class="tip">
+                                <span style="color: red">注意：</span>
+                                <a href="#" class="cBlue">查看</a>
+                                <span class="cGray">示例，</span>
+                                <a href="#" class="cBlue">下载示例</a>
+                            </div>
                         </div>
                     </div>
                     <!--权利拥有状况-->
-                    <div class="f_box">
+                    <div class="f_box rightScope">
                         <span class="title required">权利拥有状况：</span>
-                        <el-radio-group v-model="sdata.rightScope">
+                        <el-radio-group v-model="sdata.rightScope" class="small">
                             <el-radio-button v-for="item in options.options_rightScope"
                                              :label="item.val"
                                              @change="rightScopeChange(item.val)"
@@ -359,11 +372,11 @@
                         <span class="title required">作品说明书：</span>
                         <FileUpload @fileSuccess="((params)=>{onFileUploaded(params,'123')})"
                                     splitor="opusDescriptionAttachment"></FileUpload>
-                        <div class="examples">
-                            <div class="item">
-                                <img src="../../assets/img/test.jpg" alt="">
-                                <span>示例</span>
-                            </div>
+                        <div class="tip">
+                            <span style="color: red">注意：</span>
+                            <a href="#" class="cBlue">查看</a>
+                            <span class="cGray">示例，</span>
+                            <a href="#" class="cBlue">下载示例</a>
                         </div>
                     </div>
                 </form>
@@ -521,39 +534,7 @@
                     }
                 ],
                 options: options,
-                curStep: 2,
-                steplist: [
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '选择办理身份'
-                    },
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '作品创作信息'
-                    },
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '作品权属信息'
-                    },
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '确认信息'
-                    },
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '打印材料'
-                    },
-                    {
-                        imgUrl1: require('../../assets/img/progressNav/information_b.png'),
-                        imgUrl2: require('../../assets/img/progressNav/information_h.png'),
-                        name: '提交成功'
-                    }
-                ],
+                curStep: 1,
                 showAuthPaper: false,
                 sdata: {
                     "accountId": "133618064657874944",
@@ -702,10 +683,10 @@
             },
 
             //添加系列作品样本
-            addApus(){
+            addApus() {
                 this.sdata.attachments.push({
-                    attachmentList:[],
-                    segmentName:''
+                    attachmentList: [],
+                    segmentName: ''
                 })
             },
 

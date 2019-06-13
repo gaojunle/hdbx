@@ -6,14 +6,28 @@
             @file-error="onFileError"
             class="uploader-box"
             :class="theme">
-        <uploader-unsupport></uploader-unsupport>
-        <uploader-drop>
+        <!--按钮式上传-->
+        <uploader-drop v-if="theme=='btn'" class="upload_btn">
             <uploader-btn :attrs="attrs" :class="{preview:previeImgPath}">{{uptext}}</uploader-btn>
+        </uploader-drop>
+        <uploader-drop v-if="theme=='card'">  <!--图卡式上传-->
+            <uploader-btn :attrs="attrs" class="upload_card" :class="{preview:previeImgPath}">
+                <img src="../../../assets/img/steps/icon_upload.png" alt="">
+                <span class="uptxt">点击上传</span>
+            </uploader-btn>
             <div v-if="previeImgPath" class="preview-box">
                 <img class="previeImgPath" :src="previeImgPath" alt="">
             </div>
         </uploader-drop>
-        <uploader-list></uploader-list>
+        <uploader-drop v-if="theme=='idcard'">  <!--身份证上传-->
+            <uploader-btn :attrs="attrs" class="upload_card" :class="{preview:previeImgPath}">
+                <img class="upbtn" src="../../../assets/img/steps/icon_upload_idcard.png" alt="">
+                <span class="uptxt">{{uptext}}</span>
+            </uploader-btn>
+            <div v-if="previeImgPath" class="preview-box">
+                <img class="previeImgPath" :src="previeImgPath" alt="">
+            </div>
+        </uploader-drop>
     </uploader>
     <!--
     <el-upload
@@ -43,7 +57,7 @@
         props: {
             uptext: {
                 type: String,
-                default: '+'
+                default: ''
             },
             splitor: {
                 type: String,
@@ -127,8 +141,6 @@
         width: 160px;
         height: 220px;
         font-size: 14px;
-        border: 1px solid rgba(0, 0, 0, .1);
-        border-radius: 5px;
         &.btn {
             width: 80px;
             height: 30px;
@@ -148,11 +160,35 @@
             }
 
         }
+        &.idcard {
+            background-color: rgb(255, 255, 255);
+            width: 169px;
+            height: 107px;
+            .uploader-drop{
+                .uploader-btn {
+                    &.upload_card {
+                        flex-direction: column;
+                        font-size: 14px;
+                        color: rgb(102, 102, 102);
+                        padding-top: 32px;
+                        justify-content: flex-start;
+                        .upbtn{
+                            width: 35px;
+                        }
+                        .uptxt {
+                            padding-top: 10px;
+                            color: #0068b7;
+                        }
+                    }
+                }
+            }
+        }
         .uploader-drop {
             position: relative;
             overflow: hidden;
-            border: 1px dashed #ccc;
-            background-color: #f5f5f5;
+            border: 1px solid rgb(220, 228, 230);
+            border-radius: 5px;
+            background-color: white;
             height: 100%;
             box-sizing: border-box;
             padding: 0px;
@@ -170,8 +206,21 @@
                 left: 0px;
                 top: 0px;
                 z-index: 1;
+                &:hover {
+                    background-color: rgba(0, 0, 0, .02);
+                }
                 &.preview {
                     opacity: 0;
+                }
+                &.upload_card {
+                    flex-direction: column;
+                    font-size: 14px;
+                    color: rgb(102, 102, 102);
+                    padding-top: 60px;
+                    justify-content: flex-start;
+                    .uptxt {
+                        padding-top: 60px;
+                    }
                 }
             }
             .preview-box {

@@ -1,4 +1,17 @@
+@import "./componets";
+
+@borderColor: rgb(220, 228, 230);
 @blue: #0168b7;
+@cGrey: #999999;
+@cBlue: #0068b7;
+.ptb20 {
+  padding: 20px 0px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
 .pop-box {
   display: flex;
   justify-content: center;
@@ -50,9 +63,7 @@
 }
 
 .upload_auth_paper {
-  .tip {
-    padding: 10px 0px;
-  }
+
   .btn-box {
     text-align: center;
     padding-top: 20px;
@@ -63,10 +74,17 @@
 
 .oups-query {
   background: #f2f6f9;
+  font-family: "Microsoft YaHei";
+
   .content {
     width: 1200px;
     margin: 0px auto;
     box-sizing: border-box;
+    .nav-title {
+      font-size: 20px;
+      color: rgb(0, 0, 0);
+      padding: 25px 0px;
+    }
     .step_0 {
       background: white;
       .mbox {
@@ -138,6 +156,7 @@
     display: block;
     font-size: 16px;
     font-weight: bold;
+    padding-bottom: 20px;
     &.required {
       padding-left: 0px;
       &:before {
@@ -146,10 +165,17 @@
         padding-right: 3px;
       }
     }
-    .tip {
-      color: red;
-      font-size: 14px;
-      font-weight: normal;
+  }
+  .tip {
+    color: red;
+    font-size: 14px;
+    font-weight: normal;
+    padding-top: 10px;
+    .cGray {
+      color: @cGrey;
+    }
+    .cBlue {
+      color: @cBlue;
     }
   }
   .examples {
@@ -160,41 +186,86 @@
       align-items: center;
     }
   }
+  &.completeDate {
+    display: flex;
+    align-items: center;
+    .title {
+      padding-bottom: 0px;
+      padding-right: 10px;
+      padding-left: 30px;
+      &:nth-of-type(1){
+        padding-left: 0px;
+      }
+    }
+  }
+  &.opusType {
+
+  }
+  &.obtainType {
+
+  }
+  &.rightScope {
+    .rightScopePart {
+      padding-top: 10px;
+    }
+  }
 }
 
 /*著作权者*/
 .copy_owner {
   .owner {
-    border-bottom: 1px solid #ccc;
-    padding: 15px 0px;
+    border-bottom: 1px solid rgb(243, 243, 243);
+    padding: 45px 0px;
+    &:nth-of-type(1) {
+      padding-top: 0px;
+    }
     .cont {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       .sub_title {
-        padding: 10px 0px;
+        padding-bottom: 10px;
         font-size: 15px;
       }
+
       .f_left {
-        width: 800px;
+        .flex {
+          padding-top: 10px;
+          justify-content: flex-start;
+          .el-input-group--prepend {
+            .el-input__inner {
+              width: 531px;
+            }
+          }
+        }
       }
       .f_right {
         flex: 1;
+        padding-left: 56px;
+
         .copy_upload {
           display: flex;
-          justify-content: flex-start;
+          justify-content: center;
           align-items: center;
+          flex-direction: column;
+          .uploader-box {
+            margin-bottom: 10px;
+          }
         }
       }
       .fuben {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        padding-top: 10px;
+
       }
     }
     .opts {
-      text-align: right;
-
+      > a {
+        color: @cBlue;
+        margin: 0px 10px;
+      }
     }
   }
 
@@ -206,8 +277,24 @@
     align-items: center;
   }
   .cont {
+    border-bottom: 1px solid rgb(243, 243, 243);
+    padding: 30px 0px;
+    &:nth-of-type(1) {
+      padding-top: 0px;
+    }
+    .sub_title {
+      padding-bottom: 10px;
+    }
+    .el-input {
+      margin-right: 10px;
+    }
     .opts {
+      text-align: right;
       flex: 1;
+      > a {
+        color: @cBlue;
+        margin: 0px 10px;
+      }
     }
   }
 }
@@ -217,38 +304,53 @@
     justify-content: flex-start;
     align-items: center;
   }
+  .label{
+    padding: 0px 10px;
+    color: @cGrey;
+  }
 }
 
 .sample {
-  .multi-info {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
   .sample_list {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgb(220, 228, 230);
+    padding: 20px 0px;
     &:nth-last-of-type(1) {
       border-bottom: none;
+      padding-bottom: 0px;
     }
     .item {
       width: 33.3%;
       display: flex;
       align-items: center;
+
       .txt {
         color: #222;
       }
       .del {
-        padding-left: 30px;
+        padding-left: 20px;
         color: @blue;
         cursor: pointer;
       }
     }
   }
   .samples_multi {
-    .split_line {
-      border-bottom: 1px solid #ccc;
+    .multi-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .serial{
+        width: 600px;
+        margin: 0px 20px;
+      }
+    }
+    .ibox{
+      padding-bottom: 20px;
+      padding-top: 40px;
+      &:nth-of-type(1){
+        padding-top: 0px;
+      }
     }
   }
 }

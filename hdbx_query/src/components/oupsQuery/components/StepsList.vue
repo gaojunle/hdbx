@@ -1,7 +1,9 @@
 <template>
     <ul class="steps-list">
         <li v-for="(item,idx) in steps" :class="{on:curStep==idx}">
-            <img :src="curStep==idx?item.imgUrl1:item.imgUrl2" class="s_icon">
+            <span class="s-icon-box">
+                <img :src="curStep==idx?item.imgUrl2:item.imgUrl1" class="s_icon">
+            </span>
             <span class="s_name">{{item.name}}</span>
         </li>
     </ul>
@@ -14,7 +16,40 @@
             curStep: 0,
             steps: {
                 type: [Array],
-                default: []
+                default(){
+                    return [
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_1.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_1_on.png'),
+                            name: '选择办理身份'
+                        },
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_2.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_2_on.png'),
+                            name: '作品创作信息'
+                        },
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_3.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_3_on.png'),
+                            name: '作品权属信息'
+                        },
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_4.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_4_on.png'),
+                            name: '确认信息'
+                        },
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_5.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_5_on.png'),
+                            name: '打印材料'
+                        },
+                        {
+                            imgUrl1: require('../../../assets/img/steps/step_6.png'),
+                            imgUrl2: require('../../../assets/img/steps/step_6_on.png'),
+                            name: '提交成功'
+                        }
+                    ]
+                }
             },
 
         },
@@ -34,23 +69,87 @@
         align-items: center;
         width: 1200px;
         margin: 0 auto;
-        padding: 10px 0px;
+        border-radius: 5px;
+        overflow: hidden;
+        font-size: 18px;
+        font-family: "Microsoft YaHei";
+        color: rgb(118, 138, 162);
+        margin-bottom: 20px;
         > li {
-            width: 100%;
+            position: relative;
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #e4e9ed;
+            background: #e3e9ed;
+            height: 50px;
+            &:after {
+                content: ' ';
+                position: absolute;
+                width: 13px;
+                height: 50px;
+                right: 0px;
+                background-color: #e3e9ed;
+                background-image: url("../../../assets/img/steps/right.png");
+                -webkit-background-size: 100% 100%;
+                background-size: 100% 100%;
+            }
             &.on {
-                border: 1px solid #0000ff;
-                background: #0168b7;
+                background: #0068b7;
                 color: white;
-            }
-            .s_icon {
 
+                &:before{
+                    content: ' ';
+                    position: absolute;
+                    width: 13px;
+                    height: 50px;
+                    left: -13px;
+                    background-image: url("../../../assets/img/steps/s_left.png");
+                    -webkit-background-size: 100% 100%;
+                    background-size: 100% 100%;
+                }
+                &:after{
+                    background-image: url("../../../assets/img/steps/s_right.png");
+                    -webkit-background-size: 100% 100%;
+                    background-size: 100% 100%;
+                }
+                .s-icon-box {
+                    border-color: white;
+                }
             }
+            &:nth-of-type(1){
+                &.on{
+                    &:before{
+                        content: none;
+                    }
+                }
+            }
+            &:nth-last-of-type(1){
+                &:after{
+                    content: none;
+                }
+                &.on{
+                    &:after{
+                        content: none;
+                    }
+                }
+            }
+            .s-icon-box {
+                border: 1px solid rgb(118, 138, 162);
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 6px;
+                .s_icon {
+
+                }
+            }
+
             .s_name {
-                font-size: 20px;
+
             }
         }
     }

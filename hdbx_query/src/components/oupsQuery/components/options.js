@@ -74,19 +74,19 @@ const options = {
             val: 2,
             text: '改编'
         }, {
-            val: 2,
+            val: 3,
             text: '翻译'
         }, {
-            val: 3,
+            val: 4,
             text: '汇编'
         }, {
-            val: 4,
+            val: 5,
             text: '注释'
         }, {
-            val: 5,
+            val: 6,
             text: '整理'
         }, {
-            val: 6,
+            val: 7,
             text: '其他'
         }],
     options_publishStatus: [
