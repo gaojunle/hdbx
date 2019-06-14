@@ -45,7 +45,7 @@
                     <div class="f_box opusType">
                         <span class="title required">作品类型：</span>
                         <div class="flex">
-                            <el-select class="mr10" v-model="sdata.opusType" placeholder="请选择作品类型">
+                            <el-select class="mr10" style="width: 350px" v-model="sdata.opusType" placeholder="请选择作品类型">
                                 <el-option
                                         v-for="item in options.options_opusType"
                                         value-key="val"
@@ -61,7 +61,9 @@
                     <div class="f_box">
                         <span class="title required">创作性质：</span>
                         <el-radio-group v-model="sdata.opusInditeType">
-                            <el-radio-button v-for="item in options.options_opusInditeType" :label="item.val">
+                            <el-radio-button v-for="item in options.options_opusInditeType"
+                                             :key="item.val"
+                                             :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
@@ -99,7 +101,9 @@
                         <span class="title required">发表状态：</span>
 
                         <el-radio-group v-model="sdata.publishStatus">
-                            <el-radio-button v-for="item in options.options_publishStatus" :label="item.val">
+                            <el-radio-button v-for="item in options.options_publishStatus"
+                                             :key="item.val"
+                                             :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
@@ -134,28 +138,41 @@
                     <div class="f_box">
                         <span class="title required">作品性质：</span>
                         <el-radio-group v-model="sdata.opusNature">
-                            <el-radio-button v-for="item in options.options_opusNature" :label="item.val">
+                            <el-radio-button v-for="item in options.options_opusNature"
+                                             :key="item.val"
+                                             :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
                     </div>
-                    <div class="f_box p_nums" v-model="sdata.opusInfo">
-                        <span class="title required">最长作品字数/时长：</span>
-                        <div class="flex">
-                            <el-input class="w220" placeholder=""></el-input>
+                    <!--
+                    1、【文字作品A】需填写字数，单个作品填写作品字数，系列作品填写最长作品字数
+                    2、【电影作品H和以类似摄制电影的方法创作的作品I】需填写时长，单个作品填写作品时长，系列作品填写最长作品时长
+                    3、【文字作品A，摄影作品G】需要上传作品样本
+                    -->
+                    <div class="f_box p_nums" v-if="'AIH'.indexOf(sdata.opusType)>-1">
+                        <span class="title required">
+                            <span v-if="sdata.opusNature=='2'">最长</span><span v-if="'A'.indexOf(sdata.opusType)>-1">作品字数：</span><span
+                                v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
+                        </span>
+                        <div class="flex" v-if="sdata.opusType=='A'">
+                            <el-input v-model="sdata.opusInfo" type="number" class="w220" placeholder=""></el-input>
                             <span class="label">字</span>
                         </div>
-                        <div class="flex">
-                            <el-input class="w220" placeholder=""></el-input>
+                        <div class="flex" v-if="sdata.opusType=='H'||sdata.opusType=='I'">
+                            <el-input v-model="timeLength.h" max="60" class="w220" type="number"
+                                      placeholder=""></el-input>
                             <span class="label">时</span>
-                            <el-input class="w220" placeholder=""></el-input>
+                            <el-input v-model="timeLength.m" max="59" class="w220" type="number"
+                                      placeholder=""></el-input>
                             <span class="label">分</span>
-                            <el-input class="w220" placeholder=""></el-input>
+                            <el-input v-model="timeLength.s" max="59" class="w220" type="number"
+                                      placeholder=""></el-input>
                             <span class="label">秒</span>
                         </div>
                     </div>
                     <!--作品样本-->
-                    <div class="f_box sample">
+                    <div class="f_box sample" v-if="sdata.opusType=='A'||sdata.opusType=='G'">
                         <span class="title required">作品样本：</span>
                         <div class="samples_multi" v-if="sdata.opusNature==1">
                             <FileUpload @fileSuccess="onFileUploaded" theme="btn" uptext="上传"
@@ -206,19 +223,27 @@
                     <div class="f_box">
                         <span class="title required">权利归属：</span>
                         <el-radio-group v-model="sdata.rightOwnType">
-                            <el-radio-button v-for="item in options.options_rightOwnType" :label="item.val">
+                            <el-radio-button v-for="(item,idx) in options.options_rightOwnType"
+                                             :key="item.val"
+                                             :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
-                        <div>
-                            <FileUpload v-if="sdata.rightOwnType>1" @fileSuccess="onFileUploaded"
-                                        class="ptb20"
-                                        splitor="rightOwnTypeAttachment"></FileUpload>
+                        <div v-if="sdata.rightOwnType>1">
+                            <FileUpload
+                                    theme="card"
+                                    class="ptb20"
+                                    :uptext="options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].text"
+                                    @fileSuccess="onFileUploaded"
+                                    splitor="rightOwnTypeAttachment">
+                            </FileUpload>
                             <div class="tip ">
                                 <span style="color: red">注意：</span>
-                                <a href="#" class="cBlue">查看</a>
+                                <a href="#" class="cBlue"
+                                   @click.prevent="openExample(options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].exampleUrl)">查看</a>
                                 <span class="cGray">示例，</span>
-                                <a href="#" class="cBlue">下载示例</a>
+                                <a :href="options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].exampleUrl"
+                                   target="_blank" class="cBlue">下载示例</a>
                             </div>
                         </div>
                     </div>
@@ -242,7 +267,8 @@
                                         <el-input v-model="item.name" placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
                                     </div>
                                     <div class="flex">
-                                        <el-select class="mr10" v-model="item.country" placeholder="选择国家">
+                                        <el-select class="mr10" style="width: 165px" v-model="item.country"
+                                                   placeholder="选择国家">
                                             <el-option
                                                     v-for="item in options.options_countrys"
                                                     value-key="val"
@@ -257,10 +283,12 @@
                                                 v-model="item.city"
                                                 @change="((city)=>{handleCityChange(city,11)})"
                                                 :separator="'/'"
+                                                style="width: 454px;"
                                         ></el-cascader>
                                     </div>
                                     <div class="flex">
-                                        <el-select class="mr10" v-model="item.idType" placeholder="请选择">
+                                        <el-select class="mr10" style="width: 225px" v-model="item.idType"
+                                                   placeholder="请选择">
                                             <el-option
                                                     v-for="item in options.options_idType"
                                                     value-key="val"
@@ -278,10 +306,11 @@
                                             </el-input>
                                         </div>
                                     </div>
-                                    <div class="fuben" v-if="item.applyCopy>0">
+                                    <div class="fuben" v-if="idx>0">
                                         <span>申请证书副本：</span>
                                         <el-radio-group v-model="item.applyCopy" class="small">
-                                            <el-radio-button v-for="item in options.options_applyCopy"
+                                            <el-radio-button v-for="(item,idx) in options.options_applyCopy"
+                                                             :key="idx"
                                                              :label="item.val">
                                                 {{item.text}}
                                             </el-radio-button>
@@ -297,12 +326,12 @@
                                     </div>
                                 </div>
                                 <div class="opts">
-                                    <a href="">删除</a>
-                                    <a href="">清空</a>
+                                    <el-button type="text" @click="removeOwner(idx)">删除</el-button>
+                                    <el-button type="text" @click="clearOwner(idx)">清空</el-button>
                                 </div>
                             </div>
                         </div>
-                        <el-button type="text">+添加著作权人</el-button>
+                        <el-button type="text" @click="addOwner">+添加著作权人</el-button>
                     </div>
                     <!--作者-->
                     <div class="f_box author">
@@ -328,21 +357,37 @@
                     <div class="f_box obtainType">
                         <span class="title required">权利取得方式：</span>
                         <el-radio-group v-model="sdata.obtainType" class="small">
-                            <el-radio-button v-for="item in options.options_obtainType" :label="item.val">
+                            <el-radio-button v-for="(item,idx) in options.options_obtainType"
+                                             :key="idx"
+                                             :label="item.val">
                                 {{item.text}}
                             </el-radio-button>
                         </el-radio-group>
-                        <div class="upload-way" v-if="sdata.obtainType>1">
-                            <FileUpload class="ptb20"
-                                        @fileSuccess="onFileUploaded"
-                                        v-for="(item,idx) in sdata.obtainTypeAttachment"
-                                        :splitor="'obtainTypeAttachment['+idx+'].filePath'">
-                            </FileUpload>
-                            <div class="tip">
-                                <span style="color: red">注意：</span>
-                                <a href="#" class="cBlue">查看</a>
-                                <span class="cGray">示例，</span>
-                                <a href="#" class="cBlue">下载示例</a>
+                        <!--继承-->
+                        <div class="upload-way" v-if="sdata.obtainType>1" :class="{other:sdata.obtainType=='4'}">
+                            <p style="padding-top: 20px" v-if="sdata.obtainType=='4'">
+                                权利取得日期：
+                                <el-date-picker
+                                        v-model="sdata.ownObtainDate"
+                                        type="date"
+                                        placeholder="年/月/日">
+                                </el-date-picker>
+                            </p>
+                            <div v-for="(item,idx) in options.options_obtainTypeAttachment[parseInt(sdata.obtainType)-2]"
+                                 :key="idx">
+                                <FileUpload class="ptb20"
+                                            theme="card"
+                                            @fileSuccess="onFileUploaded"
+                                            :path="sdata.obtainTypeAttachment[idx].path ? sdata.obtainTypeAttachment[idx].path:''"
+                                            :uptext="item.text"
+                                            :splitor="'obtainTypeAttachment['+idx+'].filePath'">
+                                </FileUpload>
+                                <div class="tip">
+                                    <span style="color: red">注意：</span>
+                                    <a href="#" class="cBlue">查看</a>
+                                    <span class="cGray">示例，</span>
+                                    <a href="#" class="cBlue">下载示例</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -351,6 +396,7 @@
                         <span class="title required">权利拥有状况：</span>
                         <el-radio-group v-model="sdata.rightScope" class="small">
                             <el-radio-button v-for="item in options.options_rightScope"
+                                             :key="item.val"
                                              :label="item.val"
                                              @change="rightScopeChange(item.val)"
                             >
@@ -497,14 +543,118 @@
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="24">
+                            <el-col :span="4">
                                 <span class="label">权利归属方式：</span>
+                            </el-col>
+                            <el-col :span="20">
                                 <span class="text">{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</span>
+                                <img class="up_img" :src="sdata.rightOwnTypeAttachment.relevantFileName" alt="">
                             </el-col>
                         </el-row>
                         <el-row>
-                            <img class="up_img" :src="sdata.rightOwnTypeAttachment" alt="">
+                            <el-col :span="4">
+                                <span class="label">权利取得方式：</span>
+                            </el-col>
+                            <el-col :span="20">
+                                <span class="text">{{formatOptionData('options_obtainType',sdata.obtainType)}}</span>
+                                <img v-for="(item,idx) in sdata.obtainTypeAttachment" class="up_img"
+                                     :src="item.path" alt="">
+                            </el-col>
                         </el-row>
+                        <el-row>
+                            <el-col :span="4">
+                                <span class="label">权利拥有状况：</span>
+                            </el-col>
+                            <el-col :span="20">
+                                <span class="text">{{formatOptionData('options_rightScope',sdata.rightScope)}}</span>
+                                <br>
+                                <span class="radio-text" v-for="(item,idx) in sdata.rightScopePart">
+                                    {{formatOptionData('options_rightScopePart',item)}}
+                                </span>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="4">
+                                <span class="label">作品说明书：</span>
+                            </el-col>
+                            <el-col :span="20">
+                                <img class="up_img" :src="sdata.opusDescriptionAttachment.path" alt="">
+                            </el-col>
+                        </el-row>
+                        <el-row v-if="sdata.applyType=='2'">
+                            <el-col :span="4">
+                                <span class="label">授权委托书：</span>
+                            </el-col>
+                            <el-col :span="20">
+                                <img class="up_img" :src="sdata.authAttachment.path" alt="">
+                            </el-col>
+                        </el-row>
+                        <div class="sampleRetention">
+                            <div class="info-title">留存作品样本：</div>
+                            <el-row>
+                                <el-col :span="4">
+                                    选择介质
+                                </el-col>
+                                <el-col :span="20">
+                                    <el-radio-group v-model="sdata.sampleRetentionMedium">
+                                        <el-radio-button v-for="(item,idx) in options.options_sampleRetentionMedium"
+                                                         :key="item.val"
+                                                         :label="item.val">
+                                            {{item.text}}
+                                        </el-radio-button>
+                                    </el-radio-group>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="4">
+                                    * 是否附图盖章
+                                </el-col>
+                                <el-col :span="20">
+                                    <el-radio-group v-model="sdata.needStamp">
+                                        <el-radio-button v-for="(item,idx) in options.options_needStamp"
+                                                         :key="item.val"
+                                                         :label="item.val">
+                                            {{item.text}}
+                                        </el-radio-button>
+                                    </el-radio-group>
+                                </el-col>
+                            </el-row>
+                        </div>
+                        <div class="sampleRetention">
+                            <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
+
+                            <el-radio-group v-model="sdata.registrationMethod" class="big">
+                                <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
+                                                 :key="item.val"
+                                                 :label="item.val">
+                                    {{item.text}}
+                                </el-radio-button>
+                            </el-radio-group>
+                            <el-row >
+                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
+                                <p>邮编：10000</p>
+                            </el-row>
+                        </div>
+                        <div class="sampleRetention">
+                            <div class="info-title">证书领取方式：</div>
+
+                            <el-radio-group v-model="sdata.certificateCollectionMethod" class="big">
+                                <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
+                                                 :key="item.val"
+                                                 :label="item.val">
+                                    {{item.text}}
+                                </el-radio-button>
+                            </el-radio-group>
+                            <el-row v-if="sdata.certificateCollectionMethod!='MAIL'">
+                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
+                                <p>邮编：10000</p>
+                            </el-row>
+                            <el-row v-else>
+                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
+                                <p>邮编：10000</p>
+                            </el-row>
+
+                        </div>
                     </div>
                 </div>
                 <div class="step-btns">
@@ -534,15 +684,20 @@
                     }
                 ],
                 options: options,
-                curStep: 1,
+                curStep: 3,
                 showAuthPaper: false,
+                timeLength: {
+                    h: '',
+                    m: '',
+                    s: ''
+                },
                 sdata: {
                     "accountId": "133618064657874944",
                     "appearCity": "AppearCity",
                     "appearCountry": "AppearCountry",
                     "appearDate": "2018-12-12",
                     "appearProvince": "AppearProvince",
-                    "applyType": -1,//申请者身份类型[1权利人，2代理人]
+                    "applyType": "2",//申请者身份类型[1权利人，2代理人]
                     authAttachment: {//选择代理人时，授权委托书
                         relevantFileName: '授权委托书名称',//授权委托书名称
                         path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg'
@@ -601,60 +756,79 @@
                     ],
                     "certificateCollectionMethod": "TQ",
                     "completeCity": "泉州",
-                    "completeCountry": 1,
+                    "completeCountry": "中国",
                     "completeDate": "2018-12-12",
                     "completeProvince": "福建",
                     "needStamp": "1",
-                    "obtainType": 2,
+                    "obtainType": "2",
                     "obtainTypeAttachment": [
                         {
                             relevantFileName: 'QLGS-0603',
-                            path: 'path.png',
+                            path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+                            remark: 'remark'
+                        },
+                        {
+                            relevantFileName: 'QLGS-0601',
+                            path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+                            remark: 'remark'
+                        },
+                        {
+                            relevantFileName: 'QLGS-0602',
+                            path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+                            remark: 'remark'
+                        },
+                        {
+                            relevantFileName: 'QLGS-0605',
+                            path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
                             remark: 'remark'
                         }
                     ],
-                    "opusDescriptionAttachment": {"path": "QLGS-07", "relevantFileName": "QLGS-07"},
-                    "opusInditeType": 1,
+                    "ownObtainDate": "2019-10-19",
+                    "opusDescriptionAttachment": {
+                        "path": 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+                        "relevantFileName": "QLGS-07"
+                    },
+                    "opusInditeType": "1",
                     "opusInfo": "11111",
                     "opusName": "TestOpus",
-                    "opusNature": 2,
-                    "opusType": 1,
-                    "opusTypeDesc": "aaa",
+                    "opusNature": "2",
+                    "opusType": 'H',
+                    "opusTypeDesc": "作品描述xxx",
                     "owners": [
                         {
-                            "applyCopy": 0,
+                            "applyCopy": "0",
                             "cardBack": "back",
                             "cardFront": "font",
                             "country": "中国",
                             "idNumber": "1401111111",
-                            "idType": 1,
+                            "idType": "1",
                             "mobile": "130111111",
                             "name": "第一著作权人",
-                            "peopleKind": 1,
+                            "peopleKind": "1",
                             "role": "PET"
                         }, {
-                            "applyCopy": 1,
+                            "applyCopy": "1",
                             "cardBack": "back",
                             "cardFront": "font",
                             "country": "阿拉斯加",
                             "idNumber": "1501111111",
-                            "idType": 1,
+                            "idType": "1",
                             "mobile": "120111111",
                             "name": "第二著作权人",
-                            "peopleKind": 2,
+                            "peopleKind": "2",
                             "role": "PET"
                         }],
-                    "publishStatus": 1,
+                    "publishStatus": "1",
                     "registrationMethod": "MAIL",
-                    "rightOwnType": 2,
+                    "rightOwnType": "2",
                     rightOwnTypeAttachment: {//rightOwnType为1时没有附件
                         relevantFileName: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
                         path: '',
                         remark: ''
                     },
-                    "rightScope": 1,
-                    rightScopePart: [1, 2],
-                    "sampleRetentionMedium": 1
+                    "rightScope": "2",
+                    rightScopePart: ["1", "2"],
+                    "sampleRetentionMedium": "1"
                 },
             }
         },
@@ -681,7 +855,12 @@
                     path: params.filePath
                 });
             },
-
+            //打开示例
+            openExample(url) {
+                this.$alert('<img src="' + url + '" style="width: 600px;height: 400px;">', '示例', {
+                    dangerouslyUseHTMLString: true
+                });
+            },
             //添加系列作品样本
             addApus() {
                 this.sdata.attachments.push({
@@ -709,6 +888,38 @@
                 this.sdata.rightOwnType = val - 1;
             },
 
+            removeOwner(idx) {
+                this.sdata.owners.splice(idx, 1)
+            },
+
+            clearOwner(idx) {
+                this.sdata.owners.splice(idx, 1, {
+                    "applyCopy": '',
+                    "cardBack": "",
+                    "cardFront": "",
+                    "country": "",
+                    "idNumber": "",
+                    "idType": "",
+                    "mobile": "",
+                    "name": "",
+                    "peopleKind": "",
+                    "role": ""
+                })
+            },
+            addOwner() {
+                this.sdata.owners.push({
+                    "applyCopy": '',
+                    "cardBack": "",
+                    "cardFront": "",
+                    "country": "",
+                    "idNumber": "",
+                    "idType": "",
+                    "mobile": "",
+                    "name": "",
+                    "peopleKind": "",
+                    "role": ""
+                })
+            },
             handleCityChange(param, p) {
                 console.log(param, p)
             },
@@ -721,6 +932,17 @@
                 })
                 return tmp;
             }
+        },
+        watch: {
+            'timeLength.h'(newVal) {
+                this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
+            },
+            'timeLength.m'(newVal) {
+                this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
+            },
+            'timeLength.s'(newVal) {
+                this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
+            },
         },
         mounted() {
 

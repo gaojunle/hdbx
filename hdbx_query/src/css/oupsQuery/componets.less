@@ -1,8 +1,22 @@
 @bColor: rgb(220, 228, 230);
 .el-radio-group {
+
+  &.small {
+    .el-radio-button {
+      width: 70px;
+      padding: 12px 0px;
+    }
+  }
+  &.big {
+    .el-radio-button {
+      width: 310px;
+      padding: 12px 0px;
+    }
+  }
   .el-radio-button {
     margin-right: 10px;
     border: none;
+    width: 148px;
     &:nth-last-of-type(1) {
       margin-right: 0px;
     }
@@ -20,7 +34,7 @@
     border-radius: 5px;
     background-color: rgb(245, 248, 249);
     padding: 16px 20px;
-    width: 148px;
+    width: 100%;
     font-family: "Microsoft YaHei";
     color: rgb(82, 95, 102);
     box-shadow: none;
@@ -41,12 +55,7 @@
       background: url("../../assets/img/steps/btn_on.png") 0px 0px no-repeat;
     }
   }
-  &.small {
-    .el-radio-button__inner {
-      width: 70px;
-      padding: 12px 20px;
-    }
-  }
+
 }
 
 .el-checkbox-group {
@@ -96,19 +105,19 @@
   .el-input__inner {
     height: 48px;
   }
-  &.w100{
+  &.w100 {
     width: 100%;
     .el-input__inner {
       width: 100%;
     }
   }
-  &.w220{
+  &.w220 {
     width: 220px;
     .el-input__inner {
       width: 220px;
     }
   }
-  &.w400{
+  &.w400 {
     width: 400px;
     .el-input__inner {
       width: 400px;
@@ -123,7 +132,6 @@
     background-image: none;
     border-radius: 5px;
     border: 1px solid @bColor;
-    width: 218px;
     height: 48px;
   }
 }

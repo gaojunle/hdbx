@@ -13,7 +13,7 @@
         <uploader-drop v-if="theme=='card'">  <!--图卡式上传-->
             <uploader-btn :attrs="attrs" class="upload_card" :class="{preview:previeImgPath}">
                 <img src="../../../assets/img/steps/icon_upload.png" alt="">
-                <span class="uptxt">点击上传</span>
+                <span class="uptxt">{{uptext||'点击上传'}}</span>
             </uploader-btn>
             <div v-if="previeImgPath" class="preview-box">
                 <img class="previeImgPath" :src="previeImgPath" alt="">
@@ -59,6 +59,10 @@
                 type: String,
                 default: ''
             },
+            path: {
+                type: String,
+                default: ''
+            },
             splitor: {
                 type: String,
                 default: ''
@@ -85,7 +89,13 @@
                 attrs: {
                     accept: 'image/*'
                 },
-                previeImgPath: ''
+                previeImgPath: this.path
+            }
+        },
+        watch: {
+            path(val) {
+                console.log(val);
+                this.previeImgPath = val;
             }
         },
         methods: {
@@ -95,7 +105,7 @@
                     filePath: evt.name,
                     fileName: evt.name
                 })
-                if (this.theme == 'card') {
+                if (this.theme == 'card' || this.theme == 'idcard') {
                     const reader = new FileReader()
                     reader.onload = (e) => {
                         this.previeImgPath = e.target.result;
@@ -164,7 +174,7 @@
             background-color: rgb(255, 255, 255);
             width: 169px;
             height: 107px;
-            .uploader-drop{
+            .uploader-drop {
                 .uploader-btn {
                     &.upload_card {
                         flex-direction: column;
@@ -172,7 +182,7 @@
                         color: rgb(102, 102, 102);
                         padding-top: 32px;
                         justify-content: flex-start;
-                        .upbtn{
+                        .upbtn {
                             width: 35px;
                         }
                         .uptxt {
