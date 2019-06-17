@@ -52,6 +52,19 @@
   align-items: center;
 }
 
+.tip {
+  color: red;
+  font-size: 14px;
+  font-weight: normal;
+  padding-top: 10px;
+  .cGray {
+    color: @cGrey;
+  }
+  .cBlue {
+    color: @cBlue;
+  }
+}
+
 .up_img {
   display: inline-block;
   width: 160px;
@@ -62,10 +75,30 @@
   background: rgba(0, 0, 0, .1);
 }
 
-.upload_auth_paper {
+.step-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0px;
+  .el-button {
+    margin: 0px 25px;
+    font-size: 18px;
+  }
+}
 
-  .btn-box {
+.upload_auth_paper {
+  .upbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .desc {
+    padding-bottom: 20px;
+  }
+  .step-btns {
     text-align: center;
+    padding: 0px;
     padding-top: 20px;
     display: flex;
     justify-content: center;
@@ -94,57 +127,61 @@
 
         > div {
           width: 430px;
-          height: 460px;
+          height: 280px;
           text-align: center;
           border: 1px solid @blue;
           background: white;
-          border-radius: 5px;
+          border-radius: 4px;
           box-sizing: border-box;
-          margin: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          > p {
-            padding-bottom: 30px;
+          margin: 50px 40px;
+          padding: 30px 48px;
+          box-sizing: border-box;
+          .s_icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 100%;
+            margin: 0px auto;
+            background-color: #f3f6f8;
+            background-position: center center;
+            background-repeat: no-repeat;
+
+            &.s_per {
+              background-image: url("../../assets/img/steps/person_blue.png");
+            }
+            &.s_paper {
+              background-image: url("../../assets/img/steps/company_blue.png");
+            }
           }
           &:hover {
             background: #f2f6f9;
             cursor: pointer;
+
+            .s_per {
+              background-color: @blue;
+              background-image: url("../../assets/img/steps/person_white.png");
+            }
+            .s_paper {
+              background-color: @blue;
+              background-image: url("../../assets/img/steps/company_white.png");
+            }
+            .type {
+              color: @blue;
+            }
+          }
+          .type {
+            padding: 20px 0px;
+            font-size: 20px;
+            color: #000;
+          }
+          .desc {
+            font-size: 14px;
+            color: #333333;
           }
         }
       }
     }
   }
-  .btn {
-    display: inline-block;
-    width: 170px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #7788a4;
-    background: #dce3e9;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-  }
-  .btn_blue {
-    color: white;
-    background: @blue;
-  }
-  .step-btns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0px;
-    .btn {
-      width: 230px;
-      height: 60px;
-      margin: 0px 25px;
-      font-size: 18px;
-    }
-  }
+
 }
 
 .f_box {
@@ -152,7 +189,8 @@
   background: white;
   padding: 32px 44px;
   border-radius: 10px;
-  > .title {
+  > .title,
+  > .info-title {
     display: block;
     font-size: 16px;
     font-weight: bold;
@@ -166,18 +204,7 @@
       }
     }
   }
-  .tip {
-    color: red;
-    font-size: 14px;
-    font-weight: normal;
-    padding-top: 10px;
-    .cGray {
-      color: @cGrey;
-    }
-    .cBlue {
-      color: @cBlue;
-    }
-  }
+
   .examples {
     display: flex;
     .item {
@@ -186,7 +213,78 @@
       align-items: center;
     }
   }
-  &.completeDate {
+  //确认信息部分
+  .info-cont {
+    .el-row {
+      color: #333333;
+      padding-bottom: 18px;
+      .label {
+        color: #666666;
+      }
+    }
+    .flex-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .flex-1 {
+        flex: 1;
+      }
+      .ibox {
+        padding-top: 30px;
+        padding-bottom: 0px;
+        .sample_list {
+          padding: 15px 0px;
+        }
+      }
+    }
+    .owner-box {
+      &:nth-last-of-type(1) {
+        padding-bottom: 0px;
+      }
+
+      .owner-title {
+        font-size: 15px;
+        color: black;
+        padding-bottom: 15px;
+      }
+      .owner-info {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .item {
+          padding-right: 80px;
+          p {
+            padding-bottom: 10px;
+          }
+          .up_img {
+            border: none;
+          }
+          .img-list {
+            img {
+              margin-right: 20px;
+            }
+          }
+          &.card {
+            display: flex;
+            flex: 1;
+            > p {
+              padding-right: 20px;
+            }
+            img {
+              width: 167px;
+              height: 107px;
+              border-radius: 3px;
+            }
+          }
+        }
+      }
+      > span {
+        display: block;
+      }
+    }
+  }
+  &completeDate {
     display: flex;
     align-items: center;
     .title {
@@ -373,8 +471,117 @@
   }
 }
 
-.el-message-box__wrapper {
-  .el-message-box {
-    width: auto;
+//办理方式或地址的信息框
+.way-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .way-check-box {
+    padding: 20px 15px;
+    width: 310px;
+    min-height: 120px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, .08);
+    margin-right: 10px;
+    .w-title {
+      color: #000;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, .08);
+    }
+    .w-info {
+      padding-top: 6px;
+      color: #666666;
+      line-height: 1.7;
+    }
+    &.on {
+      position: relative;
+      border: 1px solid rgb(0, 104, 183);
+      &:after {
+        content: ' ';
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+        width: 32px;
+        height: 31px;
+        background: url("../../assets/img/steps/btn_on.png") 0px 0px no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+      }
+    }
   }
 }
+
+.icon-more {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: @blue;
+  transition: all 500s;
+  padding-top: 20px;
+  img {
+    margin-left: 6px;
+  }
+  &.on {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+//第四步，打印
+.step_4 {
+  .f_box {
+    .info-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .print-all {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: normal;
+      color: @blue;
+      img {
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+.el-table {
+  &.print-table {
+    th {
+      text-align: center;
+      background: #eeeeee;
+      padding: 8px 0;
+      position: relative;
+      color: #000000;
+      &:before {
+        content: ' ';
+        width: 2px;
+        height: 40px;
+        display: block;
+        position: absolute;
+        background: white;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+      }
+      &:nth-of-type(1), &:nth-of-type(3) {
+        &:before {
+          content: none;
+        }
+      }
+    }
+    td {
+      text-align: center;
+      .el-button{
+        color: @blue;
+      }
+    }
+  }
+}
+

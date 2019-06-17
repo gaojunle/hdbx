@@ -136,10 +136,47 @@
   }
 }
 
-.el-button {
-  &.el-button--text {
-    font-size: 16px;
-    color: rgb(0, 104, 183);
-    padding-bottom: 0px;
+.step-btns {
+  .el-button {
+    width: 170px;
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    &.big {
+      width: 230px;
+      height: 60px;
+    }
+    &.el-button--default {
+      color: #7788a4;
+      background: #dce3e9;
+      &:hover {
+        background: #dce3e9
+      }
+    }
+    &.el-button--primary {
+      color: white;
+      background: @blue;
+      &:hover {
+        background: @blue
+      }
+    }
+    &.el-button--text {
+      font-size: 16px;
+      color: rgb(0, 104, 183);
+      padding-bottom: 0px;
+    }
+  }
+}
+
+.el-link {
+  &.el-link--primary {
+    font-size: 14px;
+    color: #0168B7;
+  }
+}
+
+.el-message-box__wrapper {
+  .el-message-box {
+    width: auto;
   }
 }

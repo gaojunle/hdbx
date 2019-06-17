@@ -7,29 +7,40 @@
             <div class="step step_0" v-show="curStep==0">
                 <div class="mbox">
                     <div class="person" @click="sdata.applyType=1;curStep=1;">
-                        <p>我是著作权人</p>
-                        <p>我为自己创作的作品申请著作权</p>
-                        <a class="btn btn_blue">立即申请</a>
+                        <div class="s_icon s_per"></div>
+                        <div class="type">个人</div>
+                        <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
                     </div>
                     <div class="company" @click="sdata.applyType=2;showAuthPaper=true">
-                        <p>我是代理人</p>
-                        <p>我为他人创作的作品申请著作权</p>
-                        <a class="btn btn_blue">上传授权委托书协助申请</a>
+                        <div class="s_icon s_paper"></div>
+                        <div class="type">机构</div>
+                        <div class="desc">办理本人所属机构业务或以本人所属机构名义代理他人办理业务</div>
                     </div>
                 </div>
                 <div class="pop-box upload_auth_paper" :class="{show:showAuthPaper}">
                     <div class="pop-cont">
                         <div class="pop-title">上传授权委托书</div>
                         <div class="pop-close" @click="showAuthPaper=false">X</div>
-                        <div class="flex">
-                            <FileUpload v-model="sdata.authAttachment.path"></FileUpload>
-                            <div class="example">
-                                <img src="../../assets/img/test.jpg" alt="">
+                        <div class="upbox">
+                            <FileUpload
+                                    theme="card"
+
+                                    uptext="点击上传"
+                                    @fileSuccess="onFileUploaded"
+                                    splitor="sdata.authAttachment.path">
+                            </FileUpload>
+                            <div class="tip ptb20">
+                                <span style="color: red">注意：</span>
+                                <a href="#" class="cBlue"
+                                   @click.prevent="openExample(options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].exampleUrl)">查看</a>
+                                <span class="cGray">示例，</span>
+                                <a :href="options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].exampleUrl"
+                                   target="_blank" class="cBlue">下载示例</a>
                             </div>
                         </div>
-                        <p class="tip">申请人委托代理人办理登记事宜，具体委托事项如下：</p>
+                        <p class="desc">申请人委托代理人办理登记事宜，具体委托事项如下：</p>
                         <el-input placeholder="登记申请" v-model="sdata.authAttachment.remark"></el-input>
-                        <div class="btn-box">
+                        <div class="step-btns">
                             <el-button type="primary" @click="curStep=1">确 定</el-button>
                         </div>
                     </div>
@@ -214,7 +225,7 @@
                     </div>
                 </form>
                 <div class="step-btns">
-                    <a href="#" class="btn btn_blue" @click="curStep=2">下一步</a>
+                    <el-button type="primary" class="big" @click="curStep=2">下一步</el-button>
                 </div>
             </div>
             <div class="step step_2" v-show="curStep==2">
@@ -426,13 +437,13 @@
                         </div>
                     </div>
                 </form>
-                <div class="step-btns">
-                    <a href="#" class="btn" @click="curStep--">上一步</a>
-                    <a href="#" class="btn btn_blue" @click="curStep++">下一步</a>
+                <div class="step-btns big">
+                    <el-button @click="curStep--" class="big">上一步</el-button>
+                    <el-button type="primary" @click="curStep++" class="big">下一步</el-button>
                 </div>
             </div>
             <div class="step step_3" v-show="curStep==3">
-                <div class="info-box">
+                <div class="f_box">
                     <div class="info-title">作品信息</div>
                     <div class="info-cont">
                         <el-row>
@@ -485,26 +496,34 @@
                                 <span class="text">{{sdata.appearCountry+'-'+sdata.appearProvince+'-'+sdata.appearCity}}</span>
                             </el-col>
                         </el-row>
-                        <el-row class="sample">
-                            <div class="samples_multi" v-if="sdata.opusNature==1">
-                                <div class="sample_list" v-if="idx%3==0"
-                                     v-for="(_item,idx) in sdata.attachments[0].attachmentList">
-                                    <div class="item" v-if="(i>=idx)&&i<(idx+3)"
-                                         v-for="(ufile,i) in sdata.attachments[0].attachmentList">
-                                        <span class="txt">{{ufile.attachmentName}}</span>
+                        <el-row class="sample flex-info">
+                            <span class="label">作品样本：</span>
+                            <div class="sample-cont flex-1">
+                                <div class="samples_multi" v-if="sdata.opusNature==1">
+                                    <div class="sample_list" v-if="idx%3==0"
+                                         v-for="(_item,idx) in sdata.attachments[0].attachmentList">
+                                        <div class="item" v-if="(i>=idx)&&i<(idx+3)"
+                                             v-for="(ufile,i) in sdata.attachments[0].attachmentList">
+                                            <el-link type="primary" :href="ufile.path" target="_blank">
+                                                {{ufile.attachmentName}}
+                                            </el-link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="samples_multi" v-if="sdata.opusNature==2">
-                                <div class="ibox" v-for="(item,index) in sdata.attachments">
-                                    <div class="multi-info">
-                                        <span>第 {{index+1}} 件</span>
-                                        <div>{{item.segmentName}}</div>
-                                    </div>
-                                    <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
-                                        <div class="item" v-if="(i>=idx)&&i<(idx+3)"
-                                             v-for="(ufile,i) in item.attachmentList">
-                                            <span class="txt">{{ufile.attachmentName}}</span>
+                                <div class="samples_multi" v-if="sdata.opusNature==2">
+                                    <div class="ibox" v-for="(item,index) in sdata.attachments">
+                                        <div class="multi-info">
+                                            <span>第 {{index+1}} 件</span>
+                                            <div>{{item.segmentName}}</div>
+                                        </div>
+                                        <div class="sample_list" v-if="idx%3==0"
+                                             v-for="(_item,idx) in item.attachmentList">
+                                            <div class="item" v-if="(i>=idx)&&i<(idx+3)"
+                                                 v-for="(ufile,i) in item.attachmentList">
+                                                <el-link type="primary" :href="ufile.path" target="_blank">
+                                                    {{ufile.attachmentName}}
+                                                </el-link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -512,154 +531,340 @@
                         </el-row>
                     </div>
                 </div>
-                <div class="info-box">
+                <div class="f_box">
                     <div class="info-title">权属信息</div>
                     <div class="info-cont">
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">著作权人：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <div class="owner-line" v-for="(item,idx) in sdata.owners">
-                                    <span>{{formatOptionData('options_peopleKind',item.peopleKind)}}</span>
-                                    <span>{{item.name}}</span>
-                                    <span>{{item.country}}</span>
-                                    <span>{{item.province}}</span>
-                                    <span>{{item.city}}</span>
-                                    <span>{{formatOptionData('options_idType',item.idType)}}</span>
-                                    <span>{{item.idNumber}}</span>
+                            <el-col :span="21">
+                                <div class="owner-box" v-for="(item,idx) in sdata.owners">
+                                    <div class="owner-title">第 {{idx+1}} 位</div>
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <p>{{formatOptionData('options_peopleKind',item.peopleKind)}}</p>
+                                            <p>{{item.country}}</p>
+                                            <p>居民身份证</p>
+                                            <p>手机号码</p>
+                                        </div>
+                                        <div class="item">
+                                            <p>{{item.name}}</p>
+                                            <p>{{item.province + '-' + item.city}}</p>
+                                            <p>{{formatOptionData('options_idType',item.idType)}}</p>
+                                            <p>{{item.idNumber}}</p>
+                                        </div>
+                                        <div class="item card">
+                                            <p><img :src="item.cardFront" alt=""></p>
+                                            <p><img :src="item.cardBack" alt=""></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">作者：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <div class="owner-line" v-for="(item,idx) in sdata.authors">
-                                    <span>{{item.name}}</span>
-                                    <span>{{item.signature}}</span>
+                            <el-col :span="21">
+                                <div class="owner-box" v-for="(item,idx) in sdata.authors">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <p>{{item.name}}</p>
+                                        </div>
+                                        <div class="item">
+                                            <p>{{item.signature}}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">权利归属方式：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <span class="text">{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</span>
-                                <img class="up_img" :src="sdata.rightOwnTypeAttachment.relevantFileName" alt="">
+                            <el-col :span="21">
+                                <div class="owner-box">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <p>{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</p>
+                                            <img class="up_img" :src="sdata.rightOwnTypeAttachment.relevantFileName"
+                                                 alt="">
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">权利取得方式：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <span class="text">{{formatOptionData('options_obtainType',sdata.obtainType)}}</span>
-                                <img v-for="(item,idx) in sdata.obtainTypeAttachment" class="up_img"
-                                     :src="item.path" alt="">
+                            <el-col :span="21">
+                                <div class="owner-box">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <p>{{formatOptionData('options_obtainType',sdata.obtainType)}}</p>
+                                            <div class="img-list">
+                                                <img v-for="(item,idx) in sdata.obtainTypeAttachment" class="up_img"
+                                                     :src="item.path" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">权利拥有状况：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <span class="text">{{formatOptionData('options_rightScope',sdata.rightScope)}}</span>
-                                <br>
-                                <span class="radio-text" v-for="(item,idx) in sdata.rightScopePart">
-                                    {{formatOptionData('options_rightScopePart',item)}}
-                                </span>
+                            <el-col :span="21">
+                                <div class="owner-box">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <p>{{formatOptionData('options_rightScope',sdata.rightScope)}}</p>
+                                            <div class="info-list">
+                                               <span class="radio-text" v-for="(item,idx) in sdata.rightScopePart">
+                                                    {{formatOptionData('options_rightScopePart',item)}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                         </el-row>
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">作品说明书：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <img class="up_img" :src="sdata.opusDescriptionAttachment.path" alt="">
+                            <el-col :span="21">
+                                <div class="owner-box">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <img class="up_img" :src="sdata.opusDescriptionAttachment.path" alt="">
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                         </el-row>
                         <el-row v-if="sdata.applyType=='2'">
-                            <el-col :span="4">
+                            <el-col :span="3">
                                 <span class="label">授权委托书：</span>
                             </el-col>
-                            <el-col :span="20">
-                                <img class="up_img" :src="sdata.authAttachment.path" alt="">
+                            <el-col :span="21">
+                                <div class="owner-box">
+                                    <div class="owner-info">
+                                        <div class="item">
+                                            <img class="up_img" :src="sdata.authAttachment.path" alt="">
+                                        </div>
+                                    </div>
+                                </div>
                             </el-col>
                         </el-row>
-                        <div class="sampleRetention">
-                            <div class="info-title">留存作品样本：</div>
-                            <el-row>
-                                <el-col :span="4">
-                                    选择介质
-                                </el-col>
-                                <el-col :span="20">
-                                    <el-radio-group v-model="sdata.sampleRetentionMedium">
-                                        <el-radio-button v-for="(item,idx) in options.options_sampleRetentionMedium"
-                                                         :key="item.val"
-                                                         :label="item.val">
-                                            {{item.text}}
-                                        </el-radio-button>
-                                    </el-radio-group>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="4">
-                                    * 是否附图盖章
-                                </el-col>
-                                <el-col :span="20">
-                                    <el-radio-group v-model="sdata.needStamp">
-                                        <el-radio-button v-for="(item,idx) in options.options_needStamp"
-                                                         :key="item.val"
-                                                         :label="item.val">
-                                            {{item.text}}
-                                        </el-radio-button>
-                                    </el-radio-group>
-                                </el-col>
-                            </el-row>
-                        </div>
-                        <div class="sampleRetention">
-                            <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
-
-                            <el-radio-group v-model="sdata.registrationMethod" class="big">
-                                <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
-                                                 :key="item.val"
-                                                 :label="item.val">
-                                    {{item.text}}
-                                </el-radio-button>
-                            </el-radio-group>
-                            <el-row >
-                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
-                                <p>邮编：10000</p>
-                            </el-row>
-                        </div>
-                        <div class="sampleRetention">
-                            <div class="info-title">证书领取方式：</div>
-
-                            <el-radio-group v-model="sdata.certificateCollectionMethod" class="big">
-                                <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
-                                                 :key="item.val"
-                                                 :label="item.val">
-                                    {{item.text}}
-                                </el-radio-button>
-                            </el-radio-group>
-                            <el-row v-if="sdata.certificateCollectionMethod!='MAIL'">
-                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
-                                <p>邮编：10000</p>
-                            </el-row>
-                            <el-row v-else>
-                                <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
-                                <p>邮编：10000</p>
-                            </el-row>
-
-                        </div>
                     </div>
                 </div>
-                <div class="step-btns">
-                    <a href="#" class="btn" @click="curStep--">上一步</a>
-                    <a href="#" class="btn btn_blue" @click="curStep++">下一步</a>
+                <div class="f_box sampleRetention">
+                    <div class="info-title">留存作品样本：</div>
+                    <el-row>
+                        <el-col :span="3">
+                            <span class="label"><span class="tip">*</span>选择介质：</span>
+                        </el-col>
+                        <el-col :span="21">
+                            <el-radio-group v-model="sdata.sampleRetentionMedium">
+                                <el-radio-button v-for="(item,idx) in options.options_sampleRetentionMedium"
+                                                 :key="item.val"
+                                                 :label="item.val">
+                                    {{item.text}}
+                                </el-radio-button>
+                            </el-radio-group>
+                        </el-col>
+                    </el-row>
+                    <el-row style="padding-top: 20px">
+                        <el-col :span="3">
+                            <span class="label"><span class="tip">*</span>是否附图盖章：</span>
+                        </el-col>
+                        <el-col :span="21">
+                            <el-radio-group v-model="sdata.needStamp">
+                                <el-radio-button v-for="(item,idx) in options.options_needStamp"
+                                                 :key="item.val"
+                                                 :label="item.val">
+                                    {{item.text}}
+                                </el-radio-button>
+                            </el-radio-group>
+                        </el-col>
+                    </el-row>
+                </div>
+                <div class="f_box sampleRetention">
+                    <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
+
+                    <el-radio-group v-model="sdata.registrationMethod" class="big">
+                        <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
+                                         :key="item.val"
+                                         :label="item.val">
+                            {{item.text}}
+                        </el-radio-button>
+                    </el-radio-group>
+                    <el-row>
+                        <div class="way-box">
+                            <div class="way-check-box on">
+                                <div class="w-title">中国版权保护中心版权登记大厅（天桥）</div>
+                                <div class="w-info">北京市西城区天桥南大街1号天桥艺术大厦A座三层302</div>
+                            </div>
+                            <div class="way-check-box">
+                                <div class="w-title">雍和版权登记大厅</div>
+                                <div class="w-info">北京市东城区安定门东大街28号雍和大厦西楼一层</div>
+                            </div>
+                            <div class="way-check-box">
+                                <div class="w-title">雍和版权登记大厅</div>
+                                <div class="w-info">成都市高新区益州大道中段1858号</div>
+                            </div>
+                        </div>
+                        <div class="icon-more on">展开更多 <img src="../../assets/img/steps/icon_down.png"></div>
+                    </el-row>
+                </div>
+                <div class="f_box sampleRetention">
+                    <div class="info-title">证书领取方式：</div>
+
+                    <el-radio-group v-model="sdata.certificateCollectionMethod" class="big">
+                        <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
+                                         :key="item.val"
+                                         :label="item.val">
+                            {{item.text}}
+                        </el-radio-button>
+                    </el-radio-group>
+                    <div class="ways">
+                        <div class="way-box">
+                            <div class="way-check-box on">
+                                <div class="w-title">中国版权保护中心版权登记大厅（天桥）</div>
+                                <div class="w-info">北京市西城区天桥南大街1号天桥艺术大厦A座三层302</div>
+                            </div>
+                            <div class="way-check-box">
+                                <div class="w-title">雍和版权登记大厅</div>
+                                <div class="w-info">北京市东城区安定门东大街28号雍和大厦西楼一层</div>
+                            </div>
+                            <div class="way-check-box">
+                                <div class="w-title">雍和版权登记大厅</div>
+                                <div class="w-info">成都市高新区益州大道中段1858号</div>
+                            </div>
+                        </div>
+                        <div class="icon-more on">展开更多 <img src="../../assets/img/steps/icon_down.png"></div>
+                    </div>
+                    <el-row v-if="sdata.certificateCollectionMethod!='MAIL'">
+                        <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
+                        <p>邮编：10000</p>
+                    </el-row>
+                    <el-row v-else>
+                        <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
+                        <p>邮编：10000</p>
+                    </el-row>
+
+                </div>
+                <div class="step-btns big">
+                    <el-button @click="curStep--" class="big">上一步</el-button>
+                    <el-button type="primary" @click="curStep++" class="big">下一步</el-button>
+                </div>
+            </div>
+            <div class="step step_4" v-show="curStep==4">
+                <div class="f_box">
+                    <div class="info-title">
+                        <span>请递交以下申请材料，并按要求签字或盖章</span>
+                        <div class="print-all">
+                            <img src="../../assets/img/steps/icon-print.png" alt="">
+                            <span>打印全部</span>
+                        </div>
+                    </div>
+                    <el-table
+                            class="print-table"
+                            :data="printData"
+                            align="center"
+                            header-align="center"
+                            style="width: 100%">
+                        <el-table-column
+                                type="index"
+                                label="序号"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="p_name"
+                                label="材料名称"
+                                width="350">
+                        </el-table-column>
+                        <el-table-column
+                                prop="p_require"
+                                label="要求"
+                                width="408">
+                        </el-table-column>
+                        <el-table-column
+                                label="操作">
+                            <template slot-scope="scope">
+                                <el-button
+                                        type="text"
+                                        @click="doDetail()" style="color: #666666;margin-right: 10px">查看
+                                </el-button>
+                                <el-button
+                                        type="text"
+                                        @click="doDetail()">打印
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="icon-more" style="justify-content: center">展开更多 <img
+                            src="../../assets/img/steps/icon_down.png"></div>
+                </div>
+                <div class="f_box">
+                    <div class="info-title">
+                        <span>请按以下要求准备作品样本</span>
+                        <div class="print-all">
+                            <img src="../../assets/img/steps/icon-print.png" alt="">
+                            <span>打印全部</span>
+                        </div>
+                    </div>
+                    <el-table
+                            class="print-table"
+                            :data="printData"
+                            align="center"
+                            header-align="center"
+                            style="width: 100%">
+                        <el-table-column
+                                type="index"
+                                label="序号"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="p_name"
+                                label="材料名称"
+                                width="350">
+                        </el-table-column>
+                        <el-table-column
+                                prop="p_require"
+                                label="要求"
+                                width="408">
+                        </el-table-column>
+                        <el-table-column
+                                label="操作">
+                            <template slot-scope="scope">
+                                <el-button
+                                        type="text"
+                                        @click="doDetail()" style="color: #666666;margin-right: 10px">查看
+                                </el-button>
+                                <el-button
+                                        type="text"
+                                        @click="doDetail()">打印
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <div class="icon-more" style="justify-content: center">展开更多 <img
+                            src="../../assets/img/steps/icon_down.png"></div>
+                </div>
+                <div class="step-btns big">
+                    <el-button type="primary" @click="curStep++" class="big">已打印，去递交材料</el-button>
+                </div>
+            </div>
+            <div class="step step_5" v-show="curStep==5">
+                您已提交作品版权登记申请，请尽快向中国版权保护中心递交纸质申请材料
+                <div class="step-btns big">
+                    <el-button type="primary" @click="" class="big">继续登记</el-button>
+                    <el-button type="primary" @click="" class="big">查看已登记申请</el-button>
                 </div>
             </div>
         </div>
@@ -684,13 +889,31 @@
                     }
                 ],
                 options: options,
-                curStep: 3,
+                curStep: 5,
                 showAuthPaper: false,
                 timeLength: {
                     h: '',
                     m: '',
                     s: ''
                 },
+                printData: [
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    }
+                ],
                 sdata: {
                     "accountId": "133618064657874944",
                     "appearCity": "AppearCity",
@@ -797,9 +1020,11 @@
                     "owners": [
                         {
                             "applyCopy": "0",
-                            "cardBack": "back",
-                            "cardFront": "font",
+                            "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
+                            "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
                             "country": "中国",
+                            "province": "省",
+                            "city": "城市",
                             "idNumber": "1401111111",
                             "idType": "1",
                             "mobile": "130111111",
@@ -808,9 +1033,11 @@
                             "role": "PET"
                         }, {
                             "applyCopy": "1",
-                            "cardBack": "back",
-                            "cardFront": "font",
+                            "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
+                            "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
                             "country": "阿拉斯加",
+                            "province": "省",
+                            "city": "城市",
                             "idNumber": "1501111111",
                             "idType": "1",
                             "mobile": "120111111",
@@ -830,6 +1057,136 @@
                     rightScopePart: ["1", "2"],
                     "sampleRetentionMedium": "1"
                 },
+                fdata: {
+                    "msg": "Operate success",
+                    "data": {
+                        "z11RegisterApplyInfoVo": {
+                            "accountId": "账户Id",
+                            "applyType": "申请方式",
+                            "authAttachment": {
+                                "attachmentId": "附件Id",
+                                "flowNumber": "流水号",
+                                "segmentName": "系列名称",
+                                "attachmentName": "附件名称",
+                                "relevantFileName": "附件类型，系列作品附件附件类型为null",
+                                "path": "路径",
+                                "remark": "备注",
+                                "createTime": "创建时间",
+                                "updateTime": "修改时间",
+                                "baseId": null
+                            },
+                            "opusName": "作品名称",
+                            "opusType": "作品类型",
+                            "opusTypeDesc": "作品类型说明",
+                            "opusInditeType": "创作性质",
+                            "completeDate": "创作完成日期",
+                            "completeCountry": "创作完成国家",
+                            "completeProvince": "创作完成省份",
+                            "completeCity": "创作完成城市",
+                            "publishStatus": "发表状态",
+                            "appearDate": "首次发表日期",
+                            "appearCountry": "首次发表国家",
+                            "appearProvince": "首次发表省份",
+                            "appearCity": "首次发表城市",
+                            "opusNature": "首次发表作品性质",
+                            "opusInfo": "最长作品字数/时长（传入字数或秒数字符串）",
+                            "attachments": [],
+                            "rightOwnType": "权利归属",
+                            "rightOwnTypeAttachment": "权利归属附件",
+                            "owners": [
+                                {
+                                    "id": "ID",
+                                    "flowNumber": "流水号",
+                                    "role": "用户角色",
+                                    "name": "用户名称",
+                                    "peopleKind": "人员类别",
+                                    "enterpriseType": "企业类型",
+                                    "idType": "证件类型",
+                                    "idNumber": "证件id",
+                                    "country": "国家",
+                                    "province": "省",
+                                    "city": "城市",
+                                    "park": "园区",
+                                    "address": "详细地址",
+                                    "phone": "电话号码",
+                                    "mobile": "手机号码",
+                                    "postcode": "邮编",
+                                    "fax": "传真",
+                                    "email": "邮箱",
+                                    "contactPerson": "联系人",
+                                    "applyType": "申请类型",
+                                    "sign": "",
+                                    "opusRightType": "",
+                                    "applyPeople": "申请人",
+                                    "opusSign": "",
+                                    "cnName": "中文名",
+                                    "enName": "英文名",
+                                    "impawnType": "",
+                                    "legalPeople": "",
+                                    "unitCode": "",
+                                    "unitName": "",
+                                    "applyCopy": "是否申请副本",
+                                    "busType": "",
+                                    "linkmannum": "",
+                                    "updateTime": "修改时间",
+                                    "createTime": "创建时间",
+                                    "source": "数据来源",
+                                    "cardFront": "身份证正面地址",
+                                    "cardBack": "身份证反面地址",
+                                    "realId": "",
+                                    "baseId": ""
+                                }
+                            ],
+                            "authors": "作者信息",
+                            "obtainType": "权利取得方式",
+                            "obtainTypeAttachment": "权利取得方式附件，与上面authAttachment字段相同",
+                            "rightScope": "权利拥有状况（如果权利拥有状况为全部，此项为空即可；如果是部分，各个权利id为string类型）",
+                            "rightScopePart": "权利拥有状况详细",
+                            "opusDescriptionAttachment": "作品说明书附件，与上面authAttachment字段相同",
+                            "sampleRetentionMedium": "选择介质",
+                            "needStamp": "是否附图盖章",
+                            "registrationMethod": "登记办理方式",
+                            "certificateCollectionMethod": "证书领取方式",
+                            "certificateCollectionAddress": "证书领取地址"
+                        },
+                        "reFillin": [
+                            "accountId",
+                            "applyType",
+                            "authAttachment",
+                            "opusName",
+                            "opusType",
+                            "opusTypeDesc",
+                            "opusInditeType",
+                            "completeDate",
+                            "completeCountry",
+                            "completeProvince",
+                            "completeCity",
+                            "publishStatus",
+                            "appearDate",
+                            "appearCountry",
+                            "appearProvince",
+                            "appearCity",
+                            "opusNature",
+                            "opusInfo",
+                            "attachments",
+                            "rightOwnType",
+                            "rightOwnTypeAttachment",
+                            "owners",
+                            "authors",
+                            "obtainType",
+                            "obtainTypeAttachment",
+                            "rightScope",
+                            "rightScopePart",
+                            "opusDescriptionAttachment",
+                            "sampleRetentionMedium",
+                            "needStamp",
+                            "registrationMethod",
+                            "certificateCollectionMethod",
+                            "certificateCollectionAddress"
+                        ]
+                    },
+                    "returnCode": "SUCCESS"
+                }
             }
         },
 
