@@ -191,6 +191,7 @@ export default {
     },
   },
   created() {
+      console.log(this.userId)
     if(this.userId) axios(this.getAddressList + `/${this.userId}`).then(res => {
       if (res.data) this.addressList.push(...res.data)
     })

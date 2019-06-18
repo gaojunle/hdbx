@@ -435,6 +435,29 @@ const options = {
             text: '邮寄到中国版权保护中心'
         }
     ],
+    options_registrationMethod_TQ: [
+        {
+            val: '1',
+            name: '中国版权保护中心版权登记大厅（天桥）',
+            addr: '北京市西城区天桥南大街1号天桥艺术大厦A座三层302'
+        },
+        {
+            val: '2',
+            name: '雍和版权登记大厅',
+            addr: '北京市东城区安定门东大街28号雍和大厦西楼一层'
+        },
+        {
+            val: '3',
+            name: '雍和版权登记大厅',
+            addr: '成都市高新区益州大道中段1858号'
+        },
+        {
+            val: '4',
+            name: '雍和版权登记大厅11',
+            addr: '成都市高新区益州大道中段1858号11'
+        },
+    ],
+
     //证书领取方式
     options_certificateCollectionMethod: [
         {
