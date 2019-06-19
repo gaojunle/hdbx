@@ -2,8 +2,6 @@
     <div class="content">
         <div class="nav-title">Z11 作品著作权登记申请</div>
         <StepsList :curStep="$route.params.step"></StepsList>
-        <receiveMode v-model="sdata.receiveType"></receiveMode>
-        <fileUpload :autoUpload="true"></fileUpload>
         <div class="step step_0" v-show="$route.params.step==0">
             <div class="mbox">
                 <div class="person" @click="stepNext($route.params.step,1)">
@@ -25,8 +23,8 @@
                         <FileUpload
                                 theme="card"
                                 uptext="点击上传"
-                                @fileSuccess="onFileUploaded"
-                                splitor="sdata.authAttachment.path">
+                                :path="sdata.authAttachment.path"
+                                @fileSuccess="((params)=>{onFileUploaded(params,'authAttachment','single')})">
                         </FileUpload>
                         <div class="tip ptb20">
                             <span style="color: red">注意：</span>
@@ -185,8 +183,12 @@
                 <div class="f_box sample" v-if="sdata.opusType=='A'||sdata.opusType=='G'">
                     <span class="title required">作品样本：</span>
                     <div class="samples_multi" v-if="sdata.opusNature==1">
-                        <FileUpload @fileSuccess="onFileUploaded" theme="btn" uptext="上传"
-                                    :splitor="'attachments[0].attachmentList'"></FileUpload>
+                        <FileUpload
+                                @fileSuccess="((params)=>{onFileUploaded(params,'attachments[0].attachmentList','multi')})"
+                                theme="btn"
+                                uptext="上传">
+                        </FileUpload>
+
                         <div class="sample_list" v-if="idx%3==0"
                              v-for="(_item,idx) in sdata.attachments[0].attachmentList">
                             <div class="item" v-if="(i>=idx)&&i<(idx+3)"
@@ -205,6 +207,7 @@
                                     <el-input v-model="item.segmentName" placeholder="请输入系列作品名称"></el-input>
                                 </div>
                             </div>
+
                             <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
                                 <div class="item" v-if="(i>=idx)&&i<(idx+3)"
                                      v-for="(ufile,i) in item.attachmentList">
@@ -213,11 +216,11 @@
                                           @click="removeUploadFile('attachments['+index+'].attachmentList',i)">删除</span>
                                 </div>
                             </div>
+
                             <FileUpload style="margin-top: 20px;"
-                                        @fileSuccess="onFileUploaded"
+                                        @fileSuccess="((params)=>{onFileUploaded(params,'attachments['+index+'].attachmentList','multi')})"
                                         theme="btn"
-                                        uptext="上传"
-                                        :splitor="'attachments['+index+'].attachmentList'"></FileUpload>
+                                        uptext="上传"></FileUpload>
                         </div>
                         <el-button type="text" @click="addApus">+添加作品</el-button>
                     </div>
@@ -244,8 +247,8 @@
                                 theme="card"
                                 class="ptb20"
                                 :uptext="options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].text"
-                                @fileSuccess="onFileUploaded"
-                                splitor="rightOwnTypeAttachment">
+                                :path="sdata.rightOwnTypeAttachment.path"
+                                @fileSuccess="((params)=>{onFileUploaded(params,'rightOwnTypeAttachment','single')})">
                         </FileUpload>
                         <div class="tip ">
                             <span style="color: red">注意：</span>
@@ -329,10 +332,16 @@
                             </div>
                             <div class="f_right">
                                 <div class="copy_upload">
-                                    <FileUpload @fileSuccess="onFileUploaded" theme="idcard" uptext="上传人像面"
-                                                :splitor="'owners['+idx+'].cardFront'"></FileUpload>
-                                    <FileUpload @fileSuccess="onFileUploaded" theme="idcard" uptext="上传国徽面"
-                                                :splitor="'owners['+idx+'].cardBack'"></FileUpload>
+                                    <FileUpload
+                                            @fileSuccess="((params)=>{onFileUploaded(params,'owners['+idx+'].cardFront','single')})"
+                                            theme="idcard"
+                                            :path="sdata.owners[idx].cardFront.path"
+                                            uptext="上传人像面"></FileUpload>
+                                    <FileUpload
+                                            @fileSuccess="((params)=>{onFileUploaded(params,'owners['+idx+'].cardBack','single')})"
+                                            theme="idcard"
+                                            :path="sdata.owners[idx].cardBack.path"
+                                            uptext="上传国徽面"></FileUpload>
                                 </div>
                             </div>
                             <div class="opts">
@@ -387,7 +396,7 @@
                              :key="idx">
                             <FileUpload class="ptb20"
                                         theme="card"
-                                        @fileSuccess="onFileUploaded"
+                                        @fileSuccess="((params)=>{onFileUploaded(params,'obtainTypeAttachment['+idx+'].filePath')})"
                                         :path="sdata.obtainTypeAttachment[idx].path ? sdata.obtainTypeAttachment[idx].path:''"
                                         :uptext="item.text"
                                         :splitor="'obtainTypeAttachment['+idx+'].filePath'">
@@ -426,8 +435,10 @@
                 <!--作品说明书-->
                 <div class="f_box">
                     <span class="title required">作品说明书：</span>
-                    <FileUpload @fileSuccess="((params)=>{onFileUploaded(params,'123')})"
-                                splitor="opusDescriptionAttachment"></FileUpload>
+                    <FileUpload
+                            :path="sdata.opusDescriptionAttachment.path"
+                            @fileSuccess="((params)=>{onFileUploaded(params,'opusDescriptionAttachment')})">
+                    </FileUpload>
                     <div class="tip">
                         <span style="color: red">注意：</span>
                         <a href="#" class="cBlue">查看</a>
@@ -748,10 +759,8 @@
                     <p>邮编：10000</p>
                 </el-row>
                 <el-row v-else>
-                    <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
-                    <p>邮编：10000</p>
+                    <receiveMode v-model="sdata.receiveType"></receiveMode>
                 </el-row>
-
             </div>
             <div class="step-btns big">
                 <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
@@ -874,7 +883,7 @@
     import receiveMode from '@share/components/softQuery/receiveMode'
 
     export default {
-        components: {StepsList, FileUpload, LoadMore, receiveMode,fileUpload},
+        components: {StepsList, FileUpload, LoadMore, receiveMode, fileUpload},
         data() {
             return {
                 crumb: [
@@ -1009,7 +1018,7 @@
                     "opusInfo": "11111",
                     "opusName": "TestOpus",
                     "opusNature": "2",
-                    "opusType": 'H',
+                    "opusType": 'G',
                     "opusTypeDesc": "作品描述xxx",
                     "owners": [
                         {
@@ -1213,12 +1222,7 @@
             },
             stepPrev(step, applyType) {
                 step = parseInt(step);
-                switch (step) {
-                    case 0:
-                        this.sdata.applyType = applyType;
-                        this.$router.push('/index/' + (++step))
-                        break;
-                }
+                this.$router.push('/index/' + (--step))
             },
             //将select字段值转为text显示
             formatOptionData(option, val) {
@@ -1236,13 +1240,21 @@
                 tmp.splice(idx, 1);
             },
             //文件上传成功回调
-            onFileUploaded(params, ref) {
-                console.log(params, ref)
-                let tmp = this._splitor(params.splitor);
-                tmp.push({
-                    attachmentName: params.fileName,
-                    path: params.filePath
-                });
+            onFileUploaded(uploadedParams, dataRef, type) {
+                console.log(uploadedParams, dataRef, type)
+                if (type == 'single') {
+                    let refData = this._splitor(dataRef, type);
+                    console.log(refData)
+                    refData.attachmentName = uploadedParams.fileName;
+                    refData.path = uploadedParams.filePath;
+                    console.log(this.sdata)
+                } else {
+                    let tmp = this._splitor(dataRef);
+                    tmp.push({
+                        attachmentName: uploadedParams.fileName,
+                        path: uploadedParams.filePath
+                    });
+                }
             },
             //打开示例
             openExample(url) {
@@ -1319,8 +1331,9 @@
             handleCityChange(param, p) {
                 console.log(param, p)
             },
-            _splitor(splitor) {
+            _splitor(splitor, type) {
                 var tmp = null;
+                console.log(splitor)
                 splitor.split(/[\.(\[.\])]/).forEach((val, i, t) => {
                     if (val) {
                         tmp = (tmp ? tmp[val] : this.sdata[val]);

@@ -4,6 +4,7 @@
             @file-added="onFileAdded"
             @file-success="onFileSuccess"
             @file-error="onFileError"
+            :headers="headers"
             class="uploader-box"
             :class="theme">
         <!--按钮式上传-->
@@ -16,7 +17,7 @@
                 <span class="uptxt">{{uptext||'点击上传'}}</span>
             </uploader-btn>
             <div v-if="previeImgPath" class="preview-box">
-                <img class="previeImgPath" :src="previeImgPath" alt="">
+                <img class="previeImgPath" :src="previeImgPath" alt="已上传图片">
             </div>
         </uploader-drop>
         <uploader-drop v-if="theme=='idcard'">  <!--身份证上传-->
@@ -29,27 +30,12 @@
             </div>
         </uploader-drop>
     </uploader>
-    <!--
-    <el-upload
-            class="upload-box single"
-            list-type="picture-card"
-            :accept="uploadAccept"
-            :show-file-list="false"
-            :action="uploadUrl"
-            :before-upload="((file)=>{handleBeforeUpload(file, 'authAttachment.path')})"
-            :on-success="handleUploadSuccess"
-            :limit="1">
-        <div v-if="previeImgPath" class="preview-box">
-            <img class="previeImgPath" :src="previeImgPath" alt="">
-        </div>
-        <i class="el-icon-plus"></i>
-    </el-upload>
-    -->
 </template>
 
 <script>
     import Vue from 'vue'
     import uploader from 'vue-simple-uploader'
+    import {API_HOST} from '@share/api/config'
 
     Vue.use(uploader)
 
@@ -76,7 +62,7 @@
                 default() {
                     return {
                         // https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js
-                        target: '//localhost:3000/upload',
+                        target: API_HOST + '/fileServer',
                         fileParameterName: 'file', //上传文件时文件的参数名，默认file
                         testChunks: false,
                         singleFile: true,
@@ -89,7 +75,12 @@
                 attrs: {
                     accept: 'image/*'
                 },
-                previeImgPath: this.path
+                previeImgPath: this.path,
+                headers: {
+                    Authorization: 'Bearer ' + (getCookie() ? getCookie().authorization_token : ''),
+                    authorization_token: getCookie() ? getCookie().authorization_token : '',
+                    authorization_key: getCookie() ? getCookie().authorization_key : '',
+                },
             }
         },
         watch: {
@@ -100,24 +91,21 @@
         },
         methods: {
             onFileAdded(evt) {
-                this.$emit('fileSuccess', {
-                    splitor: this.splitor,
-                    filePath: evt.name,
-                    fileName: evt.name
-                })
-                if (this.theme == 'card' || this.theme == 'idcard') {
+                /*if (this.theme == 'card' || this.theme == 'idcard') {
                     const reader = new FileReader()
                     reader.onload = (e) => {
                         this.previeImgPath = e.target.result;
                     }
                     reader.readAsDataURL(evt.file)
-                }
+                }*/
             },
             onFileSuccess(rootFile, file, response, chunk) {
                 let res = JSON.parse(response);
-
-                //Bus.$emit('fileSuccess', res);
-                console.log('上传成功');
+                //console.log(file);
+                this.$emit('fileSuccess', {
+                    filePath: res.data.filePath,
+                    fileName: file.name
+                })
             },
 
             onFileError(rootFile, file, response, chunk) {
