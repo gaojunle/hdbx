@@ -453,6 +453,19 @@
             </div>
         </div>
         <div class="step step_3" v-show="$route.params.step==3">
+            <el-select
+                    v-model="selCountry"
+                    filterable
+                    placeholder="请选择国家"
+                    @change="selCountryChange">
+                <el-option
+                        v-for="item in countrys"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id">
+                </el-option>
+            </el-select>
+            <el-cascader v-if="selCountry" :props="props"></el-cascader>
             <div class="f_box">
                 <div class="info-title">作品信息</div>
                 <div class="info-cont">
@@ -880,12 +893,46 @@
     import FileUpload from '../components/FileUpload'
     import LoadMore from '../components/LoadMore'
     import fileUpload from '@share/components/common/fileUpload'
-    import receiveMode from '@share/components/softQuery/receiveMode'
+    import receiveMode from '../components/receiveMode'
+    import areaFun from '@share/js/common/area'
 
+    var selCountry = ''
     export default {
         components: {StepsList, FileUpload, LoadMore, receiveMode, fileUpload},
         data() {
             return {
+                props: {
+                    lazy: true,
+                    async lazyLoad(node, resolve) {
+                        setTimeout(async () => {
+                            let citys = null;
+
+                            if (!selCountry) {
+                                resolve([])
+                                return;
+                            } else {
+                                if (node.root == true) {
+                                    citys = await areaFun.getArea('Province', selCountry);
+                                } else {
+                                    var {id, lvl} = node.data._d;
+                                    let apiName = (lvl == 2 ? 'City' : 'Area')
+                                    citys = await areaFun.getArea(apiName, id);
+                                }
+
+                                const nodes = citys.map(item => ({
+                                    value: item.id,
+                                    label: item.name,
+                                    leaf: item.hasChildren == 0,
+                                    _d: item
+                                }));
+                                // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                                resolve(nodes);
+                            }
+                        }, 100);
+                    }
+                },
+                countrys: [],
+                selCountry: '001',
                 crumb: [
                     {
                         name: '申请作品登记查询'
@@ -1340,6 +1387,16 @@
                     }
                 })
                 return tmp;
+            },
+            selCountryChange(val) {
+                this.selCountry = '';
+                selCountry = '';
+                this.$nextTick(() => {
+                    setTimeout(() => {
+                        this.selCountry = val;
+                        selCountry = val;
+                    }, 100)
+                })
             }
         },
         watch: {
@@ -1354,8 +1411,9 @@
                 this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
             },
         },
-        mounted() {
-            console.log(this.$route)
+        async mounted() {
+            this.countrys = await areaFun.getArea('Country')
+            selCountry = this.selCountry
         }
     }
 </script>

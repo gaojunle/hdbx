@@ -1,0 +1,52 @@
+.print-components {
+  padding-top: 50px;
+}
+.print-components > .buttons {
+  width: 500px;
+  margin: 0 auto;
+}
+.print-components > .buttons > div {
+  float: left;
+  width: 200px;
+  height: 40px;
+  background-color: #169bd5;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
+.print-components > .buttons > .print {
+  float: right;
+}
+.print-components > .swiper-container {
+  width: 500px;
+  height: 1000px;
+}
+.print-components > .swiper-container > .swiper-wrapper {
+  height: 500px;
+}
+.print-components > .swiper-container > .swiper-wrapper > .swiper-slide {
+  width: 100%;
+}
+.print-components > .prev-next {
+  position: fixed;
+  width: 800px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+.print-components > .prev-next > div {
+  position: absolute;
+  top: 0;
+  margin-top: -20px;
+  font-size: 40px;
+  cursor: pointer;
+}
+.print-components > .prev-next > .prev {
+  left: 0;
+}
+.print-components > .prev-next > .next {
+  right: 0;
+}

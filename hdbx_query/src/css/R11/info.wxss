@@ -1,0 +1,120 @@
+.info {
+  width: 1200px;
+  margin: 0 auto;
+}
+.info > .from {
+  width: 800px;
+  margin: 0 auto;
+}
+.info > .from > .trunk {
+  position: relative;
+  margin-bottom: 30px;
+}
+.info > .from > .trunk > .hd-input > label > .text {
+  width: 150px;
+}
+.info > .from > .trunk > .hd-input > label > .text > span {
+  float: right;
+}
+.info > .from > .trunk > .hd-input > label > input {
+  margin-left: 50px;
+}
+.info > .from > .trunk > label {
+  width: 150px;
+  height: 32px;
+  line-height: 32px;
+  float: left;
+  margin-right: 50px;
+}
+.info > .from > .trunk > label > span {
+  float: right;
+  position: relative;
+  padding-left: 14px;
+}
+.info > .from > .trunk > label > span:after {
+  display: block;
+  content: "*";
+  position: absolute;
+  color: red;
+  top: 3px;
+  left: 0;
+}
+.info > .from > .trunk > .explain {
+  float: left;
+}
+.info > .from > .trunk > .el-date-editor {
+  float: left;
+  width: 502px;
+}
+.info > .from > .trunk > ul {
+  float: left;
+}
+.info > .from > .trunk > ul > li {
+  float: left;
+  margin-right: 80px;
+  padding-top: 6px;
+}
+.info > .from > .trunk > .address {
+  float: left;
+}
+.info > .from > .trunk > textarea {
+  width: 478px;
+  border: 1px solid #d7d7d7;
+  resize: none;
+  outline: none;
+  padding: 10px;
+}
+.info > .from > .trunk > .el-select {
+  width: 500px;
+}
+.info > .from > .trunk > .input-box {
+  float: left;
+}
+.info > .from > .trunk > .input-box > div {
+  float: left;
+  line-height: 32px;
+  margin: 0 20px;
+}
+.info > .from > .trunk > .input-box > .hd-input {
+  margin: 0;
+}
+.info > .from > .trunk > .input-box > .hd-input > label > input {
+  margin-left: 0;
+}
+.info > .from > .trunk > .error {
+  position: absolute;
+  bottom: -20px;
+  left: 202px;
+  color: red;
+}
+.info > .from > .trunk > .error-page {
+  left: 460px;
+}
+.info > .from > .trunk > .tip {
+  position: absolute;
+  bottom: -20px;
+  left: 202px;
+  color: red;
+}
+.info > .buttons {
+  width: 500px;
+  margin: 50px auto 0;
+}
+.info > .buttons > div {
+  width: 140px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+}
+.info > .buttons > .prev {
+  float: left;
+  border: 1px solid #c7c7c7;
+}
+.info > .buttons > .next {
+  float: right;
+  color: #fff;
+  background-color: #169bd5;
+}

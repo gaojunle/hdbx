@@ -1,0 +1,49 @@
+.submit > .from {
+  width: 1000px;
+  margin: 0 auto;
+}
+.submit > .from > .agentProxy {
+  margin-bottom: 20px;
+}
+.submit > .from > .agentProxy > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+  margin-bottom: 20px;
+}
+.submit > .from > .agentProxy > img {
+  margin-left: 160px;
+  width: 160px;
+  height: 220px;
+}
+.submit > .from > .identify {
+  margin-bottom: 20px;
+}
+.submit > .from > .handle-mode {
+  margin-bottom: 20px;
+}
+.submit > .buttons {
+  width: 500px;
+  margin: 50px auto 0;
+}
+.submit > .buttons > div {
+  width: 140px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+}
+.submit > .buttons > .prev {
+  float: left;
+  border: 1px solid #c7c7c7;
+}
+.submit > .buttons > .next {
+  float: right;
+  color: #fff;
+  background-color: #169bd5;
+}

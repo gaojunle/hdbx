@@ -1,0 +1,85 @@
+.soft-list-item {
+  width: 1200px;
+  border-bottom: 1px solid #000;
+  background-color: #F2F2F2;
+  margin-bottom: 5px;
+}
+.soft-list-item:nth-last-child(1) {
+  border: none;
+}
+.soft-list-item > .title {
+  width: 100%;
+  height: 40px;
+  background-color: #ccc;
+}
+.soft-list-item > .title > .title-left {
+  float: left;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 10px;
+  line-height: 40px;
+}
+.soft-list-item > .title > .title-left > span {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: px;
+  line-height: 40px;
+  vertical-align: top;
+}
+.soft-list-item > .title > .title-right {
+  float: right;
+  margin-right: 10px;
+  font-weight: 700;
+  line-height: 40px;
+}
+.soft-list-item > .query-data-box {
+  position: relative;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+.soft-list-item > .query-data-box > div {
+  float: left;
+  width: 33%;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.soft-list-item > .query-data-box > div > span {
+  font-weight: 400;
+}
+.soft-list-item > .query-data-box > .soft-name {
+  width: 100%;
+}
+.soft-list-item > .query-data-box > .soft-obligee {
+  width: 100%;
+}
+.soft-list-item > .query-data-box > .soft-zwqk {
+  width: 100%;
+}
+.soft-list-item > .query-data-box > .soft-after {
+  margin-left: 66%;
+}
+.soft-list-item > .query-data-box > .soft-after > span {
+  color: red;
+}
+.soft-list-item > .query-data-box > .button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #4eb1fa;
+  background-color: #ccc;
+  cursor: pointer;
+}
+.soft-list-item > .query-data-box > .register-date {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}

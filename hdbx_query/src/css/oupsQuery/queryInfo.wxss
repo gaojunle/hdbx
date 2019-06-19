@@ -1,0 +1,84 @@
+.query-info {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.query-info > .title {
+  height: 50px;
+  background-color: #f2f2f2;
+  color: #333333;
+  font-size: 20px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.query-info > ul > li {
+  width: 900px;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #c0c0c0;
+}
+.query-info > ul > li > div {
+  float: left;
+}
+.query-info > ul > li > .title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  margin-right: 10px;
+}
+.query-info > ul > li > .content > .text {
+  width: 810px;
+  line-height: 16px;
+  margin-bottom: 10px;
+}
+.query-info > ul > li > .content > .text > span {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+.query-info > ul > li > .trunk {
+  float: none;
+  margin-bottom: 10px;
+}
+.query-info > ul > li > .trunk > div {
+  float: left;
+}
+.query-info > ul > li > .trunk > .title {
+  width: 80px;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: right;
+}
+.query-info > ul > li > .trunk > .small-title {
+  font-weight: 400;
+}
+.query-info > ul > .title {
+  border-bottom: 0px none;
+}
+.query-info > ul > .list > .trunk {
+  margin-bottom: 0;
+}
+.query-info > ul > .list > .trunk > div {
+  float: left;
+  text-align: left;
+  margin-right: 0;
+  overflow: hidden;
+}
+.query-info > ul > .list > .trunk > .title {
+  width: auto;
+  text-align: left;
+}
+.query-info > ul > .list > .trunk > .register-number {
+  width: 200px;
+  margin-right: 20px;
+}
+.query-info > ul > .list > .trunk > .opus-name {
+  width: 300px;
+  margin-right: 20px;
+}
+.query-info > ul > .list > .trunk > .owner {
+  width: 100px;
+}

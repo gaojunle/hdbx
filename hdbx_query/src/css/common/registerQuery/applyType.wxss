@@ -1,0 +1,29 @@
+.apply-type {
+  width: 100%;
+}
+.apply-type > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+}
+.apply-type > ul {
+  padding: 10px 0 20px 30px;
+}
+.apply-type > ul > li {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.apply-type > ul > li > input {
+  cursor: pointer;
+}
+.apply-type > ul > li > label {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333333;
+  cursor: pointer;
+}

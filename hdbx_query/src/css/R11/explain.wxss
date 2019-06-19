@@ -1,0 +1,64 @@
+.explain {
+  position: relative;
+}
+.explain > ul {
+  padding-top: 6px;
+  margin-bottom: 10px;
+}
+.explain > ul > li {
+  float: left;
+  margin-right: 100px;
+}
+.explain > .modify > .trunk {
+  line-height: 32px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.explain > .modify > .trunk > label,
+.explain > .modify > .trunk > div {
+  float: left;
+}
+.explain > .modify > .trunk > textarea {
+  width: 350px;
+  height: 50px;
+  border: 1px solid #dddddd;
+  resize: none;
+}
+.explain > .modify > .trunk > .upload {
+  position: relative;
+}
+.explain > .modify > .trunk > .upload > .file-upload {
+  width: 160px;
+  height: 100px;
+  line-height: 100px;
+}
+.explain > .modify > .trunk > .upload > .left {
+  margin-right: 30px;
+}
+.explain > .modify > .trunk > .upload > .error {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  color: red;
+  line-height: 1;
+}
+.explain > .modify > .trunk > .error {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}
+.explain > .modify > .trunk > .error-oriRegisterNum {
+  left: 340px;
+  bottom: 10px;
+}
+.explain > .error {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}

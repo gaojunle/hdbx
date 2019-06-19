@@ -1,0 +1,62 @@
+.owner > .owner-type {
+  margin-bottom: 30px;
+  padding-top: 10px;
+}
+.owner > .owner-type > input {
+  cursor: pointer;
+}
+.owner > .owner-type > label {
+  cursor: pointer;
+  margin-right: 50px;
+}
+.owner > .trunk {
+  margin-bottom: 30px;
+  position: relative;
+}
+.owner > .trunk > span {
+  display: inline-block;
+  width: 70px;
+  margin-right: 10px;
+  text-align: right;
+  position: relative;
+}
+.owner > .trunk > span:after {
+  display: block;
+  content: '*';
+  position: absolute;
+  color: red;
+  top: 3px;
+  left: 0;
+}
+.owner > .trunk > .el-cascader {
+  width: auto;
+  margin-right: 0;
+}
+.owner > .trunk > .el-cascader .el-cascader__label {
+  display: none;
+}
+.owner > .trunk > .el-cascader:after {
+  display: none;
+}
+.owner > .trunk > .el-select {
+  width: 228px;
+}
+.owner > .trunk > .el-select > .el-input {
+  min-width: auto;
+}
+.owner > .trunk > input {
+  width: 226px;
+  height: 38px;
+  outline: none;
+  border: 1px solid #cccccc;
+  text-indent: 10px;
+}
+.owner > .trunk > .error {
+  position: absolute;
+  left: 90px;
+  bottom: -24px;
+  color: red;
+}
+.owner > .trunk > .hd-input > label > .text {
+  width: 70px;
+}

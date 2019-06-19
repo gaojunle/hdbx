@@ -1,0 +1,63 @@
+.rights-mode > ul {
+  padding-top: 6px;
+  margin-bottom: 20px;
+}
+.rights-mode > ul > li {
+  float: left;
+  margin-right: 30px;
+}
+.rights-mode > .upload {
+  width: 600px;
+}
+.rights-mode > .upload > li {
+  margin-bottom: 20px;
+  position: relative;
+}
+.rights-mode > .upload > li > .file-upload {
+  width: 200px;
+  height: 150px;
+  line-height: 150px;
+}
+.rights-mode > .upload > li > .error {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}
+.rights-mode > .content {
+  width: 600px;
+}
+.rights-mode > .content > .trunk {
+  position: relative;
+  line-height: 32px;
+  margin-bottom: 10px;
+}
+.rights-mode > .content > .trunk > div {
+  float: left;
+}
+.rights-mode > .content > .trunk > .left {
+  width: 180px;
+}
+.rights-mode > .content > .trunk > .right > .block {
+  float: left;
+  width: 256px;
+}
+.rights-mode > .content > .trunk > .right > .block > .hd-input {
+  float: left;
+}
+.rights-mode > .content > .trunk > .right > .block > label {
+  float: left;
+  margin-left: 10px;
+}
+.rights-mode > .content > .trunk > .right > label {
+  float: left;
+  margin-left: 10px;
+}
+.rights-mode > .content > .trunk > .error {
+  position: absolute;
+  top: 8px;
+  right: -10px;
+  color: red;
+  line-height: 1;
+}

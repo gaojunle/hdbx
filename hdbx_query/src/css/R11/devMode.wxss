@@ -1,0 +1,23 @@
+.dev-mode > ul {
+  padding-top: 6px;
+  margin-bottom: 20px;
+}
+.dev-mode > ul > li {
+  float: left;
+  margin-right: 30px;
+}
+.dev-mode > .upload {
+  position: relative;
+}
+.dev-mode > .upload > .file-upload {
+  width: 200px;
+  height: 150px;
+  line-height: 150px;
+}
+.dev-mode > .upload > .error {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}

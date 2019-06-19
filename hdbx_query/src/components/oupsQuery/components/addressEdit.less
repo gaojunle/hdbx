@@ -1,0 +1,162 @@
+@cblue: rgb(0, 104, 183);
+.addressEdit {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    > .content {
+        width: 590px;
+        position: absolute;
+        top: 160px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 40px 60px;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px 3px 7px 0px rgba(165, 165, 165, 0.24);
+        > .title {
+            padding-bottom: 30px;
+            color: @cblue;
+            font-size: 20px;
+            > .title-left {
+            }
+            > .title-close {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                cursor: pointer;
+            }
+        }
+        > .trunk {
+            margin-bottom: 20px;
+            position: relative;
+            &.btn-box {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 70px;
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+                .el-button {
+                    border-radius: 5px;
+                    font-size: 16px;
+                    color: rgb(118, 138, 162);
+                    height: 40px;
+                    line-height: 40px;
+                    width: 170px;
+                    padding: 0px;
+                    background: #dce3e8;
+                    &.el-button--primary {
+                        background-color: rgb(0, 104, 183);
+                        color: white;
+                    }
+                }
+            }
+            > span {
+                display: inline-block;
+                width: 66px;
+                text-align: right;
+                margin-left: -10px;
+                margin-right: 10px;
+                > i {
+                    color: red;
+                    padding-right: 3px;
+                }
+            }
+            .el-input__inner {
+                height: 40px;
+                outline: none;
+            }
+            .w400 {
+                width: 398px;
+                box-sizing: border-box;
+            }
+            > textarea {
+                width: 217px;
+                height: 50px;
+                resize: none;
+                border: 1px solid #dcdfe6;
+                outline: none;
+                border-radius: 5px;
+                font-size: 14px;
+                line-height: 20px;
+                padding: 10px;
+            }
+            > .error {
+                position: absolute;
+                z-index: 5;
+                font-size: 14px;
+                line-height: 20px;
+                color: #ff2553;
+                bottom: -24px;
+                left: 82px;
+                padding-left: 6px;
+                background-position: 0px -20px;
+                background-size: 20px auto;
+            }
+            > .detailAddress {
+                vertical-align: 38px;
+            }
+            > .tel-input {
+                width: 300px;
+                position: absolute;
+                top: -10px;
+                left: 82px;
+            }
+            > .codeBtn {
+                cursor: pointer;
+                color: #333333;
+            }
+            > .unClick {
+                pointer-events: none;
+                color: #999999;
+            }
+            > .left, > .right {
+                display: inline-block;
+                width: 300px;
+                height: 200px;
+                text-align: center;
+                line-height: 200px;
+                background-color: pink;
+                position: relative;
+            }
+            > .left {
+                margin-right: 30px;
+            }
+            > .button {
+                width: 200px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                margin: 0 auto;
+                background-color: #128BED;
+                cursor: pointer;
+            }
+        }
+        > .phone {
+            height: 42px;
+            margin-top: 40px;
+            > .error {
+                bottom: -18px;
+            }
+        }
+    }
+}
+
+.el-select-dropdown {
+    z-index: 9999 !important;
+}
+
+.el-input--suffix, .el-cascader {
+    min-width: 300px;
+}
+
+.el-cascader-menus {
+    z-index: 9999 !important;
+}

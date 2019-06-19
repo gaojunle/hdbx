@@ -1,0 +1,21 @@
+.query-result-details > .w1200 {
+  width: 1200px;
+  margin: 0 auto;
+}
+.query-result-details > .w1200 > .soft-list-item {
+  margin-bottom: 20px;
+}
+.query-result-details > .w1200 > .details-content > .tab > li {
+  float: left;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #666666;
+  cursor: pointer;
+  background-color: #fafafa;
+}
+.query-result-details > .w1200 > .details-content > .tab > .current {
+  color: #0099ff;
+  background-color: #fff;
+}

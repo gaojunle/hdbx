@@ -1,0 +1,53 @@
+.copyright-owners > ul > li {
+  margin-bottom: 20px;
+  width: 313px;
+}
+.copyright-owners > ul > li > div > .title {
+  padding-top: 8px;
+  margin-bottom: 10px;
+}
+.copyright-owners > ul > li > div > .title > .left {
+  float: left;
+}
+.copyright-owners > ul > li > div > .title > .right {
+  float: right;
+}
+.copyright-owners > ul > li > div > .title > .right > span {
+  cursor: pointer;
+  color: #169bd5;
+}
+.copyright-owners > ul > li > div > .title > .right > .delete {
+  margin-left: 20px;
+}
+.copyright-owners > ul > li > .edit {
+  position: relative;
+}
+.copyright-owners > ul > li > .edit > .need-register-copy > div {
+  float: left;
+}
+.copyright-owners > ul > li > .edit > .need-register-copy > .right > li {
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.copyright-owners > ul > li > .edit > .error {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}
+.copyright-owners > ul > li > .static {
+  border: 1px dashed #000;
+  padding: 10px 8px;
+}
+.copyright-owners > ul > li > .static > .content > .trunk {
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.copyright-owners > ul > li > .static > .content > .trunk > div {
+  float: left;
+}
+.copyright-owners > ul > li > .static > .content > .trunk > .left {
+  width: 100px;
+}

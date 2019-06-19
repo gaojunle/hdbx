@@ -1,0 +1,6 @@
+.address > .el-cascader {
+  margin-left: 40px;
+}
+.address > .el-cascader .el-cascader__label {
+  display: none;
+}

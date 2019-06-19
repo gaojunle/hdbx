@@ -1,0 +1,104 @@
+.star {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold; }
+
+.natrue {
+  font-size: 18px; }
+
+.wrap {
+  box-sizing: border-box;
+  padding: 0 100px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 50px; }
+  .wrap .titles {
+    margin-left: 250px;
+    margin-top: 30px; }
+  .wrap .pross {
+    width: 100%;
+    margin-top: 20px; }
+  .wrap .attribution {
+    margin-left: 340px;
+    margin-top: 50px; }
+    .wrap .attribution .div {
+      display: inline; }
+      .wrap .attribution .div .radio {
+        margin-left: 30px; }
+    .wrap .attribution .load {
+      height: 80px;
+      width: 300px;
+      margin-top: 30px;
+      margin-left: 150px; }
+      .wrap .attribution .load div {
+        display: inline-block;
+        width: 100px;
+        height: 60px;
+        border: 1px solid #ccc;
+        text-align: center;
+        line-height: 60px; }
+  .wrap .copyright {
+    margin-left: 340px;
+    margin-top: 50px; }
+    .wrap .copyright .one {
+      display: inline; }
+      .wrap .copyright .one .names {
+        margin-left: 120px; }
+        .wrap .copyright .one .names .s1 {
+          font-size: 18px;
+          margin-left: 40px;
+          color: #000; }
+        .wrap .copyright .one .names .s2 {
+          margin-left: 200px;
+          margin-right: 100px;
+          color: skyblue;
+          cursor: pointer;
+          font-weight: 100;
+          font-size: 14px; }
+        .wrap .copyright .one .names .s3 {
+          color: skyblue;
+          cursor: pointer;
+          font-weight: 100;
+          font-size: 14px; }
+      .wrap .copyright .one .name {
+        display: inline; }
+        .wrap .copyright .one .name .s1 {
+          font-size: 18px;
+          margin-left: 40px;
+          color: #000; }
+        .wrap .copyright .one .name .s2 {
+          margin-left: 200px;
+          margin-right: 100px;
+          color: skyblue;
+          cursor: pointer;
+          font-weight: 100;
+          font-size: 14px; }
+        .wrap .copyright .one .name .s3 {
+          color: skyblue;
+          cursor: pointer;
+          font-weight: 100;
+          font-size: 14px; }
+      .wrap .copyright .one .peo {
+        margin-left: 150px;
+        margin-top: 20px; }
+        .wrap .copyright .one .peo .i {
+          display: inline; }
+        .wrap .copyright .one .peo .is {
+          margin-left: -22px; }
+    .wrap .copyright .application {
+      margin-top: 20px;
+      margin-left: 150px; }
+      .wrap .copyright .application p {
+        display: inline; }
+    .wrap .copyright .btn {
+      margin-left: 150px;
+      margin-top: 20px; }
+  .wrap .obtain {
+    margin-left: 340px;
+    margin-top: 50px; }
+    .wrap .obtain .div {
+      display: inline; }
+      .wrap .obtain .div .radio {
+        margin-left: 30px; }
+
+/*# sourceMappingURL=ownerships.css.map */

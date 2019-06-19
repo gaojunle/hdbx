@@ -1,0 +1,52 @@
+.identify > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+  margin-bottom: 20px;
+}
+.identify > .content {
+  margin-left: 40px;
+  position: relative;
+}
+.identify > .content > .deposit {
+  margin-bottom: 20px;
+}
+.identify > .content > .deposit > li {
+  float: left;
+  margin-right: 100px;
+}
+.identify > .content > .commonly > p {
+  margin-bottom: 14px;
+}
+.identify > .content > .commonly > ul > li {
+  float: left;
+  line-height: 32px;
+  margin-right: 100px;
+}
+.identify > .content > .commonly > ul > li > label {
+  float: left;
+}
+.identify > .content > .commonly > ul > li > div {
+  float: left;
+  margin-left: 10px;
+}
+.identify > .content > .outs > ul > li {
+  line-height: 32px;
+}
+.identify > .content > .outs > ul > li > label {
+  float: left;
+}
+.identify > .content > .outs > ul > li > div {
+  float: left;
+  margin-left: 10px;
+}
+.identify > .content > .error {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  color: red;
+  line-height: 1;
+}

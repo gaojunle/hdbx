@@ -1,0 +1,115 @@
+.instructions {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.instructions > .title {
+  height: 50px;
+  background-color: #f2f2f2;
+  color: #333333;
+  font-size: 20px;
+  line-height: 50px;
+  padding-left: 10px;
+}
+.instructions > .content {
+  margin-left: 10px;
+}
+.instructions > .content > .title {
+  height: 60px;
+  font-size: 16px;
+  line-height: 60px;
+}
+.instructions > .content > .term > .term-left {
+  float: left;
+  margin-right: 20px;
+  position: relative;
+}
+.instructions > .content > .term > .term-left > p {
+  float: left;
+  line-height: 40px;
+  margin-right: 20px;
+}
+.instructions > .content > .term > .term-left > div {
+  float: left;
+  margin-right: 20px;
+}
+.instructions > .content > .term > .term-right {
+  float: left;
+}
+.instructions > .content > .term > .term-right > li {
+  line-height: 40px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.instructions > .content > .term > .term-right > li > input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.instructions > .content > .term > .term-right > li > label {
+  cursor: pointer;
+}
+.instructions > .content > .term > .term-right > li > span {
+  margin-left: 10px;
+}
+.instructions > .content > .term > .term-right > li > .error {
+  position: absolute;
+  top: 36px;
+  left: 28px;
+  color: red;
+}
+.instructions > .content > .bailee-list {
+  position: relative;
+  margin-bottom: 20px;
+}
+.instructions > .content > .bailee-list > li {
+  float: left;
+  margin-right: 80px;
+}
+.instructions > .content > .bailee-list > li > input {
+  cursor: pointer;
+}
+.instructions > .content > .bailee-list > li > label {
+  vertical-align: 2px;
+  cursor: pointer;
+}
+.instructions > .content > .bailee-list > .error {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  color: red;
+}
+.instructions > .content > .button {
+  width: 160px;
+  height: 40px;
+  background-color: #169bd5;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  cursor: pointer;
+}
+.instructions > .instructions-alert {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+}
+.instructions > .instructions-alert > .alert-box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 800px;
+  height: 500px;
+  background-color: #fff;
+  margin: auto;
+}
+.instructions > .instructions-alert > .alert-box > .close-alert {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}

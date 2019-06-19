@@ -1,0 +1,53 @@
+.ownership > .from {
+  width: 800px;
+  margin: 0 auto;
+}
+.ownership > .from > .trunk {
+  position: relative;
+  margin-bottom: 30px;
+}
+.ownership > .from > .trunk > label {
+  width: 150px;
+  height: 32px;
+  line-height: 32px;
+  float: left;
+  margin-right: 50px;
+}
+.ownership > .from > .trunk > label > span {
+  float: right;
+  position: relative;
+  padding-left: 14px;
+}
+.ownership > .from > .trunk > label > span:after {
+  display: block;
+  content: "*";
+  position: absolute;
+  color: red;
+  top: 3px;
+  left: 0;
+}
+.ownership > .from > .trunk > div {
+  float: left;
+}
+.ownership > .buttons {
+  width: 500px;
+  margin: 50px auto 0;
+}
+.ownership > .buttons > div {
+  width: 140px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+}
+.ownership > .buttons > .prev {
+  float: left;
+  border: 1px solid #c7c7c7;
+}
+.ownership > .buttons > .next {
+  float: right;
+  color: #fff;
+  background-color: #169bd5;
+}

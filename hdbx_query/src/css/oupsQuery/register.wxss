@@ -1,0 +1,33 @@
+.register > .w1200 {
+  width: 1200px;
+  margin: 0 auto;
+}
+.register > .w1200 > .bottom {
+  border-top: 1px solid #f5f5f5;
+  padding-top: 50px;
+}
+.register > .w1200 > .bottom > .hd-button {
+  margin: 0 auto;
+}
+.register > .w1200 > .buttons {
+  width: 500px;
+  margin: 50px auto 0;
+}
+.register > .w1200 > .buttons > div {
+  width: 140px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+  box-sizing: border-box;
+}
+.register > .w1200 > .buttons > .prev {
+  float: left;
+  border: 1px solid #c7c7c7;
+}
+.register > .w1200 > .buttons > .next {
+  float: right;
+  color: #fff;
+  background-color: #169bd5;
+}

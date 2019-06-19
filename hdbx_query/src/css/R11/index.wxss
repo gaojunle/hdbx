@@ -1,0 +1,22 @@
+.R11 > .content {
+  width: 1200px;
+  margin: 0 auto;
+}
+.R11 > .content > .index > .box {
+  padding-top: 100px;
+}
+.R11 > .content > .index > .box > .item {
+  float: left;
+  width: 350px;
+  height: 200px;
+  border: 1px solid #000;
+  text-align: center;
+  padding-top: 100px;
+  margin: 0 120px;
+}
+.R11 > .content > .index > .box > .item > p {
+  margin-bottom: 40px;
+}
+.R11 > .content > .index > .box > .item > .hd-button {
+  margin: 0 auto;
+}

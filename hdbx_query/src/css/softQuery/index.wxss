@@ -1,0 +1,4 @@
+.soft-query > .content {
+  width: 1200px;
+  margin: 0 auto 100px;
+}

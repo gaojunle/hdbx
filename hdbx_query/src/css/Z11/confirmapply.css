@@ -1,0 +1,35 @@
+.confirmItem {
+  font-size: 16px;
+  margin-bottom: 40px; }
+  .confirmItem h3 {
+    font-size: 18px;
+    background: #f6f6f6;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 38px; }
+  .confirmItem .cont {
+    padding: 20px 38px; }
+    .confirmItem .cont .item {
+      line-height: 40px; }
+      .confirmItem .cont .item span {
+        width: 120px; }
+      .confirmItem .cont .item label {
+        margin-right: 40px; }
+    .confirmItem .cont .item.w50 {
+      width: 50%; }
+
+.hd-button.prev {
+  margin-left: 174px;
+  display: inline-block;
+  background-color: #efefef;
+  color: #666; }
+
+.hd-button.next {
+  margin-left: 40px;
+  display: inline-block; }
+
+.red {
+  color: #f00;
+  font-size: 14px; }
+
+/*# sourceMappingURL=confirmapply.css.map */

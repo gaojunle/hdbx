@@ -1,0 +1,92 @@
+.navBox {
+  height: 132px;
+  display: block;
+  border-bottom: 8px solid #005db8;
+  background: #ffffff;
+}
+.navBox > .w1200 {
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.navBox > .w1200 > div,
+.navBox > .w1200 ul {
+  float: left;
+}
+.navBox > .w1200 > .logo {
+  padding-top: 50px;
+  margin-right: 26px;
+}
+.navBox > .w1200 > .logo > img {
+  width: 254px;
+  height: 38px;
+  vertical-align: top;
+}
+.navBox > .w1200 > .slogan {
+  padding-top: 58px;
+  margin-right: 58px;
+}
+.navBox > .w1200 > .slogan > img {
+  width: 217px;
+  height: 19px;
+  vertical-align: top;
+}
+.navBox > .w1200 > ul {
+  padding-top: 58px;
+}
+.navBox > .w1200 > ul > li {
+  float: left;
+  font-size: 18px;
+  line-height: 1;
+  margin-right: 38px;
+  cursor: pointer;
+}
+.navBox > .w1200 > .header-right {
+  position: absolute;
+  right: 0;
+}
+.navBox > .w1200 > .header-right > .user {
+  height: 100%;
+  line-height: 132px;
+  position: relative;
+}
+.navBox > .w1200 > .header-right > .user > .user-head-box {
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 40px;
+  left: -64px;
+}
+.navBox > .w1200 > .header-right > .user > .user-head-box > .user-head {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover !important;
+}
+.navBox > .w1200 > .header-right > .user > span {
+  font-size: 18px;
+  color: #307bc5;
+  cursor: pointer;
+}
+.navBox > .w1200 > .header-right > .login {
+  line-height: 132px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.navBox > .userLoginBox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 99999;
+}
+.navBox > .userLoginBox > .infoBox {
+  padding-top: 80px;
+}

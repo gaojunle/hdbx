@@ -1,0 +1,44 @@
+.ownership-info > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+  margin-bottom: 20px;
+}
+.ownership-info > .trunk {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.ownership-info > .trunk > .left {
+  float: left;
+  width: 120px;
+}
+.ownership-info > .trunk > .right {
+  float: left;
+}
+.ownership-info > .trunk > .right > li {
+  margin-bottom: 40px;
+}
+.ownership-info > .trunk > .right > li > .trunk {
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.ownership-info > .trunk > .right > li > .trunk > div {
+  float: left;
+}
+.ownership-info > .trunk > .right > li > .trunk > .left {
+  width: 100px;
+}
+.ownership-info > .trunk > .right > p {
+  margin-bottom: 20px;
+}
+.ownership-info > .trunk > .right > ul > li {
+  float: left;
+  margin-right: 30px;
+}
+.ownership-info > .trunk > .right > ul > li > img {
+  width: 160px;
+  height: 220px;
+}

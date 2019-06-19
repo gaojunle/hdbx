@@ -1,0 +1,35 @@
+.soft-info > .title {
+  height: 40px;
+  background-color: #f6f6f6;
+  color: #000;
+  font-size: 18px;
+  line-height: 40px;
+  padding-left: 38px;
+  margin-bottom: 20px;
+}
+.soft-info > .trunks {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.soft-info > .trunks > div {
+  float: left;
+}
+.soft-info > .trunks > div > div {
+  float: left;
+}
+.soft-info > .trunks > div > .left {
+  width: 120px;
+}
+.soft-info > .trunks > .trunks-left {
+  width: 500px;
+}
+.soft-info > .trunk {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.soft-info > .trunk > div {
+  float: left;
+}
+.soft-info > .trunk > .left {
+  width: 120px;
+}

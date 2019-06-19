@@ -1,0 +1,52 @@
+.index-page > .title {
+  margin-top: 100px;
+  margin-bottom: 80px;
+  font-size: 26px;
+  text-align: center;
+}
+.index-page > .search {
+  width: 600px;
+  margin: 0 auto 200px;
+}
+.index-page > .entry {
+  width: 1200px;
+  margin: 0 auto;
+}
+.index-page > .entry > li {
+  float: left;
+  width: 360px;
+  text-align: center;
+}
+.index-page > .entry > .cneter {
+  margin: 0 60px;
+}
+.index-page > .entry > .title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.index-page > .entry > .box {
+  padding-top: 20px;
+  border: 1px solid #000;
+}
+.index-page > .entry > .box > .title {
+  font-size: 18px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.index-page > .entry > .box > .text-first {
+  margin-bottom: 30px;
+}
+.index-page > .entry > .box > .text-second {
+  margin-bottom: 20px;
+}
+.index-page > .entry > .box > .button {
+  width: 100px;
+  height: 40px;
+  margin: 0 auto 20px;
+  border-radius: 6px;
+  background-color: #169bd5;
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
