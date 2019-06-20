@@ -1,5 +1,3 @@
-import optionsCitys from './country-data.js'
-
 const options = {
     //作品类型
     options_opusType: [
@@ -471,10 +469,7 @@ const options = {
             val: 'MAIL',
             text: '挂号信'
         }
-    ],
-
-    options_citys: optionsCitys
-
+    ]
 }
 
 export default options

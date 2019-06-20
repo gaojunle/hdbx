@@ -1,5 +1,5 @@
 <template>
-    <div class="addressEdit">
+    <div class="addressEdit" :class="{show:isShow}">
         <div class="content">
             <div class="title">
                 <div class="title-left">新建地址</div>
@@ -18,28 +18,20 @@
                 <div class="error" v-if="error.name" v-text="error.name"></div>
             </div>
             <!--国籍-->
-            <div class="trunk">
-                <span><i>*</i>配送国家</span>
-                <el-select
-                        class="w400"
-                        v-model="paramData.country"
-                        placeholder="请选择国家"
-                        @change="countryChange">
-                    <el-option v-for="item in country" :key="item.id" :label="item.name" :value="item.name"></el-option>
-                </el-select>
+            <div class="trunk city-sel-box">
+                <div class="sel-mark">
+                    <p><span><i>*</i>配送国家</span></p>
+                    <p><span><i>*</i>所在地区</span></p>
+                </div>
+                <CountryCitySelect
+                        v-if="isShow"
+                        :country="paramData.country"
+                        :province="paramData.province"
+                        :city="paramData.city"
+                        :area="paramData.area"
+                        @countryCityChange="((param)=>{countryCityChange(param,paramData,'')})"
+                ></CountryCitySelect>
                 <div class="error" v-if="error.country" v-text="error.country"></div>
-            </div>
-            <!--省份-->
-            <div class="trunk" v-show="locationShow">
-                <span><i>*</i>所在地区</span>
-                <el-cascader
-                        class="w400"
-                        v-model="location"
-                        :props="props"
-                        placeholder="省/市区/街道"
-                        :options="options"
-                        @active-item-change="handleItemChange"></el-cascader>
-                <div class="error" v-if="error.location" v-text="error.location"></div>
             </div>
             <!--详细地址-->
             <div class="trunk">
@@ -64,7 +56,7 @@
             <!--设置为默认收货地址-->
             <div class="trunk">
                 <span></span>
-                <el-checkbox v-model="checkbox">设置默认地址</el-checkbox>
+                <el-checkbox v-model="paramData.isDefault">设置默认地址</el-checkbox>
             </div>
             <!--提交按钮-->
             <div class="trunk btn-box">
@@ -76,61 +68,17 @@
 </template>
 
 <script>
-
-    import '@share/css/theme'
-    import './addressEdit'
-
-
-    import Vue from 'vue'
-    import api from '@api'
     import axios from '@share/api/axios'
     import {API_HOST} from '@share/api/config'
-    import telInput from '@share/components/common/telInput'
+    import CountryCitySelect from './CountryCitySelect'
     import areaFun from '@share/js/common/area'
-    import {
-        Cascader,
-        Select,
-        Option,
-    } from 'element-ui'
-
-    Vue.use(Cascader)
-    Vue.use(Select)
-    Vue.use(Option)
 
     export default {
+        name: "AddressEditBox",
+        components: {CountryCitySelect},
         data() {
             return {
-                props: {
-                    lazy: true,
-                    async lazyLoad(node, resolve) {
-                        if (!node.data) {
-                            return false
-                        }
-                        const {id, lvl} = node.data.value;
-                        const level = (lvl == 1 ? 'Province' : (lvl == 2 ? 'City' : 'Area'))
-                        let citys = await areaFun.getArea(level, id);
-                        var nodes = citys.map(item => ({
-                            value: item.id,
-                            label: item.name,
-                            leaf: lvl >= 2
-                        }));
-                        var nodes = Array.from({length: lvl + 1})
-                            .map(item => ({
-                                value: id,
-                                label: `选项${id}`,
-                                leaf: lvl >= 2
-                            }));
-                        // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-                        resolve(citys);
-                    }
-                },
-                country: [], // 国籍列表
-                province: [], // 省份列表
-                city: [], // 城市列表
-                area: [], // 区/县列表
-                location: [], // 所在地区
-                locationShow: true, // 是否需要填写所在地区
-                options: [], // 所在地区所需级联格式
+                isShow: false,
                 paramData: {
                     country: '', // 国籍选择
                     province: '', // 省份选择
@@ -139,6 +87,7 @@
                     detailAddress: '', // 详细地址
                     name: '', // 收件人
                     phone: '', // 手机号
+                    isDefault: false //默认地址
                 }, // 传参
                 error: {
                     country: '', // 国籍选择
@@ -152,7 +101,7 @@
                 userId: '', // 地址id
             }
         },
-        components: {telInput},
+
         props: {
             defaultAddress: Function, // 设置默认地址
             getAddress: {
@@ -165,26 +114,11 @@
             }, // 地址信息查询
         },
         methods: {
-            /**
-             * 选中级联选项时触发
-             * @param val 选择的数据
-             */
-            handleItemChange(val) {
-                let length = val.length,
-                    option = val[length - 1],
-                    province = length > 0 ? this.options.find(item => item.label === val[0].name) : null,
-                    city = length > 1 ? province.children.find(item => item.label === val[1].name) : null
-
-                switch (parseInt(option.lvl)) {
-                    case 2:
-                        this.provinceChange(option.name, province)
-                        break
-                    case 3:
-                        this.cityChange(option.name, city)
-                        break
-                    default:
-                        break
-                }
+            countryCityChange(params, item) {
+                item['country'] = params.country;
+                item['province'] = params.province;
+                item['city'] = params.city;
+                item['area'] = params.area;
             },
             /**
              * 初始化回填数据
@@ -192,68 +126,21 @@
             init() {
                 if (!this.id) return this.clear()
                 axios(this.getAddress + `/${this.id}`).then(async res => {
-                    if (res.data) {
-                        let {country, province, city, area, detailAddress, name, phone, isDefault} = res.data
-                        await this.countryChange(country)
-                        this.paramData = {country, detailAddress, name, phone}
-                        this.checkbox = isDefault === '1'
-
-                        let provinceOption = this.options.find(option => option.label === province)
-                        if (!provinceOption) return
-                        this.location.push(provinceOption.value)
-                        if (!provinceOption.children) return
-                        await this.provinceChange(province, provinceOption)
-
-                        let cityOption = provinceOption.children.find(option => option.label === city)
-                        if (!cityOption) return
-                        this.location.push(cityOption.value)
-                        if (!cityOption.children) return
-                        await this.cityChange(city, cityOption)
-
-                        let areaOption = cityOption.children.find(option => option.label === area)
-                        if (!areaOption) return
-                        this.location.push(areaOption.value)
+                    let {country, province, city, area, detailAddress, name, phone, isDefault} = res.data
+                    this.paramData = {
+                        name: name, // 收件人
+                        country: country, // 国家选择country
+                        province: province, // 省份选择
+                        city: city, // 城市选择
+                        area: area, // 区/县列表
+                        detailAddress: detailAddress, // 详细地址
+                        phone: phone, // 手机号
+                        isDefault: isDefault == '1'
                     }
+                    this.isShow = true;
                 })
             },
-            /**
-             * 国家改变时触发
-             */
-            async countryChange(name) {
-                let currentCountry = this.country.find(item => item.name === name)
-                console.log(currentCountry)
-                if (!currentCountry) return
-                this.province = await areaFun.getArea('Province', currentCountry.id)
-                this.locationShow = this.province.length === 0 ? false : true
-                this.location = []
-                this.options = []
-                this.formatOptions(this.options, this.province)
-                this.error.country = ''
-            },
-            /**
-             * 省份改变时触发
-             */
-            async provinceChange(name, province) {
-                let currentProvince = this.province.find(item => item.name === name)
-                this.city = await areaFun.getArea('City', currentProvince.id)
-                this.formatOptions(province.children, this.city, province)
-                this.error.province = ''
-            },
-            /**
-             * 城市改变时触发
-             */
-            async cityChange(name, city) {
-                let currentCity = this.city.find(item => item.name === name)
-                this.area = await areaFun.getArea('Area', currentCity.id)
-                this.formatOptions(city.children, this.area, city)
-                this.error.city = ''
-            },
-            /**
-             * 区/县改变时触发
-             */
-            async areaChange(name) {
-                this.error.area = ''
-            },
+
             /**
              * 格式化省份数据
              * @param options 省份数据
@@ -269,23 +156,7 @@
                     parentArray.push(obj)
                 })
             },
-            /**
-             * 选择时清除数据
-             * @param clears
-             */
-            clear() {
-                Object.keys(this.paramData).forEach(item => {
-                    this.paramData[item] = ''
-                })
-                Object.keys(this.error).forEach(item => {
-                    this.error[item] = ''
-                })
-                this.province = []
-                this.city = []
-                this.area = []
-                this.location = []
-                this.options = []
-            },
+
             /**
              * 验证必填字段
              * @param key
@@ -379,25 +250,198 @@
                 this.userId = userId
                 this.id = id
                 this.init()
-                this.$refs.addressEdit.style.display = 'block'
             },
             /**
              * 隐藏地址编辑弹出框
              * @param data 修改或添加的地址
              */
             hideEdit(data) {
-                this.$refs.addressEdit.style.display = 'none'
-                if (data) this.$emit('changeAddressList', data)
+                this.isShow = false;
+                /*this.$refs.addressEdit.style.display = 'none'
+                if (data) this.$emit('changeAddressList', data)*/
             },
         },
         mounted() {
 
-        },
-        watch: {},
-        async created() {
-            let country = await areaFun.getArea('Country')
-            this.country.push(...country)
-        },
+        }
+    }
+</script>
+
+<style lang="less">
+    @cblue: rgb(0, 104, 183);
+    .addressEdit {
+        display: none;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        &.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        > .content {
+            width: 590px;
+            box-sizing: border-box;
+            padding: 40px 60px;
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 3px 7px 0px rgba(165, 165, 165, 0.24);
+            > .title {
+                padding-bottom: 30px;
+                color: @cblue;
+                font-size: 20px;
+                > .title-left {
+                }
+                > .title-close {
+                    position: absolute;
+                    right: 20px;
+                    top: 20px;
+                    cursor: pointer;
+                }
+            }
+            > .trunk {
+                margin-bottom: 20px;
+                position: relative;
+                &.city-sel-box {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                &.btn-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-left: 70px;
+                    padding-bottom: 0px;
+                    margin-bottom: 0px;
+                    .el-button {
+                        border-radius: 5px;
+                        font-size: 16px;
+                        color: rgb(118, 138, 162);
+                        height: 40px;
+                        line-height: 40px;
+                        width: 170px;
+                        padding: 0px;
+                        background: #dce3e8;
+                        &.el-button--primary {
+                            background-color: rgb(0, 104, 183);
+                            color: white;
+                        }
+                    }
+                }
+                > span, .sel-mark p span {
+                    display: inline-block;
+                    width: 66px;
+                    text-align: right;
+                    margin-left: -10px;
+                    margin-right: 10px;
+                    > i {
+                        color: red;
+                        padding-right: 3px;
+                    }
+                }
+                .sel-mark {
+                    display: flex;
+                    justify-content: space-around;
+                    flex-direction: column;
+                    p {
+
+                    }
+                }
+                .el-input__inner {
+                    height: 40px;
+                    outline: none;
+                }
+                .w400 {
+                    width: 398px;
+                    box-sizing: border-box;
+                }
+                > textarea {
+                    width: 217px;
+                    height: 50px;
+                    resize: none;
+                    border: 1px solid #dcdfe6;
+                    outline: none;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    line-height: 20px;
+                    padding: 10px;
+                }
+                > .error {
+                    position: absolute;
+                    z-index: 5;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: #ff2553;
+                    bottom: -24px;
+                    left: 82px;
+                    padding-left: 6px;
+                    background-position: 0px -20px;
+                    background-size: 20px auto;
+                }
+                > .detailAddress {
+                    vertical-align: 38px;
+                }
+                > .tel-input {
+                    width: 300px;
+                    position: absolute;
+                    top: -10px;
+                    left: 82px;
+                }
+                > .codeBtn {
+                    cursor: pointer;
+                    color: #333333;
+                }
+                > .unClick {
+                    pointer-events: none;
+                    color: #999999;
+                }
+                > .left, > .right {
+                    display: inline-block;
+                    width: 300px;
+                    height: 200px;
+                    text-align: center;
+                    line-height: 200px;
+                    background-color: pink;
+                    position: relative;
+                }
+                > .left {
+                    margin-right: 30px;
+                }
+                > .button {
+                    width: 200px;
+                    height: 50px;
+                    text-align: center;
+                    line-height: 50px;
+                    margin: 0 auto;
+                    background-color: #128BED;
+                    cursor: pointer;
+                }
+            }
+            > .phone {
+                height: 42px;
+                margin-top: 40px;
+                > .error {
+                    bottom: -18px;
+                }
+            }
+        }
+
+        .country-city-select {
+            .country-box {
+                width: 400px;
+                display: block;
+                padding-bottom: 20px;
+            }
+            .city-box {
+                width: 400px;
+                display: block;
+            }
+        }
     }
 
-</script>
+
+</style>

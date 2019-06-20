@@ -1,6 +1,7 @@
 <template>
     <div class="country-city-select">
         <el-select
+                class="country-box"
                 v-model="selCountry"
                 filterable
                 placeholder="请选择国家"
@@ -12,11 +13,13 @@
                     :value="item.id">
             </el-option>
         </el-select>
-
+{{location}}
         <el-cascader
+                class="city-box"
                 v-if="selCountry || initNullFlag"
                 placeholder="省/市区/街道"
                 @change="onCityChange"
+                value="location"
                 :props="props">
         </el-cascader>
     </div>
@@ -78,7 +81,16 @@
                 }
             }
         },
-
+        watch: {
+            country(newVal, oldVal) {
+                console.log(newVal, oldVal);
+            }
+        },
+        computed: {
+            location() {
+                return [this.province, this.city, this.area]
+            }
+        },
         methods: {
             selCountryChange(val) {
                 this.initNullFlag = false;

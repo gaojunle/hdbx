@@ -25,7 +25,8 @@
                 </li>
             </ul>
         </div>
-        <address-edit @changeAddressList="changeAddressList"></address-edit>
+        <!--<address-edit @changeAddressList="changeAddressList"></address-edit>-->
+        <AddressEditBox ref="AddressEditBox"></AddressEditBox>
         <div v-if="userInfo">
 
         </div>
@@ -35,9 +36,10 @@
 <script>
     import axios from '@share/api/axios'
     import {API_HOST} from '@share/api/config'
-    import addressEdit from './addressEdit'
+    import AddressEditBox from './AddressEditBox'
 
     export default {
+        components: {AddressEditBox},
         data() {
             return {
                 receiveAddress: this.propReceiveAddress, // 地址选择
@@ -96,7 +98,7 @@
                 default: getCookie() ? getCookie().id : ''
             }, // 用户信息
         },
-        components: {addressEdit},
+
         methods: {
             /**
              * 设置默认地址
@@ -123,7 +125,7 @@
             updataAddress(id) {
                 let userId = this.userId,
                     addressId = id
-                this.$refs.addressEdit.showEdit(userId, addressId)
+                this.$refs.AddressEditBox.showEdit(userId, addressId)
             },
             delAddress(id) {
                 alert('删除地址，')
