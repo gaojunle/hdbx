@@ -1,5 +1,5 @@
 <template>
-    <div class="addressEdit" ref="addressEdit">
+    <div class="addressEdit">
         <div class="content">
             <div class="title">
                 <div class="title-left">新建地址</div>
@@ -46,7 +46,8 @@
                 <span class="detailAddress"><i>*</i>详细地址</span>
                 <textarea
                         class="w400"
-                        placeholder="请输入详细地址信息，如道路路、小区、楼栋号、单元室等" v-model="paramData.detailAddress" @blur="requiredBlur('detailAddress')"></textarea>
+                        placeholder="请输入详细地址信息，如道路路、小区、楼栋号、单元室等" v-model="paramData.detailAddress"
+                        @blur="requiredBlur('detailAddress')"></textarea>
                 <div class="error" v-if="error.detailAddress" v-text="error.detailAddress"></div>
             </div>
             <!--手机号码-->
@@ -77,7 +78,7 @@
 <script>
 
     import '@share/css/theme'
-    import './addressEdit.less'
+    import './addressEdit'
 
 
     import Vue from 'vue'
@@ -106,23 +107,19 @@
                             return false
                         }
                         const {id, lvl} = node.data.value;
-                        console.log(id, lvl);
                         const level = (lvl == 1 ? 'Province' : (lvl == 2 ? 'City' : 'Area'))
                         let citys = await areaFun.getArea(level, id);
-                        console.log(citys, level)
                         var nodes = citys.map(item => ({
                             value: item.id,
                             label: item.name,
                             leaf: lvl >= 2
                         }));
-                        console.log(nodes)
                         var nodes = Array.from({length: lvl + 1})
                             .map(item => ({
                                 value: id,
                                 label: `选项${id}`,
                                 leaf: lvl >= 2
                             }));
-                        console.log(nodes)
                         // 通过调用resolve将子节点数据返回，通知组件数据加载完成
                         resolve(citys);
                     }

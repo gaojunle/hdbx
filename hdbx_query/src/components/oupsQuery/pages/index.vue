@@ -86,23 +86,12 @@
                     </el-date-picker>
 
                     <span class="title required">创作完成地点：</span>
-                    <el-select v-model="sdata.completeCountry" placeholder="选择国家">
-                        <el-option
-                                v-for="item in options.options_countrys"
-                                value-key="val"
-                                :key="item.val"
-                                :label="item.text"
-                                :value="item.val">
-                        </el-option>
-                    </el-select>
-                    <el-cascader
-                            placeholder="选择省份和城市"
-                            :options="options.options_citys"
-                            v-model="sdata.completeProvince"
-                            @change="((city)=>{handleCityChange(city,11)})"
-                            :separator="'/'"
-                    >
-                    </el-cascader>
+                    <CountryCitySelect :country="sdata.completeCountry"
+                                       :province="sdata.completeProvince"
+                                       :city="sdata.completeCity"
+                                       :area="sdata.completeArea"
+                                       @countryCityChange="((param)=>{countryCityChange(param,sdata,'complete')})"
+                    ></CountryCitySelect>
                 </div>
                 <!--发表状态-->
                 <div class="f_box">
@@ -125,22 +114,13 @@
                             placeholder="年/月/日">
                     </el-date-picker>
                     <span class="title required">首次发表地点：</span>
-                    <el-select v-model="sdata.appearCountry" placeholder="选择国家">
-                        <el-option
-                                v-for="item in options.options_countrys"
-                                value-key="val"
-                                :key="item.val"
-                                :label="item.text"
-                                :value="item.val">
-                        </el-option>
-                    </el-select>
-                    <el-cascader
-                            placeholder="选择省份和城市"
-                            :options="options.options_citys"
-                            v-model="sdata.appearCity"
-                            @change="((city)=>{handleCityChange(city,11)})"
-                            :separator="'/'"
-                    ></el-cascader>
+
+                    <CountryCitySelect :country="sdata.appearCountry"
+                                       :province="sdata.appearProvince"
+                                       :city="sdata.appearCity"
+                                       :area="sdata.appearArea"
+                                       @countryCityChange="((param)=>{countryCityChange(param,sdata,'appear')})"
+                    ></CountryCitySelect>
                 </div>
                 <!--作品性质-->
                 <div class="f_box">
@@ -280,24 +260,12 @@
                                     <el-input v-model="item.name" placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
                                 </div>
                                 <div class="flex">
-                                    <el-select class="mr10" style="width: 165px" v-model="item.country"
-                                               placeholder="选择国家">
-                                        <el-option
-                                                v-for="item in options.options_countrys"
-                                                value-key="val"
-                                                :key="item.val"
-                                                :label="item.text"
-                                                :value="item.val">
-                                        </el-option>
-                                    </el-select>
-                                    <el-cascader
-                                            placeholder="选择省份和城市"
-                                            :options="options.options_citys"
-                                            v-model="item.city"
-                                            @change="((city)=>{handleCityChange(city,11)})"
-                                            :separator="'/'"
-                                            style="width: 454px;"
-                                    ></el-cascader>
+                                    <CountryCitySelect :country="item.country"
+                                                       :province="item.province"
+                                                       :city="item.city"
+                                                       :area="item.area"
+                                                       @countryCityChange="((param)=>{countryCityChange(param,item,'')})"
+                                    ></CountryCitySelect>
                                 </div>
                                 <div class="flex">
                                     <el-select class="mr10" style="width: 225px" v-model="item.idType"
@@ -453,19 +421,6 @@
             </div>
         </div>
         <div class="step step_3" v-show="$route.params.step==3">
-            <el-select
-                    v-model="selCountry"
-                    filterable
-                    placeholder="请选择国家"
-                    @change="selCountryChange">
-                <el-option
-                        v-for="item in countrys"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id">
-                </el-option>
-            </el-select>
-            <el-cascader v-if="selCountry" :props="props"></el-cascader>
             <div class="f_box">
                 <div class="info-title">作品信息</div>
                 <div class="info-cont">
@@ -772,8 +727,9 @@
                     <p>邮编：10000</p>
                 </el-row>
                 <el-row v-else>
-                    <receiveMode v-model="sdata.receiveType"></receiveMode>
+
                 </el-row>
+                <AddressBox></AddressBox>
             </div>
             <div class="step-btns big">
                 <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
@@ -893,46 +849,15 @@
     import FileUpload from '../components/FileUpload'
     import LoadMore from '../components/LoadMore'
     import fileUpload from '@share/components/common/fileUpload'
-    import receiveMode from '../components/receiveMode'
-    import areaFun from '@share/js/common/area'
+    import AddressBox from '../components/AddressBox'
+    import CountryCitySelect from '../components/CountryCitySelect'
 
-    var selCountry = ''
+
     export default {
-        components: {StepsList, FileUpload, LoadMore, receiveMode, fileUpload},
+        components: {StepsList, FileUpload, LoadMore, fileUpload, CountryCitySelect, AddressBox},
         data() {
             return {
-                props: {
-                    lazy: true,
-                    async lazyLoad(node, resolve) {
-                        setTimeout(async () => {
-                            let citys = null;
-
-                            if (!selCountry) {
-                                resolve([])
-                                return;
-                            } else {
-                                if (node.root == true) {
-                                    citys = await areaFun.getArea('Province', selCountry);
-                                } else {
-                                    var {id, lvl} = node.data._d;
-                                    let apiName = (lvl == 2 ? 'City' : 'Area')
-                                    citys = await areaFun.getArea(apiName, id);
-                                }
-
-                                const nodes = citys.map(item => ({
-                                    value: item.id,
-                                    label: item.name,
-                                    leaf: item.hasChildren == 0,
-                                    _d: item
-                                }));
-                                // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-                                resolve(nodes);
-                            }
-                        }, 100);
-                    }
-                },
-                countrys: [],
-                selCountry: '001',
+                receiveType: 'tq',
                 crumb: [
                     {
                         name: '申请作品登记查询'
@@ -1029,7 +954,7 @@
                     "certificateCollectionMethod": "TQ",
                     "certificateCollectionAddress": '1',
                     "completeCity": "泉州",
-                    "completeCountry": "中国",
+                    "completeCountry": "001",
                     "completeDate": "2018-12-12",
                     "completeProvince": "福建",
                     "needStamp": "1",
@@ -1241,6 +1166,20 @@
         },
 
         methods: {
+            //国家城市选择后回调处理方法
+            countryCityChange(params, item, type) {
+                if (type) {
+                    item[type + 'Country'] = params.country
+                    item[type + 'Province'] = params.province;
+                    item[type + 'City'] = params.city;
+                    item[type + 'Area'] = params.area;
+                } else {
+                    item['country'] = params.country;
+                    item['province'] = params.province;
+                    item['city'] = params.city;
+                    item['area'] = params.area;
+                }
+            },
             stepNext(step, applyType) {
                 step = parseInt(step);
                 switch (step) {
@@ -1387,16 +1326,6 @@
                     }
                 })
                 return tmp;
-            },
-            selCountryChange(val) {
-                this.selCountry = '';
-                selCountry = '';
-                this.$nextTick(() => {
-                    setTimeout(() => {
-                        this.selCountry = val;
-                        selCountry = val;
-                    }, 100)
-                })
             }
         },
         watch: {
@@ -1411,9 +1340,8 @@
                 this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
             },
         },
-        async mounted() {
-            this.countrys = await areaFun.getArea('Country')
-            selCountry = this.selCountry
+        mounted() {
+
         }
     }
 </script>
