@@ -474,50 +474,6 @@
   }
 }
 
-//办理方式或地址的信息框
-.way-box {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  .way-check-box {
-    padding: 20px 15px;
-    width: 360px;
-    min-height: 120px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, .08);
-    margin-right: 10px;
-    margin-bottom: 15px;
-    cursor: default;
-    .w-title {
-      color: #000;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(0, 0, 0, .08);
-    }
-    .w-info {
-      padding-top: 6px;
-      color: #666666;
-      line-height: 1.7;
-    }
-    &.on {
-      position: relative;
-      border: 1px solid rgb(0, 104, 183);
-      &:after {
-        content: ' ';
-        position: absolute;
-        right: -1px;
-        bottom: -1px;
-        width: 32px;
-        height: 31px;
-        background: url("../../assets/img/steps/btn_on.png") 0px 0px no-repeat;
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
-      }
-    }
-  }
-}
-
 .icon-more {
   display: flex;
   justify-content: flex-start;
@@ -535,13 +491,23 @@
   }
 }
 
+.step_1 {
+  .country-city-select {
+    display: flex;
+    .country-box{
+      margin-right: 10px;
+    }
+  }
+}
+
 .step_2 {
   .country-city-select {
-    .el-select {
+    display: flex;
+    .country-box {
       width: 164px;
-      margin-right: 6px;
+      margin-right: 10px;
     }
-    .el-cascader {
+    .city-box {
       width: 454px;
     }
   }
@@ -571,6 +537,11 @@
 
 .el-table {
   &.print-table {
+    height: 300px;
+    overflow-y: hidden;
+    &.unfold {
+      height: auto;
+    }
     th {
       text-align: center;
       background: #eeeeee;

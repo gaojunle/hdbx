@@ -681,18 +681,10 @@
                         {{item.text}}
                     </el-radio-button>
                 </el-radio-group>
+
                 <el-row>
-                    <div class="way-box">
-                        <div class="way-check-box"
-                             :class="{on:(idx+1)==parseInt(sdata.certificateCollectionAddress)}"
-                             v-for="(item,idx) in options.options_registrationMethod_TQ"
-                             @click="select_registrationMethod_TQ(idx+1)">
-                            <div class="w-title">{{item.name}}</div>
-                            <div class="w-info">{{item.addr}}</div>
-                        </div>
-                    </div>
-                    <LoadMore v-if="options.options_registrationMethod_TQ.length>3"
-                              dataLabel="'options.options_registrationMethod_TQ'"></LoadMore>
+                    <WaysBox v-show="sdata.registrationMethod == 'TQ'"></WaysBox>
+                    <AddressBox v-show="sdata.registrationMethod == 'MAIL'"></AddressBox>
                 </el-row>
             </div>
             <div class="f_box sampleRetention">
@@ -705,31 +697,12 @@
                         {{item.text}}
                     </el-radio-button>
                 </el-radio-group>
-                <div class="ways">
-                    <div class="way-box">
-                        <div class="way-check-box on">
-                            <div class="w-title">中国版权保护中心版权登记大厅（天桥）</div>
-                            <div class="w-info">北京市西城区天桥南大街1号天桥艺术大厦A座三层302</div>
-                        </div>
-                        <div class="way-check-box">
-                            <div class="w-title">雍和版权登记大厅</div>
-                            <div class="w-info">北京市东城区安定门东大街28号雍和大厦西楼一层</div>
-                        </div>
-                        <div class="way-check-box">
-                            <div class="w-title">雍和版权登记大厅</div>
-                            <div class="w-info">成都市高新区益州大道中段1858号</div>
-                        </div>
-                    </div>
-                    <div class="icon-more on">展开更多 <img src="../../../assets/img/steps/icon_down.png"></div>
-                </div>
-                <el-row v-if="sdata.certificateCollectionMethod!='MAIL'">
+                <WaysBox v-show="sdata.certificateCollectionMethod == 'TQ'"></WaysBox>
+                <AddressBox v-show="sdata.certificateCollectionMethod == 'MAIL'"></AddressBox>
+                <el-row v-show="sdata.certificateCollectionMethod == 'EMS'">
                     <p>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</p>
                     <p>邮编：10000</p>
                 </el-row>
-                <el-row v-else>
-
-                </el-row>
-                <AddressBox></AddressBox>
             </div>
             <div class="step-btns big">
                 <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
@@ -747,7 +720,8 @@
                 </div>
                 <el-table
                         class="print-table"
-                        :data="printData"
+                        :class="{unfold:print_unfold_1}"
+                        :data="printData_1"
                         align="center"
                         header-align="center"
                         style="width: 100%">
@@ -780,8 +754,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="icon-more" style="justify-content: center">展开更多 <img
-                        src="../../../assets/img/steps/icon_down.png"></div>
+                <LoadMore v-if="printData_1.length>4"
+                          @triggerLoadMore="(unfold)=>{this.print_unfold_1 =!unfold}"></LoadMore>
             </div>
             <div class="f_box">
                 <div class="info-title">
@@ -793,7 +767,7 @@
                 </div>
                 <el-table
                         class="print-table"
-                        :data="printData"
+                        :data="printData_2"
                         align="center"
                         header-align="center"
                         style="width: 100%">
@@ -826,8 +800,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <div class="icon-more" style="justify-content: center">展开更多 <img
-                        src="../../../assets/img/steps/icon_down.png"></div>
+                <LoadMore v-if="printData_2.length>4"
+                          @triggerLoadMore="(unfold)=>{this.print_unfold_2 =!unfold}"></LoadMore>
             </div>
             <div class="step-btns big">
                 <el-button type="primary" @click="stepNext($route.params.step)" class="big">已打印，去递交材料</el-button>
@@ -847,14 +821,14 @@
     import options from '../components/options.js'
     import StepsList from '../components/StepsList'
     import FileUpload from '../components/FileUpload'
-    import LoadMore from '../components/LoadMore'
-    import fileUpload from '@share/components/common/fileUpload'
-    import AddressBox from '../components/AddressBox'
     import CountryCitySelect from '../components/CountryCitySelect'
+    import WaysBox from '../components/WaysBox'
+    import AddressBox from '../components/AddressBox'
+    import LoadMore from '../components/LoadMore'
 
 
     export default {
-        components: {StepsList, FileUpload, LoadMore, fileUpload, CountryCitySelect, AddressBox},
+        components: {StepsList, FileUpload, CountryCitySelect, WaysBox, AddressBox, LoadMore},
         data() {
             return {
                 receiveType: 'tq',
@@ -870,7 +844,19 @@
                     m: '',
                     s: ''
                 },
-                printData: [
+                printData_1: [
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
                     {
                         p_name: '计算机软件著作权查询申请表',
                         p_require: '申请人签章处加盖XXXX公章'
@@ -888,6 +874,26 @@
                         p_require: '申请人签章处加盖XXXX公章'
                     }
                 ],
+                print_unfold_1: false,
+                printData_2: [
+                    {
+                        p_name: '计算机软件著作权查询申请表2',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表2',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表2',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    },
+                    {
+                        p_name: '计算机软件著作权查询申请表2',
+                        p_require: '申请人签章处加盖XXXX公章'
+                    }
+                ],
+                print_unfold_2: false,
                 sdata: {
                     "accountId": "133618064657874944",
                     "appearCity": "AppearCity",
@@ -1311,11 +1317,10 @@
                     "role": ""
                 })
             },
-            select_registrationMethod_TQ(idx) {
-                this.sdata.certificateCollectionAddress = idx;
-            },
-            handleCityChange(param, p) {
-                console.log(param, p)
+
+            //打印列表展示更多
+            triggerLoadMorePrint(isFold, dataLabel) {
+
             },
             _splitor(splitor, type) {
                 var tmp = null;

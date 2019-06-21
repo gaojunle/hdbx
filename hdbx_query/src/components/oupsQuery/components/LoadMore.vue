@@ -31,7 +31,7 @@
         methods: {
             toggleFold() {
                 this.isFold = !this.isFold;
-                this.$emit('foldMore', this.isFold, this.dataLabel);
+                this.$emit('triggerLoadMore', this.isFold, this.dataLabel);
             }
         }
     }

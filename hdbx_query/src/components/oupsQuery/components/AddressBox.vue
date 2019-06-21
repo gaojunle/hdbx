@@ -4,7 +4,7 @@
         <div class="address-wrap">
             <div class="addr-top">
                 <span>您已创建2个收货地址，最多可创建5个</span>
-                <span class="addr-add">+新增地址</span>
+                <span class="addr-add" @click="updataAddress()">+新增地址</span>
             </div>
             <ul class="receive-type-child address-list">
                 <li v-for="(address, index) in addressList" class="clearfix" :key="index">
@@ -25,11 +25,10 @@
                 </li>
             </ul>
         </div>
-        <!--<address-edit @changeAddressList="changeAddressList"></address-edit>-->
-        <AddressEditBox ref="AddressEditBox"></AddressEditBox>
-        <div v-if="userInfo">
 
-        </div>
+        <template v-if="userInfo">
+            <AddressEditBox ref="AddressEditBox"></AddressEditBox>
+        </template>
     </div>
 </template>
 

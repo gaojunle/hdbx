@@ -1,27 +1,31 @@
 <template>
     <div class="country-city-select">
-        <el-select
-                class="country-box"
-                v-model="selCountry"
-                filterable
-                placeholder="请选择国家"
-                @change="selCountryChange">
-            <el-option
-                    v-for="item in countrys"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id">
-            </el-option>
-        </el-select>
-{{location}}
-        <el-cascader
-                class="city-box"
-                v-if="selCountry || initNullFlag"
-                placeholder="省/市区/街道"
-                @change="onCityChange"
-                value="location"
-                :props="props">
-        </el-cascader>
+        <div class="country-box">
+            <el-select
+                    v-model="selCountry"
+                    filterable
+                    placeholder="请选择国家"
+                    @change="selCountryChange">
+                <el-option
+                        v-for="item in countrys"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id">
+                </el-option>
+            </el-select>
+            <div class="error_tip error_country" v-show="validateFlag&&!selCountry">请输选择国家</div>
+        </div>
+        <div class="city-box">
+            <el-cascader
+                    ref="cityBox"
+                    v-if="selCountry || initNullFlag"
+                    placeholder="省/市区/街道"
+                    @change="onCityChange"
+                    value="location"
+                    :props="props">
+            </el-cascader>
+            <div class="error_tip error_location" v-show="validateFlag&&!province">请输选择城市</div>
+        </div>
     </div>
 </template>
 
@@ -78,17 +82,13 @@
                     province: '',
                     city: '',
                     area: ''
-                }
+                },
+                validateFlag: false //是否进行校验标记
             }
         },
         watch: {
             country(newVal, oldVal) {
                 console.log(newVal, oldVal);
-            }
-        },
-        computed: {
-            location() {
-                return [this.province, this.city, this.area]
             }
         },
         methods: {
@@ -115,19 +115,50 @@
                 }
                 this.$emit('countryCityChange', this.retParam)
                 console.log(this.retParam);
+            },
+            initLocation() {
+                let loction = [];
+                this.province && loction.push(this.province)
+                this.city && loction.push(this.city)
+                this.area && loction.push(this.area)
+                if (loction.length > 0) {
+                    var cIpt = this.$refs.cityBox.$el.querySelector('.el-input__inner');
+                    cIpt.value = loction.join('/')
+                }
+            },
+            triggerValidate(flag) {//flag:true,false,
+                this.validateFlag = flag;
+                return this.province; //只要选择了省，说明国家与城市都选择完成，检验成功
             }
         },
         async mounted() {
-            console.log(this.country)
             this.selCountry = this.country;
             selCountry = this.selCountry
             this.countrys = await areaFun.getArea('Country');
+
+            this.initLocation()
         }
     }
 
 </script>
 <style lang="less" rel="stylesheet/less">
     .country-city-select {
-
+        .country-box {
+            position: relative;
+            .el-select {
+                width: 100%;
+            }
+        }
+        .city-box {
+            position: relative;
+            .el-cascader {
+                width: 100%;
+            }
+        }
+        .error_tip {
+            position: absolute;
+            color: #F56C6C;
+            font-size: 12px;
+        }
     }
 </style>
