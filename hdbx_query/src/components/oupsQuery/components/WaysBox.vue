@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import options from '../components/options.js'
+    import options from '../store/options.js'
     import LoadMore from '../components/LoadMore'
 
     export default {

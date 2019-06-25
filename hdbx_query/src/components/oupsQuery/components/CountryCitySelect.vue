@@ -2,6 +2,7 @@
     <div class="country-city-select">
         <div class="country-box">
             <el-select
+                    :disabled="countryDisabled"
                     v-model="selCountry"
                     filterable
                     placeholder="请选择国家"
@@ -17,6 +18,7 @@
         </div>
         <div class="city-box">
             <el-cascader
+                    :disabled="cityDisabled"
                     ref="cityBox"
                     v-if="selCountry || initNullFlag"
                     placeholder="省/市区/街道"
@@ -37,6 +39,14 @@
     var selCountry = ''
     export default {
         props: {
+            countryDisabled: {
+                type: Boolean,
+                default: false
+            },
+            cityDisabled: {
+                type: Boolean,
+                default: false
+            },
             country: '',
             province: '',
             city: '',
@@ -92,6 +102,7 @@
             }
         },
         methods: {
+            //选择国家
             selCountryChange(val) {
                 this.initNullFlag = false;
                 this.selCountry = '';
@@ -106,6 +117,7 @@
                 this.$emit('countryCityChange', this.retParam)
                 console.log(this.retParam);
             },
+            //选择城市
             onCityChange(val) {
                 this.retParam = {
                     country: selCountry,
@@ -116,6 +128,7 @@
                 this.$emit('countryCityChange', this.retParam)
                 console.log(this.retParam);
             },
+            //初始化地址
             initLocation() {
                 let loction = [];
                 this.province && loction.push(this.province)
@@ -126,6 +139,7 @@
                     cIpt.value = loction.join('/')
                 }
             },
+            //验证有效性（是否选择）
             triggerValidate(flag) {//flag:true,false,
                 this.validateFlag = flag;
                 return this.province; //只要选择了省，说明国家与城市都选择完成，检验成功

@@ -1,0 +1,191 @@
+@bColor: rgb(220, 228, 230);
+.content{
+  .el-form-item {
+    margin-bottom: 0px;
+  }
+
+  .el-radio-group {
+
+    &.small {
+      .el-radio-button {
+        width: 70px;
+        padding: 12px 0px;
+      }
+    }
+    &.big {
+      .el-radio-button {
+        width: 310px;
+        padding: 12px 0px;
+      }
+    }
+    .el-radio-button {
+      margin-right: 10px;
+      border: none;
+      width: 148px;
+      &:nth-last-of-type(1) {
+        margin-right: 0px;
+      }
+      &:first-child .el-radio-button__inner {
+        border-radius: 5px;
+      }
+      &:last-child .el-radio-button__inner {
+        border-radius: 5px;
+      }
+    }
+    .el-radio-button__inner {
+      border-width: 1px;
+      border-color: @bColor;
+      border-style: solid;
+      border-radius: 5px;
+      background-color: rgb(245, 248, 249);
+      padding: 16px 20px;
+      width: 100%;
+      font-family: "Microsoft YaHei";
+      color: rgb(82, 95, 102);
+      box-shadow: none;
+    }
+    .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+      color: rgb(40, 46, 104);
+      border: 1px solid rgb(0, 104, 183);
+      background-color: rgb(245, 248, 249);
+      box-shadow: none;
+      position: relative;
+      &:after {
+        content: ' ';
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+        width: 26px;
+        height: 25px;
+        background: url("../../../assets/img/steps/btn_on.png") 0px 0px no-repeat;
+      }
+    }
+
+  }
+
+  .el-checkbox-group {
+    .el-checkbox-button {
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: none;
+      &:nth-last-of-type(1) {
+        margin-right: 0px;
+      }
+      &:first-child .el-checkbox-button__inner {
+        border-radius: 5px;
+      }
+      &:last-child .el-checkbox-button__inner {
+        border-radius: 5px;
+      }
+    }
+    .el-checkbox-button__inner {
+      border-width: 1px;
+      border-color: @bColor;
+      border-style: solid;
+      border-radius: 5px;
+      background-color: white;
+      padding: 16px 20px;
+      width: 148px;
+      font-family: "Microsoft YaHei";
+      color: rgb(82, 95, 102);
+      box-shadow: none;
+    }
+    .el-checkbox-button.is-checked .el-checkbox-button__inner {
+      color: rgb(40, 46, 104);
+      border: 1px solid rgb(0, 104, 183);
+      background-color: white;
+      box-shadow: none;
+      position: relative;
+    }
+    &.small {
+      .el-checkbox-button__inner {
+        width: 70px;
+        padding: 12px 20px;
+      }
+    }
+  }
+
+  .el-input {
+    .el-input__inner {
+      height: 48px;
+    }
+    &.w100 {
+      width: 100%;
+      .el-input__inner {
+        width: 100%;
+      }
+    }
+    &.w220 {
+      width: 220px;
+      .el-input__inner {
+        width: 220px;
+      }
+    }
+    &.w400 {
+      width: 400px;
+      .el-input__inner {
+        width: 400px;
+      }
+    }
+
+  }
+
+  .el-select {
+    .el-input__inner {
+      background-color: #fff;
+      background-image: none;
+      border-radius: 5px;
+      border: 1px solid @bColor;
+      height: 48px;
+    }
+  }
+
+  .step-btns {
+    .el-button {
+      width: 170px;
+      height: 50px;
+      font-size: 18px;
+      border: none;
+      &.big {
+        width: 230px;
+        height: 60px;
+      }
+      &.el-button--default {
+        color: #7788a4;
+        background: #dce3e9;
+        &:hover {
+          background: #dce3e9
+        }
+      }
+      &.el-button--primary {
+        color: white;
+        background: @blue;
+        &:hover {
+          background: @blue
+        }
+      }
+      &.el-button--text {
+        font-size: 16px;
+        color: rgb(0, 104, 183);
+        padding-bottom: 0px;
+      }
+    }
+  }
+
+  .el-link {
+    &.el-link--primary {
+      font-size: 14px;
+      color: #0168B7;
+    }
+  }
+
+  .el-message-box__wrapper {
+    .el-message-box {
+      width: auto;
+    }
+  }
+
+  .el-input--suffix {
+    min-width: auto !important;
+  }
+}

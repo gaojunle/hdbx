@@ -1,4 +1,5 @@
 const options = {
+    exampleUrl:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1417347526,3693915681&fm=26&gp=0.jpg',
     //作品类型
     options_opusType: [
         {
