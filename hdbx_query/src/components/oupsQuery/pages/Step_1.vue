@@ -88,6 +88,7 @@
                 <span class="title required">首次发表地点：</span>
 
                 <CountryCitySelect
+                        ref="CC_appearCountry"
                         :countryDisabled="isDisabled('appearCountry')"
                         :cityDisabled="isDisabled('appearProvince')"
                         :country="sdata.appearCountry"
@@ -166,11 +167,14 @@
                     <div class="ibox" v-for="(item,index) in sdata.attachments">
                         <div class="multi-info">
                             <span>第 {{index+1}} 件</span>
-                            <div class="serial">
+                            <el-form-item
+                                    :prop="'attachments.' + index + '.segmentName'"
+                                    :rules="rules.segmentName"
+                                    class="serial">
                                 <el-input
                                         :disabled="isDisabled('attachments')"
                                         v-model="item.segmentName" placeholder="请输入系列作品名称"></el-input>
-                            </div>
+                            </el-form-item>
                         </div>
 
                         <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
@@ -233,6 +237,15 @@
                     attachmentList: [],
                     segmentName: ''
                 })
+            },
+            stepNext() {
+                if (this.validate()) {
+                    this.$router.push('/index/' + 1)
+                }
+            },
+            validate() {
+                console.log(this.$refs.CC_appearCountry.triggerValidate(true));
+                return this.$refs.form_1.validate()
             }
         },
         watch: {

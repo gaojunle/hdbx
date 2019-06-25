@@ -226,7 +226,8 @@
                     <span class="label"><span class="tip">*</span>选择介质：</span>
                 </el-col>
                 <el-col :span="21">
-                    <el-radio-group v-model="sdata.sampleRetentionMedium">
+                    <el-radio-group :disabled="isDisabled('sampleRetentionMedium')"
+                                    v-model="sdata.sampleRetentionMedium">
                         <el-radio-button v-for="(item,idx) in options.options_sampleRetentionMedium"
                                          :key="item.val"
                                          :label="item.val">
@@ -240,7 +241,8 @@
                     <span class="label"><span class="tip">*</span>是否附图盖章：</span>
                 </el-col>
                 <el-col :span="21">
-                    <el-radio-group v-model="sdata.needStamp">
+                    <el-radio-group :disabled="isDisabled('needStamp')"
+                                    v-model="sdata.needStamp">
                         <el-radio-button v-for="(item,idx) in options.options_needStamp"
                                          :key="item.val"
                                          :label="item.val">
@@ -253,7 +255,8 @@
         <div class="f_box sampleRetention">
             <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
 
-            <el-radio-group v-model="sdata.registrationMethod" class="big">
+            <el-radio-group :disabled="isDisabled('registrationMethod')"
+                             v-model="sdata.registrationMethod" class="big">
                 <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
                                  :key="item.val"
                                  :label="item.val">
@@ -269,7 +272,8 @@
         <div class="f_box sampleRetention">
             <div class="info-title">证书领取方式：</div>
 
-            <el-radio-group v-model="sdata.certificateCollectionMethod" class="big">
+            <el-radio-group  :disabled="isDisabled('certificateCollectionMethod')"
+                             v-model="sdata.certificateCollectionMethod" class="big">
                 <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
                                  :key="item.val"
                                  :label="item.val">
@@ -301,7 +305,9 @@
         data() {
             return {
                 options: options,
-                sdata: store.sdata
+                sdata: store.sdata,
+                rules: store.rules,
+                fdata: store.fdata
             }
         },
 

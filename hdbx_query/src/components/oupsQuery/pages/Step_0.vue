@@ -27,12 +27,13 @@
                             uptext="点击上传"
                             :path="sdata.authAttachment.path"
                             :examples="{exampleUrl:options.exampleUrl}"
+                            :disabled="isDisabled('authAttachment')"
                             @fileSuccess="((params)=>{onFileUploaded(params,sdata.authAttachment)})">
                     </FileUpload>
                 </div>
                 <p class="desc">申请人委托代理人办理登记事宜，具体委托事项如下：</p>
                 <el-form-item prop="agentDesc">
-                    <el-input :disabled="isDisabled('authAttachment')" placeholder="登记申请"
+                    <el-input :disabled="isDisabled('agentDesc')" placeholder="登记申请"
                               v-model="sdata.agentDesc"></el-input>
                 </el-form-item>
                 <div class="step-btns">
@@ -64,13 +65,13 @@
 
         methods: {
             stepNext() {
-                if (this.$refs.UP_AuthAttachment.validate() && this.$refs.form_0.validate()) {
+                if (this.validate()) {
                     this.sdata.applyType = "2";
                     this.$router.push('/index/' + 1)
                 }
             },
             validate() {
-
+                return this.$refs.UP_AuthAttachment.validate() && this.$refs.form_0.validate()
             }
         },
         mounted() {

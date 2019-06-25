@@ -5,7 +5,7 @@
             @file-success="onFileSuccess"
             @file-error="onFileError"
             :headers="headers"
-            :class="['uploader-box',theme,isDisabled?'disabled':'']">
+            :class="['uploader-box',theme,disabled?'disabled':'']">
 
         <!--按钮式上传-->
         <uploader-drop v-if="theme=='btn'" class="upload_btn">
@@ -60,7 +60,7 @@
 
     export default {
         props: {
-            isDisabled: {
+            disabled: {
                 type: Boolean,
                 default: false
             },
@@ -209,6 +209,8 @@
             width: 169px;
             height: 107px;
             .uploader-drop {
+                width: 170px;
+                height: 108px;
                 .uploader-btn {
                     &.upload_card {
                         flex-direction: column;

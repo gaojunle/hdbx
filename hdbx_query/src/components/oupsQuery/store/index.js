@@ -4,9 +4,9 @@ const store = {
         "accountId": "133618064657874944",
         "appearCity": "沧州市",
         "appearArea": "运河区",
-        "appearCountry": "中国大陆",
+        "appearCountry": "",
         "appearDate": "2018-12-12",
-        "appearProvince": "河北",
+        "appearProvince": "",
         "applyType": "2",//申请者身份类型[1权利人，2代理人]
         "authAttachment": {//选择代理人时，授权委托书
             "relevantFileName": "授权委托书名称",//授权委托书名称
@@ -256,7 +256,6 @@ const store = {
             "opusInfo",
             "attachments",
             "rightOwnType",
-            "rightOwnTypeAttachment",
             "owners",
             "authors",
             "obtainType",
@@ -280,6 +279,9 @@ const store = {
         ],
         opusTypeDesc: [
             {required: true, message: '请输入作品类型描述', trigger: 'blur'}
+        ],
+        segmentName: [
+            {required: true, message: '请输入样本名称', trigger: 'blur'}
         ],
     }
 }
