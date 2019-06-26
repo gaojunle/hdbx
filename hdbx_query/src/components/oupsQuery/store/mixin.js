@@ -62,7 +62,7 @@ const myMixin = {
                         return flag;
                     }
                 } else {
-                    if (!ref.validate()) {
+                    if (ref && !ref.validate()) {
                         flag = false;
                         return flag;
                     }

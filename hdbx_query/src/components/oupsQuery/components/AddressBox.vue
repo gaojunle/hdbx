@@ -26,9 +26,7 @@
             </ul>
         </div>
 
-        <template v-if="userInfo">
-            <AddressEditBox ref="AddressEditBox"></AddressEditBox>
-        </template>
+        <AddressEditBox ref="AddressEditBox"></AddressEditBox>
     </div>
 </template>
 

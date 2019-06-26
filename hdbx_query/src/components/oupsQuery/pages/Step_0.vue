@@ -3,19 +3,22 @@
         <div class="mbox">
             <div class="person" @click="stepNext($route.params.step,1)">
                 <div class="s_icon s_per"></div>
-                <div class="type">个人</div>
+                <div class="type">我是著作权人</div>
                 <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
             </div>
 
             <div class="company" @click="sdata.applyType=2;showAuthPaper=true">
                 <div class="s_icon s_paper"></div>
-                <div class="type">机构</div>
+                <div class="type">我是代理人</div>
                 <div class="desc">办理本人所属机构业务或以本人所属机构名义代理他人办理业务</div>
             </div>
         </div>
 
         <!--上传弹层-->
-        <el-form v-if="showAuthPaper" :model="sdata" ref="form_0" :rules="rules" class="pop-box upload_auth_paper"
+        <el-form v-if="showAuthPaper"
+                 :model="sdata" ref="form_0"
+                 :rules="rules"
+                 class="pop-box upload_auth_paper"
                  :class="{show:showAuthPaper}">
             <div class="pop-cont">
                 <div class="pop-title">上传授权委托书</div>

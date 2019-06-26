@@ -12,7 +12,7 @@
             <div class="f_box opusType">
                 <span class="title required">作品类型：</span>
                 <div class="flex">
-                    <el-select class="mr10" style="width: 350px"
+                    <el-select class="mr10" style="width: 450px"
                                v-model="sdata.opusType"
                                :disabled="isDisabled('opusType')"
                                placeholder="请选择作品类型">
@@ -22,9 +22,11 @@
                                 :key="item.val"
                                 :label="item.text"
                                 :value="item.val">
+                            <span style="float: left">{{ item.text }}</span>
+                            <span style="float: left; padding-left:12px;color: #8492a6; font-size: 12px">{{ item.sub }}</span>
                         </el-option>
                     </el-select>
-                    <el-form-item prop="opusTypeDesc" class="flex-1">
+                    <el-form-item prop="opusTypeDesc" class="flex-1" v-if="sdata.opusType=='L'">
                         <el-input :disabled="isDisabled('opusTypeDesc')" v-model="sdata.opusTypeDesc"
                                   placeholder="说明"></el-input>
                     </el-form-item>
@@ -77,7 +79,7 @@
                 </el-radio-group>
             </div>
             <!--首次发表日期、地点-->
-            <div class="f_box completeDate">
+            <div class="f_box completeDate" v-if="sdata.publishStatus=='1'">
                 <span class="title required">首次发表日期：</span>
                 <el-date-picker
                         :disabled="isDisabled('appearDate')"
@@ -201,6 +203,7 @@
             </div>
         </el-form>
         <div class="step-btns">
+            <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
             <el-button type="primary" class="big" @click="stepNext($route.params.step)">下一步</el-button>
         </div>
     </div>
