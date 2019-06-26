@@ -5,7 +5,7 @@
             @file-success="onFileSuccess"
             @file-error="onFileError"
             :headers="headers"
-            :class="['uploader-box',theme,disabled?'disabled':'']">
+            :class="['uploader-box', theme, disabled?'disabled':'',isError?'up-error':'']">
 
         <!--按钮式上传-->
         <uploader-drop v-if="theme=='btn'" class="upload_btn">
@@ -39,15 +39,22 @@
         </div>
 
         <!--身份证上传-->
-        <uploader-drop v-if="theme=='idcard'">
-            <uploader-btn :attrs="attrs" class="upload_card" :class="{preview:filePath}">
-                <img class="upbtn" src="../../../assets/img/steps/icon_upload_idcard.png" alt="">
-                <span class="uptxt">{{uptext}}</span>
-            </uploader-btn>
-            <div v-if="filePath" class="preview-box">
-                <img class="filePath" :src="filePath" alt="">
+        <div class="up-card" v-if="theme=='idcard'">
+            <uploader-drop>
+                <uploader-btn :attrs="attrs" class="upload_card" :class="{preview:filePath}">
+                    <img class="upbtn" src="../../../assets/img/steps/icon_upload_idcard.png" alt="">
+                    <span class="uptxt">{{uptext}}</span>
+                </uploader-btn>
+                <div v-if="filePath" class="preview-box">
+                    <img class="filePath" :src="filePath" alt="">
+                </div>
+            </uploader-drop>
+            <div v-if="isError" class="error-tip">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA5RUE2ODE5OTcxRjExRTlCRjdDRDdBQjg1RTAzQURGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA5RUE2ODFBOTcxRjExRTlCRjdDRDdBQjg1RTAzQURGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDlFQTY4MTc5NzFGMTFFOUJGN0NEN0FCODVFMDNBREYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDlFQTY4MTg5NzFGMTFFOUJGN0NEN0FCODVFMDNBREYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6keNNKAAABH0lEQVR42oxSXU7CQBhcTQgt9ACI7yT8JVyEJ56scgr+wgWMAqcAypNPXMRE0MR3fg5QbQkvQ2e167ZQcJNJNtOZ7fczAoBQWK/zaLeHKBY/kE7vJEqld3S7z9hsbnTtn2kyeYBpepI6hWz2C45jR43jcTPREMevWWC1uoVh+JJMpfaoVBZH4mr1TX7jPZP5ZtkCrdZICWq1V3ieiXp9rjjbdiRXLi8V1+kMBAqFz8jroZBm/a5rguEJVULc7PvGSRMRTPtaJB3gSpw7Z0ttNF7gutbRX4PdXh4O7zTrw+n1nn7SEi6e/TIp8Z7IhbNgEOQ6GIDp9P7fAZjN7qKRo5mvJRksyw1NUSPBIAf1y36YJoKp6fcfsd3mdO1BgAEAAG6l2TCpFr4AAAAASUVORK5CYII="
+                     class="error-icon">
+                <span class="error-txt">请您先上传图片</span>
             </div>
-        </uploader-drop>
+        </div>
     </uploader>
 </template>
 
@@ -207,7 +214,6 @@
         &.idcard {
             background-color: rgb(255, 255, 255);
             width: 169px;
-            height: 107px;
             .uploader-drop {
                 width: 170px;
                 height: 108px;
@@ -303,6 +309,11 @@
             }
             .cBlue {
                 color: @cBlue;
+            }
+        }
+        &.up-error{
+            .uploader-drop {
+                border: 1px solid red;
             }
         }
         .error-tip {

@@ -43,12 +43,19 @@
                                             :value="item.val">
                                     </el-option>
                                 </el-select>
-                                <el-input
-                                        :disabled="isDisabled('owners')"
-                                        v-model="item.name" placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
+                                <el-form-item
+                                        class="flex-1"
+                                        :prop="'owners.' + idx + '.name'"
+                                        :rules="rules.ownerName">
+                                    <el-input
+                                            :disabled="isDisabled('owners')"
+                                            v-model="item.name"
+                                            placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
+                                </el-form-item>
                             </div>
                             <div class="flex">
                                 <CountryCitySelect
+                                        ref="CC_owners"
                                         :countryDisabled="isDisabled('owners')"
                                         :cityDisabled="isDisabled('owners')"
                                         :country="item.country"
@@ -62,7 +69,7 @@
                                 <el-select
                                         :disabled="isDisabled('owners')"
                                         v-model="item.idType"
-                                        class="mr10" style="width: 225px"
+                                        class="mr10"
                                         placeholder="请选择">
                                     <el-option
                                             v-for="item in options.options_idType"
@@ -72,14 +79,24 @@
                                             :value="item.val">
                                     </el-option>
                                 </el-select>
-                                <el-input :disabled="isDisabled('owners')" placeholder="证件号码" v-model="item.idNumber"></el-input>
+                                <el-form-item
+                                        class="flex-1"
+                                        :prop="'owners.' + idx + '.idNumber'"
+                                        :rules="rules.idNumber">
+                                    <el-input :disabled="isDisabled('owners')" placeholder="证件号码"
+                                              v-model="item.idNumber"></el-input>
+                                </el-form-item>
                             </div>
                             <div class="flex">
-                                <div>
-                                    <el-input :disabled="isDisabled('owners')" placeholder="请输入电话号码" v-model="item.mobile">
+                                <el-form-item
+                                        class="flex-1"
+                                        :prop="'owners.' + idx + '.mobile'"
+                                        :rules="rules.mobile">
+                                    <el-input :disabled="isDisabled('owners')" placeholder="请输入电话号码"
+                                              v-model="item.mobile">
                                         <template slot="prepend">手机号码</template>
                                     </el-input>
-                                </div>
+                                </el-form-item>
                             </div>
                             <div class="fuben" v-if="idx>0">
                                 <span>申请证书副本：</span>
@@ -96,12 +113,14 @@
                         <div class="f_right">
                             <div class="copy_upload">
                                 <FileUpload
+                                        ref="UP_cardFront"
                                         :disabled="isDisabled('owners')"
                                         @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardFront,'single')})"
                                         theme="idcard"
                                         :path="sdata.owners[idx].cardFront.path"
                                         uptext="上传人像面"></FileUpload>
                                 <FileUpload
+                                        ref="UP_cardBack"
                                         :disabled="isDisabled('owners')"
                                         @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardBack,'single')})"
                                         theme="idcard"
@@ -124,12 +143,22 @@
                     <p class="sub_title">第 {{idx+1}} 位</p>
                     <div class="flex">
                         <div class="flex">
-                            <el-input :disabled="isDisabled('authors')"
-                                      class="w400" v-model="item.name"
-                                      placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
-                            <el-input :disabled="isDisabled('authors')"
-                                      class="w400" v-model="item.signature"
-                                      placeholder="作者署名：作者的笔名、别名等"></el-input>
+                            <el-form-item
+                                    class="flex-1"
+                                    :prop="'authors.' + idx + '.name'"
+                                    :rules="rules.authorName">
+                                <el-input :disabled="isDisabled('authors')"
+                                          class="w400" v-model="item.name"
+                                          placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    class="flex-1"
+                                    :prop="'authors.' + idx + '.signature'"
+                                    :rules="rules.signature">
+                                <el-input :disabled="isDisabled('authors')"
+                                          class="w400" v-model="item.signature"
+                                          placeholder="作者署名：作者的笔名、别名等"></el-input>
+                            </el-form-item>
                         </div>
                         <div class="opts" v-if="!isDisabled('authors')">
                             <a href="javascript:;" @click="removeAuthor(idx)">删除</a>
@@ -165,7 +194,7 @@
                          v-for="(item,idx) in options.options_obtainTypeAttachment[parseInt(sdata.obtainType)-2]"
                          :key="idx">
                         <FileUpload
-                                ref="UP_obtainTypeAttachment_'+idx+'"
+                                ref="UP_obtainTypeAttachment"
                                 theme="card"
                                 :uptext="options.options_relevantFileName[parseInt(sdata.rightOwnType)-2].text"
                                 :path="sdata.obtainTypeAttachment[idx].path"
@@ -185,12 +214,15 @@
                     <el-radio-button v-for="item in options.options_rightScope"
                                      :key="item.val"
                                      :label="item.val"
-                                     @change="rightScopeChange(item.val)"
-                    >
+                                     @change="rightScopeChange(item.val)">
                         {{item.text}}
                     </el-radio-button>
                 </el-radio-group>
-                <div class="rightScopePart" v-if="sdata.rightScope==2">
+                <el-form-item
+                        v-if="sdata.rightScope==2"
+                        class="rightScopePart"
+                        prop="rightScopePart"
+                        :rules="rules.rightScopePart">
                     <el-checkbox-group :disabled="isDisabled('rightScopePart')"
                                        v-model="sdata.rightScopePart">
                         <el-checkbox-button v-for="item in options.options_rightScopePart"
@@ -199,7 +231,7 @@
                             {{item.text}}
                         </el-checkbox-button>
                     </el-checkbox-group>
-                </div>
+                </el-form-item>
             </div>
             <!--作品说明书-->
             <div class="f_box">
@@ -299,18 +331,6 @@
                     "peopleKind": "",
                     "role": ""
                 })
-            },
-
-            stepNext() {
-                if (this.validate()) {
-                    this.sdata.applyType = "2";
-                    this.$router.push('/index/' + 3)
-                }
-            },
-
-            //验证
-            validate() {
-                return this.$refs.UP_rightOwnTypeAttachment.validate() && this.$refs.form_2.validate()
             }
         },
         mounted() {

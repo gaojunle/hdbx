@@ -256,7 +256,7 @@
             <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
 
             <el-radio-group :disabled="isDisabled('registrationMethod')"
-                             v-model="sdata.registrationMethod" class="big">
+                            v-model="sdata.registrationMethod" class="big">
                 <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
                                  :key="item.val"
                                  :label="item.val">
@@ -272,8 +272,8 @@
         <div class="f_box sampleRetention">
             <div class="info-title">证书领取方式：</div>
 
-            <el-radio-group  :disabled="isDisabled('certificateCollectionMethod')"
-                             v-model="sdata.certificateCollectionMethod" class="big">
+            <el-radio-group :disabled="isDisabled('certificateCollectionMethod')"
+                            v-model="sdata.certificateCollectionMethod" class="big">
                 <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
                                  :key="item.val"
                                  :label="item.val">
@@ -311,64 +311,7 @@
             }
         },
 
-        methods: {
-            //添加作者
-            addAuthor() {
-                this.sdata.authors.push({
-                    name: "",
-                    signature: ""
-                })
-            },
-            //移除作者
-            removeAuthor(idx) {
-                this.sdata.authors.splice(idx, 1)
-            },
-            //清空作者信息
-            clearAuthor(idx) {
-                this.sdata.authors.splice(idx, 1, {
-                    name: "",
-                    signature: ""
-                })
-            },
-            //所有权切换
-            rightScopeChange(val) {
-                this.sdata.rightOwnType = val - 1;
-            },
-            //移除拥有者
-            removeOwner(idx) {
-                this.sdata.owners.splice(idx, 1)
-            },
-            //清空拥有者信息
-            clearOwner(idx) {
-                this.sdata.owners.splice(idx, 1, {
-                    "applyCopy": '',
-                    "cardBack": "",
-                    "cardFront": "",
-                    "country": "",
-                    "idNumber": "",
-                    "idType": "",
-                    "mobile": "",
-                    "name": "",
-                    "peopleKind": "",
-                    "role": ""
-                })
-            },
-            //添加拥有者
-            addOwner() {
-                this.sdata.owners.push({
-                    "applyCopy": '',
-                    "cardBack": "",
-                    "cardFront": "",
-                    "country": "",
-                    "idNumber": "",
-                    "idType": "",
-                    "mobile": "",
-                    "name": "",
-                    "peopleKind": "",
-                    "role": ""
-                })
-            }
-        },
+        methods: {},
         mounted() {
 
         }

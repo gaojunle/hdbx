@@ -4,9 +4,9 @@ const store = {
         "accountId": "133618064657874944",
         "appearCity": "沧州市",
         "appearArea": "运河区",
-        "appearCountry": "",
+        "appearCountry": "中国大陆",
         "appearDate": "2018-12-12",
-        "appearProvince": "",
+        "appearProvince": "河北省",
         "applyType": "2",//申请者身份类型[1权利人，2代理人]
         "authAttachment": {//选择代理人时，授权委托书
             "relevantFileName": "授权委托书名称",//授权委托书名称
@@ -62,7 +62,7 @@ const store = {
             }
         ],
         "authors": [
-            {"name": "张三", "signature": "漂流、自由"}, {"name": "李四", "signature": "啊偶"}
+            {"name": "", "signature": ""}, {"name": "李四", "signature": "啊偶"}
         ],
         "certificateCollectionMethod": "TQ",
         "certificateCollectionAddress": '1',
@@ -75,7 +75,7 @@ const store = {
         "obtainTypeAttachment": [
             {
                 relevantFileName: 'QLGS-0603',
-                path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+                path: '',
                 remark: 'remark'
             },
             {
@@ -96,7 +96,7 @@ const store = {
         ],
         "ownObtainDate": "2019-10-19",
         "opusDescriptionAttachment": {
-            "path": 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
+            "path": '',
             "relevantFileName": "QLGS-07"
         },
         "opusInditeType": "1",
@@ -110,16 +110,17 @@ const store = {
                 "applyCopy": "0",
                 "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
                 "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
-                "country": "中国",
-                "province": "省",
-                "city": "城市",
+                "country": "",
+                "province": "",
+                "city": "",
                 "idNumber": "1401111111",
                 "idType": "1",
                 "mobile": "130111111",
-                "name": "第一著作权人",
+                "name": "",
                 "peopleKind": "1",
                 "role": "PET"
-            }, {
+            },
+            {
                 "applyCopy": "1",
                 "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
                 "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
@@ -142,7 +143,7 @@ const store = {
             remark: ''
         },
         "rightScope": "2",
-        rightScopePart: ["1", "2"],
+        rightScopePart: [],
         "sampleRetentionMedium": "1"
     },
     fdata: {
@@ -283,6 +284,24 @@ const store = {
         segmentName: [
             {required: true, message: '请输入样本名称', trigger: 'blur'}
         ],
+        ownerName: [
+            {required: true, message: '请输入著作权人姓名', trigger: 'blur'}
+        ],
+        idNumber: [
+            {required: true, message: '请输入证件号码', trigger: 'blur'}
+        ],
+        mobile: [
+            {required: true, message: '请输入手机号', trigger: 'blur'}
+        ],
+        authorName: [
+            {required: true, message: '请输入著作权人姓名', trigger: 'blur'}
+        ],
+        signature: [
+            {required: true, message: '请输入作者署名：作者的笔名、别名', trigger: 'blur'}
+        ],
+        rightScopePart: [
+            {required: true, message: '请输选择权利拥有状况', trigger: 'change'}
+        ]
     }
 }
 

@@ -167,7 +167,7 @@
              */
             save_handler() {
                 this.$refs.addrEditForm.validate((ret) => {
-                    var locationValid = this.$refs.CountryCitySelect.triggerValidate(true);
+                    var locationValid = this.$refs.CountryCitySelect.validate(true);
                     console.log(ret, locationValid)
                     if (ret && locationValid) {
                         let method = ''

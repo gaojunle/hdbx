@@ -1,5 +1,5 @@
 @bColor: rgb(220, 228, 230);
-.content{
+.content {
   .el-form-item {
     margin-bottom: 0px;
   }
@@ -77,6 +77,20 @@
       &:last-child .el-checkbox-button__inner {
         border-radius: 5px;
       }
+      &.is-focus {
+        .el-checkbox-button__inner {
+          border-color: @bColor;
+        }
+      }
+      &.is-checked {
+        .el-checkbox-button__inner {
+          color: rgb(40, 46, 104);
+          border: 1px solid rgb(0, 104, 183);
+          background-color: white;
+          box-shadow: none;
+          position: relative;
+        }
+      }
     }
     .el-checkbox-button__inner {
       border-width: 1px;
@@ -89,13 +103,6 @@
       font-family: "Microsoft YaHei";
       color: rgb(82, 95, 102);
       box-shadow: none;
-    }
-    .el-checkbox-button.is-checked .el-checkbox-button__inner {
-      color: rgb(40, 46, 104);
-      border: 1px solid rgb(0, 104, 183);
-      background-color: white;
-      box-shadow: none;
-      position: relative;
     }
     &.small {
       .el-checkbox-button__inner {

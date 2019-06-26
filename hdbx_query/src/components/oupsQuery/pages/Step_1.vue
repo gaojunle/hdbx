@@ -237,15 +237,6 @@
                     attachmentList: [],
                     segmentName: ''
                 })
-            },
-            stepNext() {
-                if (this.validate()) {
-                    this.$router.push('/index/' + 1)
-                }
-            },
-            validate() {
-                console.log(this.$refs.CC_appearCountry.triggerValidate(true));
-                return this.$refs.form_1.validate()
             }
         },
         watch: {

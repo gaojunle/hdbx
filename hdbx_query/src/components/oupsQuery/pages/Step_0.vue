@@ -15,7 +15,7 @@
         </div>
 
         <!--上传弹层-->
-        <el-form :model="sdata" ref="form_0" :rules="rules" class="pop-box upload_auth_paper"
+        <el-form v-if="showAuthPaper" :model="sdata" ref="form_0" :rules="rules" class="pop-box upload_auth_paper"
                  :class="{show:showAuthPaper}">
             <div class="pop-cont">
                 <div class="pop-title">上传授权委托书</div>
@@ -37,7 +37,7 @@
                               v-model="sdata.agentDesc"></el-input>
                 </el-form-item>
                 <div class="step-btns">
-                    <el-button type="primary" @click="stepNext">确 定</el-button>
+                    <el-button type="primary" @click="stepNext($route.params.step,2)">确 定</el-button>
                 </div>
             </div>
         </el-form>
@@ -64,15 +64,6 @@
         },
 
         methods: {
-            stepNext() {
-                if (this.validate()) {
-                    this.sdata.applyType = "2";
-                    this.$router.push('/index/' + 1)
-                }
-            },
-            validate() {
-                return this.$refs.UP_AuthAttachment.validate() && this.$refs.form_0.validate()
-            }
         },
         mounted() {
 

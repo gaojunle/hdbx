@@ -13,7 +13,12 @@ const myMixin = {
         },
         //下一步
         stepNext(step, applyType) {
+            if (!this.validate()) {
+                return false
+            }
+
             step = parseInt(step);
+            console.log(step)
             switch (step) {
                 case 0:
                     this.sdata.applyType = applyType;
@@ -37,6 +42,39 @@ const myMixin = {
                 default:
                     this.$router.push('/index/0')
             }
+        },
+
+        //验证
+        validate() {
+            var flag = true;
+
+            Object.values(this.$refs).forEach((ref) => {
+                if (Array.isArray(ref)) {
+                    var _flag = true;
+                    ref.forEach((_ref) => {
+                        if (!_ref.validate()) {
+                            _flag = false;
+                            return _flag;
+                        }
+                    })
+                    if (!_flag) {
+                        flag = false;
+                        return flag;
+                    }
+                } else {
+                    if (!ref.validate()) {
+                        flag = false;
+                        return flag;
+                    }
+                }
+            })
+            console.log(flag);
+            return flag;
+        },
+
+        //验证是否可编辑
+        isDisabled(key) {
+            return store.fdata.reFillin.indexOf(key) == -1;
         },
 
         //将select字段值转为text显示
@@ -69,18 +107,6 @@ const myMixin = {
                 dataRef = item;
             }
         },
-
-        //打开示例
-        openExample(url) {
-            this.$alert('<img src="' + url + '" style="width: 600px;height: 400px;">', '示例', {
-                dangerouslyUseHTMLString: true
-            });
-        },
-
-        //验证是否可编辑
-        isDisabled(key) {
-            return store.fdata.reFillin.indexOf(key) == -1;
-        }
     }
 }
 

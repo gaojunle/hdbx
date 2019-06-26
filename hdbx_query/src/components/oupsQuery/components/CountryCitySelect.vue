@@ -140,7 +140,7 @@
                 }
             },
             //验证有效性（是否选择）
-            triggerValidate(flag) {//flag:true,false,
+            validate(flag=true) {//flag:true,false,
                 this.validateFlag = flag;
                 return this.province; //只要选择了省，说明国家与城市都选择完成，检验成功
             }
@@ -170,7 +170,7 @@
             }
         }
         .error_tip {
-            position: absolute;
+            position: relative;
             display: flex;
             justify-content: flex-start;
             align-items: center;
