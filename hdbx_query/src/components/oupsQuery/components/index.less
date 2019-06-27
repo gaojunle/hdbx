@@ -46,7 +46,7 @@
   }
 }
 
-.flex,.flex-info {
+.flex, .flex-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,7 +145,8 @@
               background-image: url("../../../assets/img/steps/company_blue.png");
             }
           }
-          &:hover {
+
+          &.on, &:hover {
             background: #f2f6f9;
             cursor: pointer;
 
@@ -341,10 +342,10 @@
           padding-top: 10px;
           justify-content: flex-start;
           align-items: flex-start;
-          .mr10{
+          .mr10 {
             width: 164px;
           }
-          .el-form-item__error{
+          .el-form-item__error {
             position: relative;
           }
           .el-input-group--prepend {
@@ -451,6 +452,14 @@
     }
   }
   .samples_multi {
+    .samples_multi_list {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .el-button {
+        width: 350px;
+      }
+    }
     .multi-info {
       display: flex;
       justify-content: flex-start;

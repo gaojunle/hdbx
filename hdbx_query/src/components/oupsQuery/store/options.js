@@ -383,30 +383,54 @@ const options = {
             },
         ]
     ],
-    /*{
-            val: 'QLGS-07',
-            text: '作品说明文件'
-        },
-        {
-            val: 'QLGS-01',
-            text: '授权委托书'
-        },*/
+
     options_rightOwnType: [
         {
             val: '1',
-            text: '个人作品'
-        }, {
+            text: '个人作品',
+            ins: [
+                {applyType: '1', accountType: '1'},//applyType 1是著作权人2是代理人 //accountType 1是个人2是机构
+                {applyType: '2', accountType: '1'},
+                {applyType: '2', accountType: '2'}
+            ]
+        },
+        {
             val: '2',
-            text: '合作作品'
-        }, {
+            text: '合作作品',
+            ins: [
+                {applyType: '1', accountType: '1'},
+                {applyType: '1', accountType: '2'},
+                {applyType: '2', accountType: '1'},
+                {applyType: '2', accountType: '2'}
+            ]
+        },
+        {
             val: '3',
-            text: '法人作品'
-        }, {
+            text: '法人作品',
+            ins: [
+                {applyType: '1', accountType: '2'},
+                {applyType: '2', accountType: '1'},
+                {applyType: '2', accountType: '2'}
+            ]
+        },
+        {
             val: '4',
-            text: '职务作品'
-        }, {
+            text: '职务作品',
+            ins: [
+                {applyType: '1', accountType: '2'},
+                {applyType: '2', accountType: '1'},
+                {applyType: '2', accountType: '2'}
+            ]
+        },
+        {
             val: '5',
-            text: '委托作品'
+            text: '委托作品',
+            ins: [
+                {applyType: '1', accountType: '1'},
+                {applyType: '1', accountType: '2'},
+                {applyType: '2', accountType: '1'},
+                {applyType: '2', accountType: '2'}
+            ]
         },
     ],
 

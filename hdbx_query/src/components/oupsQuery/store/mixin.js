@@ -3,7 +3,16 @@ import store from './index'
 
 const myMixin = {
     created: function () {
-        console.log(this.$router)
+
+        if (this.getSessionData()) {
+            this.sdata = this.getSessionData();
+            store.sdata = this.getSessionData();
+        }
+
+        if (this.$route.query.clear == 1) {
+            this.clearSessionData()
+        }
+        console.log(this.sdata.applyType, this.sdata.accountType)
     },
     methods: {
         //上一步
@@ -12,16 +21,21 @@ const myMixin = {
             this.$router.push('/index/' + (--step))
         },
         //下一步
-        stepNext(step, applyType) {
-            if (!this.validate()) {
+        async stepNext(step, applyType) {
+            var t = await this.validate();
+            if (!t) {
                 return false
             }
 
             step = parseInt(step);
-            console.log(step)
+
             switch (step) {
                 case 0:
-                    this.sdata.applyType = applyType;
+                    //填报身份不一致时，清除缓存
+                    if (this.sdata.applyType != applyType.toString()) {
+                        this.clearSessionData()
+                    }
+                    this.sdata.applyType = applyType.toString();
                     this.$router.push('/index/' + (++step))
                     break;
                 case 1:
@@ -31,6 +45,7 @@ const myMixin = {
                     this.$router.push('/index/' + (++step))
                     break;
                 case 3:
+                    this.clearSessionData()
                     this.$router.push('/index/' + (++step))
                     break;
                 case 4:
@@ -40,36 +55,53 @@ const myMixin = {
                     this.$router.push('/index/' + (++step))
                     break;
                 default:
+                    this.clearSessionData()
                     this.$router.push('/index/0')
             }
+            this.setSessionData();
         },
 
         //验证
         validate() {
             var flag = true;
 
-            Object.values(this.$refs).forEach((ref) => {
-                if (Array.isArray(ref)) {
-                    var _flag = true;
-                    ref.forEach((_ref) => {
-                        if (!_ref.validate()) {
-                            _flag = false;
-                            return _flag;
+            console.log(this.$refs)
+            return new Promise((resolve, reject) => {
+                Object.values(this.$refs).forEach((ref) => {
+                    console.log(Array.isArray(ref))
+                    if (Array.isArray(ref)) {
+                        ref.forEach((_ref) => {
+                            doValidate(_ref)
+                        })
+                    } else {
+                        if (ref) {
+                            doValidate(ref)
                         }
-                    })
-                    if (!_flag) {
-                        flag = false;
-                        return flag;
                     }
-                } else {
-                    if (ref && !ref.validate()) {
-                        flag = false;
-                        return flag;
+                })
+                setTimeout(() => {
+                    console.log('validate next:' + flag);
+                    resolve(flag)
+                }, 200)
+
+                function doValidate(ref) {
+                    //console.log('ref.$el.className' + ref.$el.className + (ref.$el.className == 'el-form'));
+                    if (ref.$el.className == 'el-form') {
+                        console.log(ref.validate())
+                        ref.validate((val) => {
+                            if (val == false) {
+                                flag = false;
+                                resolve(flag)
+                            }
+                        })
+                    } else {
+                        if (ref.validate() == false) {
+                            flag = false;
+                            resolve(flag)
+                        }
                     }
                 }
             })
-            console.log(flag);
-            return flag;
         },
 
         //验证是否可编辑
@@ -107,6 +139,16 @@ const myMixin = {
                 dataRef = item;
             }
         },
+
+        setSessionData() {
+            sessionStorage.setItem('sdata', JSON.stringify(this.sdata))
+        },
+        getSessionData() {
+            return JSON.parse(sessionStorage.getItem('sdata'))
+        },
+        clearSessionData() {
+            sessionStorage.setItem('sdata', null)
+        }
     }
 }
 

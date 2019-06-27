@@ -1,11 +1,14 @@
 <template>
     <div class="step step_1">
-        <el-form action="#" :model="sdata" ref="form_1" :rules="rules">
+        <el-form :model="sdata" ref="form_1" :rules="rules">
             <!--作品名称-->
             <div class="f_box">
                 <span class="title required">作品名称：</span>
                 <el-form-item prop="opusName">
-                    <el-input :disabled="isDisabled('opusName')" v-model="sdata.opusName" class="w100"></el-input>
+                    <el-input :disabled="isDisabled('opusName')"
+                              v-model="sdata.opusName"
+                              placeholder="请输入作品名称"
+                              class="w100"></el-input>
                 </el-form-item>
             </div>
             <!--作品类型-->
@@ -54,7 +57,9 @@
                 </el-date-picker>
 
                 <span class="title required">创作完成地点：</span>
+                <!--ref="CC_completeCountry"-->
                 <CountryCitySelect
+
                         :countryDisabled="isDisabled('completeCountry')"
                         :cityDisabled="isDisabled('completeCity')"
                         :country="sdata.completeCountry"
@@ -88,9 +93,8 @@
                         placeholder="年/月/日">
                 </el-date-picker>
                 <span class="title required">首次发表地点：</span>
-
+                <!-- ref="CC_appearCountry"-->
                 <CountryCitySelect
-                        ref="CC_appearCountry"
                         :countryDisabled="isDisabled('appearCountry')"
                         :cityDisabled="isDisabled('appearProvince')"
                         :country="sdata.appearCountry"
@@ -119,27 +123,36 @@
             3、【文字作品A，摄影作品G】需要上传作品样本
             -->
             <div class="f_box p_nums" v-if="'AIH'.indexOf(sdata.opusType)>-1">
-                        <span class="title required">
-                            <span v-if="sdata.opusNature=='2'">最长</span><span v-if="'A'.indexOf(sdata.opusType)>-1">作品字数：</span><span
-                                v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
-                        </span>
+                <div class="title required">
+                    <span v-if="sdata.opusNature=='2'">最长</span><span
+                        v-if="'A'.indexOf(sdata.opusType)>-1">作品字数：</span><span
+                        v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
+                </div>
                 <div class="flex" v-if="sdata.opusType=='A'">
-                    <el-input v-model="sdata.opusInfo" type="number" class="w220" placeholder=""></el-input>
+                    <el-form-item prop="opusInfo" :rules="rules_opusInfo">
+                        <el-input :disabled="isDisabled('opusInfo')"
+                                  v-model.number="sdata.opusInfo"
+                                  class="w220"></el-input>
+                    </el-form-item>
                     <span class="label">字</span>
                 </div>
                 <div class="flex" v-if="sdata.opusType=='H'||sdata.opusType=='I'">
-                    <el-input :disabled="isDisabled('opusInfo')"
-                              v-model="timeLength.h" max="60" class="w220" type="number"
-                              placeholder=""></el-input>
-                    <span class="label">时</span>
-                    <el-input :disabled="isDisabled('opusInfo')"
-                              v-model="timeLength.m" max="59" class="w220" type="number"
-                              placeholder=""></el-input>
-                    <span class="label">分</span>
-                    <el-input :disabled="isDisabled('opusInfo')"
-                              v-model="timeLength.s" max="59" class="w220" type="number"
-                              placeholder=""></el-input>
-                    <span class="label">秒</span>
+                    <el-form-item prop="opusInfo" :rules="rules_opusInfo">
+                        <el-input :disabled="isDisabled('opusInfo')"
+                                  v-model.number="timeLength.h" max="60" class="w220" type="number"
+                                  placeholder=""></el-input>
+                        <span class="label">时</span>
+
+                        <el-input :disabled="isDisabled('opusInfo')"
+                                  v-model.number="timeLength.m" max="59" class="w220" type="number"
+                                  placeholder=""></el-input>
+                        <span class="label">分</span>
+
+                        <el-input :disabled="isDisabled('opusInfo')"
+                                  v-model.number="timeLength.s" max="59" class="w220" type="number"
+                                  placeholder=""></el-input>
+                        <span class="label">秒</span>
+                    </el-form-item>
                 </div>
             </div>
             <!--作品样本-->
@@ -147,6 +160,7 @@
                 <span class="title required">作品样本：</span>
                 <div class="samples_multi" v-if="sdata.opusNature==1">
                     <FileUpload
+                            ref="FU_attachments"
                             v-if="!isDisabled('attachments')"
                             @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[0].attachmentList,'multi')})"
                             theme="btn"
@@ -166,35 +180,41 @@
                     </div>
                 </div>
                 <div class="samples_multi" v-if="sdata.opusNature==2">
-                    <div class="ibox" v-for="(item,index) in sdata.attachments">
-                        <div class="multi-info">
-                            <span>第 {{index+1}} 件</span>
-                            <el-form-item
-                                    :prop="'attachments.' + index + '.segmentName'"
-                                    :rules="rules.segmentName"
-                                    class="serial">
-                                <el-input
-                                        :disabled="isDisabled('attachments')"
-                                        v-model="item.segmentName" placeholder="请输入系列作品名称"></el-input>
-                            </el-form-item>
-                        </div>
-
-                        <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
-                            <div class="item" v-if="(i>=idx)&&i<(idx+3)"
-                                 v-for="(ufile,i) in item.attachmentList">
-                                <span class="txt">{{ufile.attachmentName}}</span>
-                                <span class="del"
-                                      v-if="!isDisabled('attachments')"
-                                      @click="removeUploadFile(sdata.attachments[index].attachmentList,i)">删除</span>
+                    <div class="samples_multi_list" v-for="(item,index) in sdata.attachments">
+                        <div class="ibox">
+                            <div class="multi-info">
+                                <span>第 {{index+1}} 件</span>
+                                <el-form-item
+                                        :prop="'attachments.' + index + '.segmentName'"
+                                        :rules="rules.segmentName"
+                                        class="serial">
+                                    <el-input
+                                            :disabled="isDisabled('attachments')"
+                                            v-model="item.segmentName" placeholder="请输入系列作品名称"></el-input>
+                                </el-form-item>
                             </div>
-                        </div>
 
-                        <FileUpload
-                                v-if="!isDisabled('attachments')"
-                                style="margin-top: 20px;"
-                                @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[index].attachmentList,'multi')})"
-                                theme="btn"
-                                uptext="上传"></FileUpload>
+                            <div class="sample_list" v-if="idx%3==0" v-for="(_item,idx) in item.attachmentList">
+                                <div class="item" v-if="(i>=idx)&&i<(idx+3)"
+                                     v-for="(ufile,i) in item.attachmentList">
+                                    <span class="txt">{{ufile.attachmentName}}</span>
+                                    <span class="del"
+                                          v-if="!isDisabled('attachments')"
+                                          @click="removeUploadFile(sdata.attachments[index].attachmentList,i)">删除</span>
+                                </div>
+                            </div>
+
+                            <FileUpload
+                                    ref="FU_attachments"
+                                    v-if="!isDisabled('attachments')"
+                                    style="margin-top: 20px;"
+                                    @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[index].attachmentList,'multi')})"
+                                    theme="btn"
+                                    uptext="上传"></FileUpload>
+                        </div>
+                        <el-button v-if="!isDisabled('attachments') && sdata.attachments.length!=1"
+                                   type="text" @click="delteApus(index)">删除
+                        </el-button>
                     </div>
                     <el-button v-if="!isDisabled('attachments')"
                                type="text" @click="addApus">+添加作品
@@ -220,6 +240,31 @@
         components: {FileUpload, CountryCitySelect},
         mixins: [myMixin],
         data() {
+            var checkOpusInfo = (rule, value, callback) => {
+                //输入文字
+                if ('A'.indexOf(this.sdata.opusType) > -1) {
+                    if (!value) {
+                        callback(new Error('请输入字数'));
+                    }
+                    if (!Number.isInteger(value)) {
+                        callback(new Error('请输入数字值'));
+                    }
+                }
+                //输入时长
+                else if ('IH'.indexOf(this.sdata.opusType) > -1) {
+                    if (!Number.isInteger(this.timeLength.h) || !Number.isInteger(this.timeLength.m || !Number.isInteger(this.timeLength.s))) {
+                        callback(new Error('请输入数字值时长'));
+                    }
+                    if (!this.timeLength.h || !this.timeLength.m || !this.timeLength.s) {
+                        callback(new Error('请输入时长'));
+                    }
+                    callback();
+                }
+                else {
+                    callback();
+                }
+                callback();
+            };
             return {
                 options: options,
                 sdata: store.sdata,
@@ -230,6 +275,7 @@
                     m: '',
                     s: ''
                 },
+                rules_opusInfo: [{validator: checkOpusInfo, trigger: 'blur'}]
             }
         },
 
@@ -240,7 +286,11 @@
                     attachmentList: [],
                     segmentName: ''
                 })
-            }
+            },
+            //添加系列作品样本
+            delteApus(idx) {
+                this.sdata.attachments.splice(idx, 1)
+            },
         },
         watch: {
             //时分秒填写

@@ -1,13 +1,13 @@
 <template>
     <div class="step step_0">
         <div class="mbox">
-            <div class="person" @click="stepNext($route.params.step,1)">
+            <div class="person" :class="{on:sdata.applyType=='1'}" @click="stepNext($route.params.step,1)">
                 <div class="s_icon s_per"></div>
                 <div class="type">我是著作权人</div>
                 <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
             </div>
 
-            <div class="company" @click="sdata.applyType=2;showAuthPaper=true">
+            <div class="company" :class="{on:sdata.applyType=='2'}" @click="sdata.applyType=2;showAuthPaper=true">
                 <div class="s_icon s_paper"></div>
                 <div class="type">我是代理人</div>
                 <div class="desc">办理本人所属机构业务或以本人所属机构名义代理他人办理业务</div>
@@ -66,10 +66,8 @@
             }
         },
 
-        methods: {
-        },
+        methods: {},
         mounted() {
-
         }
     }
 </script>
