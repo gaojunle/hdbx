@@ -165,6 +165,96 @@ const store = {
         rightScopePart: [],
         "sampleRetentionMedium": "1"
     },
+    sdata_init: {
+        "accountType": '2', //accountType 1是个人2是机构
+        "accountId": "133618064657874944",
+        "appearCity": "",
+        "appearArea": "",
+        "appearCountry": "",
+        "appearDate": "2018-12-12",
+        "appearProvince": "",
+        "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
+        "authAttachment": {//选择代理人时，授权委托书
+
+        },
+        "agentDesc": "",
+        "attachments": [
+            {
+                "attachmentList": [],
+                "segmentName": ""
+            }
+        ],
+        "authors": [
+            {"name": "", "signature": ""}
+        ],
+        "certificateCollectionMethod": "TQ",
+        "certificateCollectionAddress": '1',
+        "completeCity": "",
+        "completeCountry": "",
+        "completeDate": "2018-12-12",
+        "completeProvince": "",
+        "needStamp": "1",
+        "obtainType": "2",
+        "obtainTypeAttachment": [
+            {
+                relevantFileName: 'QLGS-0603',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0601',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0602',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0605',
+                path: '',
+                remark: 'remark'
+            }
+        ],
+        "ownObtainDate": "2019-10-19",
+        "opusDescriptionAttachment": {
+            "path": '',
+            "relevantFileName": ""
+        },
+        "opusInditeType": "1",
+        "opusInfo": "",
+        "opusName": "",
+        "opusNature": "2",
+        "opusType": 'A',
+        "opusTypeDesc": "",
+        "owners": [
+            {
+                "applyCopy": "0",
+                "cardBack": "",
+                "cardFront": "",
+                "country": "",
+                "province": "",
+                "city": "",
+                "idNumber": "",
+                "idType": "1",
+                "mobile": "",
+                "name": "",
+                "peopleKind": "",
+                "role": "PET"
+            }],
+        "publishStatus": "1",
+        "registrationMethod": "MAIL",
+        "rightOwnType": "2",
+        rightOwnTypeAttachment: {//rightOwnType为1时没有附件
+            relevantFileName: '',
+            path: '',
+            remark: ''
+        },
+        "rightScope": "2",
+        rightScopePart: [],
+        "sampleRetentionMedium": "1"
+    },
     sdata: {
         "accountType": '2', //accountType 1是个人2是机构
         "accountId": "133618064657874944",

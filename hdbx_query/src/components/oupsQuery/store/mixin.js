@@ -32,6 +32,7 @@ const myMixin = {
             switch (step) {
                 case 0:
                     //填报身份不一致时，清除缓存
+                    console.log(this.sdata.applyType, applyType.toString())
                     if (this.sdata.applyType != applyType.toString()) {
                         this.clearSessionData()
                     }
@@ -45,6 +46,7 @@ const myMixin = {
                     this.$router.push('/index/' + (++step))
                     break;
                 case 3:
+                    //确认填写完成后，清掉缓存
                     this.clearSessionData()
                     this.$router.push('/index/' + (++step))
                     break;
@@ -147,6 +149,8 @@ const myMixin = {
             return JSON.parse(sessionStorage.getItem('sdata'))
         },
         clearSessionData() {
+            store.sdata = store.sdata_init;
+            this.sdata = store.sdata_init;
             sessionStorage.setItem('sdata', null)
         }
     }

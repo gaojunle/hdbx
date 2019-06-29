@@ -176,34 +176,41 @@ const options = {
         }
     ],
     //著作权人类型
-    options_peopleKind: [
+    options_peopleKind: [//type[1个人，2机构]
         {
             val: '1',
-            text: '自然人'
+            text: '自然人',
+            type:'1'
         },
         {
             val: '2',
-            text: '法人'
+            text: '法人',
+            type:'2'
         },
         {
             val: '21',
-            text: '企业法人'
+            text: '企业法人',
+            type:'2'
         },
         {
             val: '23',
-            text: '事业单位法人'
+            text: '事业单位法人',
+            type:'2'
         },
         {
             val: '24',
-            text: '社会团体法人'
+            text: '社会团体法人',
+            type:'2'
         },
         {
             val: '3',
-            text: '其它组织'
+            text: '其它组织',
+            type:'2'
         },
         {
             val: '4',
-            text: '其它'
+            text: '其它',
+            type:'2'
         }
     ],
     //证件类型

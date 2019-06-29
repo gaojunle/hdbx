@@ -22,7 +22,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="p_name"
-                        label="材料名称"
+                        label="名称"
                         width="350">
                 </el-table-column>
                 <el-table-column
@@ -68,12 +68,12 @@
                 </el-table-column>
                 <el-table-column
                         prop="p_name"
-                        label="材料名称"
+                        label="作品名称"
                         width="350">
                 </el-table-column>
                 <el-table-column
                         prop="p_require"
-                        label="要求"
+                        label="材料介质"
                         width="408">
                 </el-table-column>
                 <el-table-column
