@@ -1,6 +1,7 @@
 // 定义一个混入对象
 import store from './index'
 
+var flag = true;
 const myMixin = {
     created: function () {
 
@@ -12,7 +13,7 @@ const myMixin = {
         if (this.$route.query.clear == 1) {
             this.clearSessionData()
         }
-        console.log(this.sdata.applyType, this.sdata.accountType)
+        //console.log(this.sdata.applyType, this.sdata.accountType)
     },
     methods: {
         //上一步
@@ -23,10 +24,12 @@ const myMixin = {
         //下一步
         async stepNext(step, applyType) {
             var t = await this.validate();
+
             if (!t) {
                 return false
             }
 
+            //return false
             step = parseInt(step);
 
             switch (step) {
@@ -65,45 +68,37 @@ const myMixin = {
 
         //验证
         validate() {
-            var flag = true;
-
+            flag = true;
             console.log(this.$refs)
             return new Promise((resolve, reject) => {
                 Object.values(this.$refs).forEach((ref) => {
-                    console.log(Array.isArray(ref))
                     if (Array.isArray(ref)) {
                         ref.forEach((_ref) => {
-                            doValidate(_ref)
+                            this.doValidate(_ref)
                         })
                     } else {
                         if (ref) {
-                            doValidate(ref)
+                            this.doValidate(ref)
                         }
                     }
                 })
-                setTimeout(() => {
-                    console.log('validate next:' + flag);
-                    resolve(flag)
-                }, 200)
-
-                function doValidate(ref) {
-                    //console.log('ref.$el.className' + ref.$el.className + (ref.$el.className == 'el-form'));
-                    if (ref.$el.className == 'el-form') {
-                        console.log(ref.validate())
-                        ref.validate((val) => {
-                            if (val == false) {
-                                flag = false;
-                                resolve(flag)
-                            }
-                        })
-                    } else {
-                        if (ref.validate() == false) {
-                            flag = false;
-                            resolve(flag)
-                        }
-                    }
-                }
+                console.log('validate next:' + flag);
+                resolve(flag)
             })
+        },
+        doValidate(ref) {
+            console.log('ref.$el.className' + ref.$el.className + (ref.$el.className == 'el-form'));
+            if (ref.$el.className == 'el-form') {
+                ref.validate((val) => {
+                    if (val == false) {
+                        flag = false;
+                    }
+                })
+            } else {
+                if (ref.validate() == false) {
+                    flag = false;
+                }
+            }
         },
 
         //验证是否可编辑

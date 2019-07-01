@@ -18,153 +18,6 @@ const store = {
         "authorization_token": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpc3MiOiI3bmJBTW5iamZkWXlMNUhVNnRIZGZ1WW5EUWdtNlBDUyJ9.mPdnSSVAzB38BUV9Ptc2T_wUPyukVi3PnI3_CFHCq_E",
         "logintime": 1560932770384
     },
-    sdata: {
-        "accountType": '1',
-        "accountId": "133618064657874944",
-        "appearCity": "沧州市",
-        "appearArea": "运河区",
-        "appearCountry": "中国大陆",
-        "appearDate": "2018-12-12",
-        "appearProvince": "河北省",
-        "applyType": "1",//申请者身份类型[1权利人，2代理人]
-        "authAttachment": {//选择代理人时，授权委托书
-            "relevantFileName": "授权委托书名称",//授权委托书名称
-            "path": ""
-        },
-        "agentDesc": "agentDesc",
-        "attachments": [
-            {
-                "attachmentList": [
-                    {
-                        "attachmentName": "attachmentList1",
-                        "path": 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg'
-                    }, {
-                        "attachmentName": "attachmentList2",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    }, {
-                        "attachmentName": "attachmentList3",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    }, {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    }, {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    },
-                    {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    }
-                ],
-                "segmentName": "series1"
-            },
-            {
-                "attachmentList": [
-                    {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    },
-                    {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    },
-                    {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    },
-                    {
-                        "attachmentName": "attachmentList",
-                        "path": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg"
-                    }
-                ],
-                "segmentName": "series2"
-            }
-        ],
-        "authors": [
-            {"name": "", "signature": ""}, {"name": "李四", "signature": "啊偶"}
-        ],
-        "certificateCollectionMethod": "TQ",
-        "certificateCollectionAddress": '1',
-        "completeCity": "泉州",
-        "completeCountry": "中国大陆",
-        "completeDate": "2018-12-12",
-        "completeProvince": "福建",
-        "needStamp": "1",
-        "obtainType": "2",
-        "obtainTypeAttachment": [
-            {
-                relevantFileName: 'QLGS-0603',
-                path: '',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0601',
-                path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0602',
-                path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0605',
-                path: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
-                remark: 'remark'
-            }
-        ],
-        "ownObtainDate": "2019-10-19",
-        "opusDescriptionAttachment": {
-            "path": '',
-            "relevantFileName": "QLGS-07"
-        },
-        "opusInditeType": "1",
-        "opusInfo": "opusInfo",
-        "opusName": "作品名称opusName",
-        "opusNature": "2",
-        "opusType": 'G',
-        "opusTypeDesc": "作品类型说明opusTypeDesc",
-        "owners": [
-            {
-                "applyCopy": "0",
-                "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
-                "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
-                "country": "",
-                "province": "",
-                "city": "",
-                "idNumber": "1401111111",
-                "idType": "1",
-                "mobile": "130111111",
-                "name": "",
-                "peopleKind": "1",
-                "role": "PET"
-            },
-            {
-                "applyCopy": "1",
-                "cardBack": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
-                "cardFront": "http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg",
-                "country": "阿拉斯加",
-                "province": "省",
-                "city": "城市",
-                "idNumber": "1501111111",
-                "idType": "1",
-                "mobile": "120111111",
-                "name": "第二著作权人",
-                "peopleKind": "2",
-                "role": "PET"
-            }],
-        "publishStatus": "1",
-        "registrationMethod": "MAIL",
-        "rightOwnType": "2",
-        rightOwnTypeAttachment: {//rightOwnType为1时没有附件
-            relevantFileName: 'http://img.mp.itc.cn/upload/20160502/37fe08b5f76e44629a097226fcaa7127.jpg',
-            path: '',
-            remark: ''
-        },
-        "rightScope": "2",
-        rightScopePart: [],
-        "sampleRetentionMedium": "1"
-    },
     sdata_init: {
         "accountType": '2', //accountType 1是个人2是机构
         "accountId": "133618064657874944",
@@ -230,6 +83,7 @@ const store = {
         "opusTypeDesc": "",
         "owners": [
             {
+                "applyType":"1",
                 "applyCopy": "0",
                 "cardBack": "",
                 "cardFront": "",
@@ -240,7 +94,7 @@ const store = {
                 "idType": "1",
                 "mobile": "",
                 "name": "",
-                "peopleKind": "",
+                "peopleKind": "1",
                 "role": "PET"
             }],
         "publishStatus": "1",
@@ -320,6 +174,7 @@ const store = {
         "opusTypeDesc": "",
         "owners": [
             {
+                "applyType":"1",
                 "applyCopy": "0",
                 "cardBack": "",
                 "cardFront": "",
