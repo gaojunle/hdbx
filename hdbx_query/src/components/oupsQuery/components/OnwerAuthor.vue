@@ -58,6 +58,7 @@
                         </div>
                         <div class="flex">
                             <el-select class="mr10"
+                                       v-if="item.applyType=='1'"
                                        v-model="item.peopleKind"
                                        :disabled="isDisabled('owners')||item.applyType=='1'"
                                        placeholder="请选择">
@@ -67,8 +68,21 @@
                                         value-key="val"
                                         :key="it.val"
                                         :label="it.text"
-                                        :value="it.val"
-                                        :disabled="peopleKindDisabledTypes.indexOf(it.type)>-1">
+                                        :value="it.val">
+                                </el-option>
+                            </el-select>
+                            <el-select class="mr10 mg"
+                                       v-else
+                                       v-model="item.peopleKind"
+                                       :disabled="isDisabled('owners')"
+                                       placeholder="请选择">
+                                <el-option
+                                        v-for="it in options.options_peopleKind"
+                                        v-if="it.type==item.applyType"
+                                        value-key="val"
+                                        :key="it.val"
+                                        :label="it.text"
+                                        :value="it.val">
                                 </el-option>
                             </el-select>
                             <el-form-item
@@ -216,7 +230,6 @@
                 fdata: store.fdata,
                 ownerNum: 1,
                 isOwnerAndDel: true,
-                peopleKindDisabledTypes: [],//空为不限定
                 authorNum: 1,
                 isAuthorAndDel: true,
                 disableds: {
@@ -259,13 +272,136 @@
 
             //权限归属切换行为
             changeRightOwnType() {
-                var applyType = this.sdata.applyType; //1是著作权人2是代理人，默认为空
-                var accountType = this.sdata.accountType; //1是个人2是机构
-                var rightOwnType = this.sdata.rightOwnType; //所迁权属类型 1个人作品、2合作作品、3法人作品、4职务作品、5委托作品
+                this._initData();
+                switch (this.typeGroup) {
+                    case '111'://个人作品[1、1、1]
+                        this._applyOwnerInfo({
+                            applyType: '1'
+                        })
 
+                        this.disableds = {
+                            ownerName: !!this.user.userName,
+                            mobile: !!this.user.phone,
+                            ownerDel: true,
+                            authorName: !!this.user.userName,
+                        }
+                        break;
+                    case '123'://法人作品[1,2,3]
+                        this._applyOwnerInfo({
+                            applyType: '2',
+                            peopleKind: '2'
+                        })
 
+                        this.disableds = {
+                            owner_applyType: true,
+                            ownerName: !!this.user.userName,
+                            mobile: !!this.user.phone,
+                            authorName: true
+                        }
+                        break;
+                    case '124': //职务作品[1,2,4]
+                        this._applyOwnerInfo({
+                            authorNum: 100,
+                            applyType: '2',
+                            peopleKind: '2'
+                        })
+                        this.sdata.authors[0].name = '';
+                        this.disableds = {
+                            owner_applyType: true,
+                            ownerName: !!this.user.userName,
+                            mobile: !!this.user.phone,
+                        }
+                        break;
+                    case '112'://合作作品[1,1 ,2], [1,2,2]
+                    case '122':
+                        this._applyOwnerInfo({
+                            ownerNum: 100,
+                            authorNum: 100
+                        })
+                        this.disableds = {
+                            owner_applyType: true,
+                            ownerName: !!this.user.userName,
+                            mobile: !!this.user.phone,
+                            authorName: true,
+                            authorDel: true,
+                        }
+                        this.addOwner();
+                        break;
+                    case '115'://委托作品 //[1,1 ,5], [1,2,5]
+                    case '125':
+                        this._applyOwnerInfo({
+                            ownerNum: 100,
+                            authorNum: 100
+                        })
+                        this.sdata.authors[0].name = '';
+                        this.disableds = {
+                            owner_applyType: true,
+                            ownerName: !!this.user.userName,
+                            mobile: !!this.user.phone,
+                            authorName: false
+                        }
+                        break;
+                    case '211'://[2,1 ,1], [2,2,1]
+                    case '221':
+                        this._applyOwnerInfo({}, true)
+                        this.disableds = {
+                            owner_applyType: true,
+                            authorName: true
+                        }
+                        break;
+                    case '212'://[2,1 ,2], [2,2,2]
+                    case '222':
+                        this._applyOwnerInfo({
+                            ownerNum: 100,
+                            authorNum: 100
+                        }, true)
+
+                        this.addOwner();
+                        this.disableds = {
+                            authorName: true,
+                            authorDel: true,
+                        }
+                        break;
+                    case '213'://[2,1 ,3], [2,2,3]
+                    case '223':
+                        this._applyOwnerInfo({
+                            applyType: '2',
+                            peopleKind: '2'
+                        }, true)
+                        this.disableds = {
+                            owner_applyType: true,
+                            authorName: true,
+                            authorDel: true,
+                        }
+                        break;
+                    case '214'://[2,1 ,4], [2,2,4]
+                    case '224':
+                        this._applyOwnerInfo({
+                            applyType: '2',
+                            peopleKind: '2',
+                            authorNum: 100
+                        }, true)
+                        this.disableds = {
+                            owner_applyType: true,
+                            ownerDel: true,
+                        }
+                        break;
+                    case '215'://[2,1 ,5], [2,2,5]
+                    case '225':
+                        this._applyOwnerInfo({
+                            ownerNum: 100,
+                            authorNum: 100
+                        }, true)
+                        this.disableds = {
+                            ownerDel: true,
+                        }
+                        break;
+                }
+
+                return false;
+            },
+            _initData() {
                 this.ownerNum = 1;
-                this.peopleKindDisabledTypes = []//限定个人
                 this.authorNum = 1;
                 if (this.sdata.owners.length == 0) {
                     this.addOwner();
@@ -293,155 +429,19 @@
                 this.sdata.owners[0].name = '';
                 this.sdata.owners[0].mobile = '';
                 this.sdata.authors[0].name = '';
-                console.log(this.sdata.owners[0].peopleKind)
-                switch (this.typeGroup) {
-                    case '111'://个人作品[1、1、1]
-                        this.ownerNum = 1;
-                        this.peopleKindDisabledTypes = ['1']//限定个人
-
-                        this.sdata.owners[0].peopleKind = '1';
-                        this.sdata.owners[0].name = this.user.userName;
-                        this.sdata.owners[0].mobile = this.user.phone;
-                        this.sdata.authors[0].name = this.user.userName;
-
-                        this.disableds = {
-                            peopleKind: true,
-                            ownerName: !!this.user.userName,
-                            mobile: !!this.user.phone,
-                            ownerDel: true,
-                            authorName: !!this.user.userName,
-                        }
-                        break;
-                    case '123'://法人作品[1,2,3]
-                        this._applyOwnerInfo({
-                            peopleKindDisabledTypes: ['1'],//限定机构,不能选择个人
-                            applyType: '2'
-                        })
-
-                        this.disableds = {
-                            owner_applyType: true,
-                            ownerName: !!this.user.userName,
-                            mobile: !!this.user.phone,
-                            authorName: true
-                        }
-                        break;
-                    case '124': //职务作品[1,2,4]
-                        this.ownerNum = 1;
-                        this.authorNum = 100;
-                        this.peopleKindDisabledTypes = ['1']//限定机构,不能选择个人
-
-                        this.sdata.owners[0].name = this.user.userName;
-                        this.sdata.owners[0].mobile = this.user.phone;
-                        this.sdata.authors[0].name = '';
-                        this.disableds = {
-                            ownerName: !!this.user.userName,
-                            mobile: !!this.user.phone,
-                        }
-                        break;
-                    case '112'://合作作品[1,1 ,2], [1,2,2]
-                    case '122':
-                        this._applyOwnerInfo({
-                            ownerNum: 100,
-                            authorNum: 100
-                        })
-                        this.disableds = {
-                            owner_applyType: true,
-                            peopleKind: true,
-                            ownerName: !!this.user.userName,
-                            mobile: !!this.user.phone,
-                            authorName: true,
-                            authorDel: true,
-                        }
-                        this.addOwner();
-                        break;
-                    case '115'://委托作品 //[1,1 ,5], [1,2,5]
-                    case '125':
-                        this.ownerNum = 100;
-                        this.authorNum = 100;
-
-                        this.peopleKindDisabledTypes = []//限定机构
-
-                        this.sdata.owners[0].peopleKind = '1';
-                        this.sdata.owners[0].name = this.user.userName;
-                        this.sdata.owners[0].mobile = this.user.phone;
-                        this.sdata.authors[0].name = this.user.userName;
-                        this.disableds = {
-                            peopleKind: true,
-                            ownerName: !!this.user.userName,
-                            mobile: !!this.user.phone,
-                            authorName: false
-                        }
-                        break;
-                    case '211'://[2,1 ,1], [2,2,1]
-                    case '221':
-                        this.ownerNum = 1;
-                        this.isOwnerAndDel = true; //是否显示删除
-                        this.authorNum = 1; //作者数目
-                        this.peopleKindDisabledTypes = ['2']//限定只能个人
-                        this.sdata.owners[0].peopleKind = '1';
-                        this.disableds = {
-                            peopleKind: true,
-                            ownerDel: true
-                        }
-                        break;
-                    case '212'://[2,1 ,2], [2,2,2]
-                    case '222':
-                        this.addOwner();
-                        this.ownerNum = 100;//著作权人至少增加2位，可以是机构或个人，可新增、删除
-                        this.isOwnerAndDel = true; //是否显示删除
-                        this.authorNum = 100; //作者数目
-                        this.peopleKindDisabledTypes = []//不限定
-                        this.disableds = {
-                            ownerDel: true,
-                            authorName: true,
-                            authorDel: true,
-                        }
-                        break;
-                    case '213'://[2,1 ,3], [2,2,3]
-                    case '223':
-                        this.ownerNum = 1;//著作权人至少增加2位，可以是机构或个人，可新增、删除
-                        this.authorNum = 1; //作者数目
-                        this.peopleKindDisabledTypes = ['1']//限定只能机构，不能选择个人
-                        this.disableds = {
-                            ownerDel: true,
-                            authorName: true,
-                            authorDel: true,
-                        }
-                        break;
-                    case '214'://[2,1 ,4], [2,2,4]
-                    case '224':
-                        this.ownerNum = 1;//著作权人至少增加2位，可以是机构或个人，可新增、删除
-                        this.authorNum = 100; //作者数目
-                        this.peopleKindDisabledTypes = ['1']//限定只能机构，不能选择个人
-                        this.disableds = {
-                            ownerDel: true,
-                        }
-                        break;
-                    case '215'://[2,1 ,5], [2,2,5]
-                    case '225':
-                        this.ownerNum = 100;//著作权人至少增加2位，可以是机构或个人，可新增、删除
-                        this.authorNum = 100; //作者数目
-                        this.isOwnerAndDel = true; //是否显示删除
-                        this.peopleKindDisabledTypes = []//不限定
-                        this.disableds = {
-                            ownerDel: true,
-                        }
-                        break;
-                }
-
-                return false;
             },
-            _applyOwnerInfo(opts) {
+            _applyOwnerInfo(opts, owner0) {
                 this.ownerNum = opts.ownerNum || 1;
                 this.authorNum = opts.authorNum || 1;
-                this.peopleKindDisabledTypes = opts.peopleKindDisabledTypes || []//身份类型
-
                 this.sdata.owners[0].applyType = opts.applyType || '1';
-                this.sdata.owners[0].name = this.user.userName;
-                this.sdata.owners[0].mobile = this.user.phone;
-                this.sdata.authors[0].name = this.user.userName;
-                if (this.sdata.owners[0].applyType) {
-                    this.sdata.owners[0].peopleKind = '1';
+                if (!this.sdata.owners[0].peopleKind) {
+                    this.sdata.owners[0].peopleKind = opts.peopleKind || '1';
+                }
+
+                if (!owner0) {
+                    this.sdata.owners[0].name = this.user.userName;
+                    this.sdata.owners[0].mobile = this.user.phone;
+                    this.sdata.authors[0].name = this.user.userName;
                 }
             },
             //添加作者
