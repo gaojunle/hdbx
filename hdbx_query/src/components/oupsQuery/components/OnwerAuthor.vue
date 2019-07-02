@@ -104,11 +104,12 @@
                                     class="mr10"
                                     placeholder="请选择">
                                 <el-option
-                                        v-for="item in options.options_idType"
+                                        v-for="(it,idx) in options.options_idType"
+                                        v-if="sdata.applyType==it.applyType && (it.ins.indexOf(item.country)>-1||it.ins.indexOf('other')>-1)"
                                         value-key="val"
-                                        :key="item.val"
-                                        :label="item.text"
-                                        :value="item.val">
+                                        :key="it.val"
+                                        :label="it.text"
+                                        :value="it.val">
                                 </el-option>
                             </el-select>
                             <el-form-item

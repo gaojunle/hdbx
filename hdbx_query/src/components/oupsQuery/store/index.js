@@ -87,7 +87,7 @@ const store = {
                 "applyCopy": "0",
                 "cardBack": "",
                 "cardFront": "",
-                "country": "",
+                "country": "中国大陆",
                 "province": "",
                 "city": "",
                 "idNumber": "",

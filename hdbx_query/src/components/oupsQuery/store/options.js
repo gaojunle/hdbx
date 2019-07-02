@@ -229,11 +229,15 @@ const options = {
     options_idType: [
         {
             val: '1',
-            text: '居民身份证'
+            text: '居民身份证',
+            applyType: '1',
+            ins: ['中国大陆', '中国香港', '中国澳门']
         },
         {
             val: '2',
-            text: '军官证'
+            text: '军官证',
+            applyType: '1',
+            ins: ['中国大陆']
         },
         {
             val: '3',
@@ -241,7 +245,9 @@ const options = {
         },
         {
             val: '4',
-            text: '护照'
+            text: '护照',
+            applyType: '1',
+            ins: ['other']
         },
         {
             val: '5',
@@ -261,7 +267,8 @@ const options = {
         },
         {
             val: '9',
-            text: '其它有效证件'
+            text: '其它有效证件',
+            ins: ['other']
         }
     ],
     //是否申请副本
