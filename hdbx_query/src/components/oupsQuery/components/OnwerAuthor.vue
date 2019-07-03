@@ -105,7 +105,7 @@
                                     placeholder="请选择">
                                 <el-option
                                         v-for="(it,idx) in options.options_idType"
-                                        v-if="sdata.applyType==it.applyType && (it.ins.indexOf(item.country)>-1||it.ins.indexOf('other')>-1)"
+                                        v-if="filterIdCard(it,item)"
                                         value-key="val"
                                         :key="it.val"
                                         :label="it.text"
@@ -144,9 +144,10 @@
                             </el-radio-group>
                         </div>
                     </div>
-                    <div class="f_right" v-if="item.idType=='1'">
+                    <div class="f_right">
                         <div class="copy_upload">
                             <FileUpload
+                                    v-if="item.idType=='1'"
                                     ref="UP_cardFront"
                                     :disabled="isDisabled('owners')"
                                     @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardFront,'single')})"
@@ -154,6 +155,7 @@
                                     :path="sdata.owners[idx].cardFront.path"
                                     uptext="上传人像面"></FileUpload>
                             <FileUpload
+                                    v-if="item.idType=='1'"
                                     ref="UP_cardBack"
                                     :disabled="isDisabled('owners')"
                                     @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardBack,'single')})"
@@ -445,6 +447,26 @@
                     this.sdata.authors[0].name = this.user.userName;
                 }
             },
+
+            //根据当前可用申请类型和已选国家，过滤是否显示当前证件类型
+            filterIdCard(option, owner) {
+                let flag = false;
+                if (this.sdata.applyType == option.applyType) {  //匹配申请类型
+                    if (option.applyType == '1') {//个人
+                        if (option.ins.indexOf(owner.country) > -1) {
+                            flag = true
+                        }
+                        if (option.ins.indexOf('otherCountry') > -1 && ['中国大陆', '香港', '澳门', '台湾'].indexOf(owner.country) == -1) {
+                            flag = true
+                        }
+                    }
+
+                    //if(option)
+                }
+
+                return flag;
+            },
+
             //添加作者
             addAuthor() {
                 this.sdata.authors.push({
@@ -499,9 +521,9 @@
                     "applyCopy": '0',
                     "cardBack": "",
                     "cardFront": "",
-                    "country": "",
+                    "country": "台湾",
                     "idNumber": "",
-                    "idType": "1",
+                    "idType": "",
                     "mobile": "",
                     "name": "",
                     "peopleKind": "1",

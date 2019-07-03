@@ -106,6 +106,22 @@ const myMixin = {
             return store.fdata.reFillin.indexOf(key) == -1;
         },
 
+        //国家城市选择后回调处理方法
+        countryCityChange(params, item, type) {
+            if (type) {
+                item[type + 'Country'] = params.country
+                item[type + 'Province'] = params.province;
+                item[type + 'City'] = params.city;
+                item[type + 'Area'] = params.area;
+            } else {
+                item['country'] = params.country;
+                item['province'] = params.province;
+                item['city'] = params.city;
+                item['area'] = params.area;
+                item.idType = ''
+            }
+        },
+
         //将select字段值转为text显示
         formatOptionData(option, val) {
             var ret = ''

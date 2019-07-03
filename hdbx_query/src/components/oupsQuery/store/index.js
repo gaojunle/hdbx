@@ -91,7 +91,7 @@ const store = {
                 "province": "",
                 "city": "",
                 "idNumber": "",
-                "idType": "1",
+                "idType": "",
                 "mobile": "",
                 "name": "",
                 "peopleKind": "1",

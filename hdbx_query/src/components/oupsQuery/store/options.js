@@ -240,6 +240,30 @@ const options = {
             ins: ['中国大陆']
         },
         {
+            val: '士兵证',
+            text: '士兵证',
+            applyType: '1',
+            ins: ['中国大陆']
+        },
+        {
+            val: '香港居民来往大陆通行证',
+            text: '香港居民来往大陆通行证',
+            applyType: '1',
+            ins: ['香港']
+        },
+        {
+            val: '澳门居民来往大陆通行证',
+            text: '澳门居民来往大陆通行证',
+            applyType: '1',
+            ins: ['澳门']
+        },
+        {
+            val: '台湾居民来往大陆通行证',
+            text: '台湾居民来往大陆通行证',
+            applyType: '1',
+            ins: ['台湾']
+        },
+        {
             val: '3',
             text: '营业执照'
         },
@@ -247,7 +271,7 @@ const options = {
             val: '4',
             text: '护照',
             applyType: '1',
-            ins: ['other']
+            ins: ['otherCountry']
         },
         {
             val: '5',
@@ -268,7 +292,7 @@ const options = {
         {
             val: '9',
             text: '其它有效证件',
-            ins: ['other']
+            ins: ['otherCountry']
         }
     ],
     //是否申请副本
