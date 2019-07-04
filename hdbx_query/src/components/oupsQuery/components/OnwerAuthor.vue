@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="sdata" ref="form_onwer" :rules="rules">
+    <el-form :model="sdata" :rules="rules">
         <!--权利归属-->
         <div class="f_box">
             <span class="title required">权利归属：</span>
@@ -32,7 +32,7 @@
                 <p class="sub_title" v-if="ownerNum>1">第 {{idx+1}} 位</p>
                 <div class="cont">
                     <div class="f_left">
-                        <div class="flex">
+                        <div class="flex"><!--个人/机构选择-->
                             <el-radio-group v-model="item.applyType"
                                             @change="(val)=>{applyTypeChange(val,idx)}"
                                             :disabled="disableds.owner_applyType && idx==0">
@@ -45,6 +45,7 @@
                             </el-radio-group>
                         </div>
                         <div class="flex">
+                            <!--国家/城市选择-->
                             <CountryCitySelect
                                     ref="CC_owners"
                                     :countryDisabled="isDisabled('owners')"
@@ -56,35 +57,53 @@
                                     @countryCityChange="((param)=>{countryCityChange(param,item,'')})"
                             ></CountryCitySelect>
                         </div>
-                        <div class="flex">
-                            <el-select class="mr10"
-                                       v-if="item.applyType=='1'"
-                                       v-model="item.peopleKind"
-                                       :disabled="isDisabled('owners')||item.applyType=='1'"
-                                       placeholder="请选择">
-                                <el-option
-                                        v-for="it in options.options_peopleKind"
-                                        v-if="it.type==item.applyType"
-                                        value-key="val"
-                                        :key="it.val"
-                                        :label="it.text"
-                                        :value="it.val">
-                                </el-option>
-                            </el-select>
-                            <el-select class="mr10 mg"
-                                       v-else
-                                       v-model="item.peopleKind"
-                                       :disabled="isDisabled('owners')"
-                                       placeholder="请选择">
-                                <el-option
-                                        v-for="it in options.options_peopleKind"
-                                        v-if="it.type==item.applyType"
-                                        value-key="val"
-                                        :key="it.val"
-                                        :label="it.text"
-                                        :value="it.val">
-                                </el-option>
-                            </el-select>
+                        <div class="flex"><!--身份类型/署名-->
+                            <el-form-item :prop="'owners.' + idx + '.peopleKind'"
+                                          :rules="rules.peopleKind">
+                                <el-select class="mr10"
+                                           v-if="item.applyType=='1'"
+                                           v-model="item.peopleKind"
+                                           :disabled="isDisabled('owners')||item.applyType=='1'"
+                                           placeholder="请选择">
+                                    <el-option
+                                            v-for="it in options.options_peopleKind"
+                                            v-if="it.type==item.applyType"
+                                            value-key="val"
+                                            :key="it.val"
+                                            :label="it.text"
+                                            :value="it.val">
+                                    </el-option>
+                                </el-select>
+                                <el-select class="mr10"
+                                           v-else-if="item.applyType=='2' && item.country!='中国大陆'"
+                                           v-model="item.peopleKind"
+                                           :disabled="true"
+                                           placeholder="请选择">
+                                    <el-option
+                                            v-for="it in options.options_peopleKind"
+                                            v-if="it.type==item.applyType"
+                                            value-key="val"
+                                            :key="it.val"
+                                            :label="it.text"
+                                            :value="it.val">
+                                    </el-option>
+                                </el-select>
+                                <el-select class="mr10"
+                                           v-else
+                                           v-model="item.peopleKind"
+                                           :disabled="isDisabled('owners')"
+                                           placeholder="请选择">
+                                    <el-option
+                                            v-for="it in options.options_peopleKind"
+                                            v-if="it.type==item.applyType"
+                                            value-key="val"
+                                            :key="it.val"
+                                            :label="it.text"
+                                            :value="it.val">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+
                             <el-form-item
                                     class="flex-1"
                                     :prop="'owners.' + idx + '.name'"
@@ -96,31 +115,33 @@
                                         placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
                             </el-form-item>
                         </div>
+                        <div class="flex"><!--证件类型/证件号-->
+                            <el-form-item :prop="'owners.' + idx + '.idType'"
+                                          :rules="rules.idType">
+                                <el-select
+                                        class="mr10"
+                                        :disabled="isDisabled('owners')"
+                                        v-model="item.idType"
+                                        placeholder="请选择证件类型">
+                                    <el-option
+                                            v-for="(it,idx) in options.options_idType[item.applyType][item.country]||options.options_idType[sdata.applyType]['海外其他各国']"
+                                            value-key="val"
+                                            :key="it.val"
+                                            :label="it.text"
+                                            :value="it.val">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
 
-                        <div class="flex">
-                            <el-select
-                                    :disabled="isDisabled('owners')"
-                                    v-model="item.idType"
-                                    class="mr10"
-                                    placeholder="请选择">
-                                <el-option
-                                        v-for="(it,idx) in options.options_idType"
-                                        v-if="filterIdCard(it,item)"
-                                        value-key="val"
-                                        :key="it.val"
-                                        :label="it.text"
-                                        :value="it.val">
-                                </el-option>
-                            </el-select>
                             <el-form-item
                                     class="flex-1"
                                     :prop="'owners.' + idx + '.idNumber'"
-                                    :rules="rules.idNumber">
+                                    :rules="item.idType=='1'?rules.idNumberID:rules.idNumber">
                                 <el-input :disabled="isDisabled('owners')" placeholder="证件号码"
                                           v-model="item.idNumber"></el-input>
                             </el-form-item>
                         </div>
-                        <div class="flex">
+                        <div class="flex"><!--手机件号-->
                             <el-form-item
                                     class="flex-1"
                                     :prop="'owners.' + idx + '.mobile'"
@@ -132,7 +153,7 @@
                                 </el-input>
                             </el-form-item>
                         </div>
-                        <div class="fuben" v-if="idx<0">
+                        <div class="fuben" v-if="idx<0"><!--是否选择副本-->
                             <span>申请证书副本：</span>
                             <el-radio-group :disabled="isDisabled('owners')"
                                             v-model="item.applyCopy" class="small">
@@ -145,23 +166,31 @@
                         </div>
                     </div>
                     <div class="f_right">
-                        <div class="copy_upload">
+                        <div class="copy_upload" v-if="['1','15','16','17'].indexOf(item.idType)>-1">
+                            <!--大陆身份证，香港，澳门，台湾的所有证都做成正反面的，其他证件做成单面的-->
                             <FileUpload
-                                    v-if="item.idType=='1'"
                                     ref="UP_cardFront"
                                     :disabled="isDisabled('owners')"
-                                    @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardFront,'single')})"
+                                    @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
                                     theme="idcard"
                                     :path="sdata.owners[idx].cardFront.path"
-                                    uptext="上传人像面"></FileUpload>
+                                    uptext="请上传证件正面"></FileUpload>
                             <FileUpload
-                                    v-if="item.idType=='1'"
                                     ref="UP_cardBack"
                                     :disabled="isDisabled('owners')"
-                                    @fileSuccess="((params)=>{onFileUploaded(params,sdata.owners[idx].cardBack,'single')})"
+                                    @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardBack')})"
                                     theme="idcard"
                                     :path="sdata.owners[idx].cardBack.path"
-                                    uptext="上传国徽面"></FileUpload>
+                                    uptext="请上传证件反面"></FileUpload>
+                        </div>
+                        <div v-else>
+                            <FileUpload
+                                    ref="UP_cardFront"
+                                    :disabled="isDisabled('owners')"
+                                    @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
+                                    theme="idcard"
+                                    :path="sdata.owners[idx].cardFront.path"
+                                    uptext="请上传证件"></FileUpload>
                         </div>
                     </div>
                     <div class="opts" v-if="!isDisabled('owners') && idx!=0 && isOwnerAndDel">
@@ -215,8 +244,6 @@
 
 <script>
     import '../components/index.less'
-    import options from '../store/options'
-    import store from '../store/index'
     import myMixin from '../store/mixin'
     import FileUpload from '../components/FileUpload'
     import CountryCitySelect from '../components/CountryCitySelect'
@@ -226,11 +253,6 @@
         mixins: [myMixin],
         data() {
             return {
-                options: options,
-                user: store.user,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata,
                 ownerNum: 1,
                 isOwnerAndDel: true,
                 authorNum: 1,
@@ -270,7 +292,12 @@
             },
 
             applyTypeChange(val, idx) {
-                this.sdata.owners[idx].peopleKind = val.toString()
+                var item = this.sdata.owners[idx];
+                if (item.country != '中国大陆' && item.applyType == '2') {
+                    item.peopleKind = '无'
+                } else {
+                    item.peopleKind = val.toString()
+                }
             },
 
             //权限归属切换行为
@@ -448,25 +475,6 @@
                 }
             },
 
-            //根据当前可用申请类型和已选国家，过滤是否显示当前证件类型
-            filterIdCard(option, owner) {
-                let flag = false;
-                if (this.sdata.applyType == option.applyType) {  //匹配申请类型
-                    if (option.applyType == '1') {//个人
-                        if (option.ins.indexOf(owner.country) > -1) {
-                            flag = true
-                        }
-                        if (option.ins.indexOf('otherCountry') > -1 && ['中国大陆', '香港', '澳门', '台湾'].indexOf(owner.country) == -1) {
-                            flag = true
-                        }
-                    }
-
-                    //if(option)
-                }
-
-                return flag;
-            },
-
             //添加作者
             addAuthor() {
                 this.sdata.authors.push({
@@ -485,6 +493,11 @@
                     signature: ""
                 })
             },
+
+            idcardFileSuccess(param, idx, type) {
+                this.sdata.owners[idx][type] = param.filePath;
+            },
+
             //所有权切换
             rightScopeChange(val) {
                 this.sdata.rightOwnType = val - 1;

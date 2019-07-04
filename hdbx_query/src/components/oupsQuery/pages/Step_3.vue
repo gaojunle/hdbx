@@ -108,7 +108,7 @@
                                 <div class="item">
                                     <p>{{item.name}}</p>
                                     <p>{{item.province + '-' + item.city}}</p>
-                                    <p>{{formatOptionData('options_idType',item.idType)}}</p>
+                                    <p>{{formatOptionData('options_idType_all',item.idType)}}</p>
                                     <p>{{item.idNumber}}</p>
                                 </div>
                                 <div class="item card">
@@ -304,16 +304,9 @@
         mixins: [myMixin],
         data() {
             return {
-                options: options,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata
             }
         },
 
-        methods: {},
-        mounted() {
-
-        }
+        methods: {}
     }
 </script>

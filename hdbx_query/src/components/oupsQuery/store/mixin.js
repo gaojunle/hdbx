@@ -1,19 +1,27 @@
 // 定义一个混入对象
 import store from './index'
+import options from '../store/options'
 
 var flag = true;
 const myMixin = {
-    created: function () {
-
+    data() {
+        return {
+            options: options,
+            sdata: store.sdata,
+            rules: store.rules,
+            fdata: store.fdata
+        }
+    },
+    created() {
+        //console.log(this.sdata)
         if (this.getSessionData()) {
-            this.sdata = this.getSessionData();
             store.sdata = this.getSessionData();
+            this.sdata = store.sdata;
         }
 
         if (this.$route.query.clear == 1) {
             this.clearSessionData()
         }
-        //console.log(this.sdata.applyType, this.sdata.accountType)
     },
     methods: {
         //上一步
@@ -23,12 +31,13 @@ const myMixin = {
         },
         //下一步
         async stepNext(step, applyType) {
+            flag = true;
+            console.log(this.sdata.rightScope)
             var t = await this.validate();
 
             if (!t) {
                 return false
             }
-
             //return false
             step = parseInt(step);
 
@@ -68,8 +77,7 @@ const myMixin = {
 
         //验证
         validate() {
-            flag = true;
-            console.log(this.$refs)
+            //console.log(this.$refs)
             return new Promise((resolve, reject) => {
                 Object.values(this.$refs).forEach((ref) => {
                     if (Array.isArray(ref)) {
@@ -82,13 +90,15 @@ const myMixin = {
                         }
                     }
                 })
-                console.log('validate next:' + flag);
-                resolve(flag)
+                //console.log('validate next:' + flag);
+                setTimeout(() => {
+                    resolve(flag)
+                }, 400)
             })
         },
         doValidate(ref) {
-            console.log('ref.$el.className' + ref.$el.className + (ref.$el.className == 'el-form'));
-            if (ref.$el.className == 'el-form') {
+            //console.log('ref.$el.className' + ref.$el.className + (ref.$el.className == 'el-form'));
+            if (ref.$el.className.indexOf('el-form') > -1) {
                 ref.validate((val) => {
                     if (val == false) {
                         flag = false;
@@ -108,6 +118,7 @@ const myMixin = {
 
         //国家城市选择后回调处理方法
         countryCityChange(params, item, type) {
+            console.log('countryCityChange:', JSON.stringify(params), item, type)
             if (type) {
                 item[type + 'Country'] = params.country
                 item[type + 'Province'] = params.province;
@@ -118,13 +129,22 @@ const myMixin = {
                 item['province'] = params.province;
                 item['city'] = params.city;
                 item['area'] = params.area;
-                item.idType = ''
+
+                //切换国家时对身份类型及证件类型影响
+                item.idType = '';
+                if (item.peopleKind == '无') {
+                    item.peopleKind = ''
+                }
+                if (item.country != '中国大陆' && item.applyType == '2') {
+                    item.peopleKind = '0'
+                }
             }
         },
 
         //将select字段值转为text显示
         formatOptionData(option, val) {
-            var ret = ''
+            var ret = '';
+            console.log(option, this.options[option])
             this.options[option].forEach((item) => {
                 if (item.val == val) {
                     ret = item.text;
@@ -149,7 +169,8 @@ const myMixin = {
             if (type == 'multi') {
                 dataRef.push(item);
             } else {
-                dataRef = item;
+                dataRef.attachmentName = uploadedParams.fileName;
+                dataRef.path = uploadedParams.filePath
             }
         },
 

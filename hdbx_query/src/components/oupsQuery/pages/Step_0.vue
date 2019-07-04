@@ -66,8 +66,6 @@
             }
         },
 
-        methods: {},
-        mounted() {
-        }
+        methods: {}
     }
 </script>

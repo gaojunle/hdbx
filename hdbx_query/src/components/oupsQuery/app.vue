@@ -20,9 +20,6 @@
         mounted() {
 
         },
-        watch: {},
-        created() {
-
-        }
+        watch: {}
     }
 </script>

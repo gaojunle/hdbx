@@ -9,12 +9,12 @@
                     @change="selCountryChange">
                 <el-option
                         v-for="item in countrys"
-                        :key="item.name"
+                        :key="item.id"
                         :label="item.name"
                         :value="item.id">
                 </el-option>
             </el-select>
-            <div class="error_tip error_country" v-show="validateFlag&&!selCountry">请输选择国家</div>
+            <div class="error_tip error_country" v-show="validateFlag&&!retParam.country">请输选择国家</div>
         </div>
         <div class="city-box">
             <el-cascader
@@ -26,7 +26,7 @@
                     value="location"
                     :props="props">
             </el-cascader>
-            <div class="error_tip error_location" v-show="validateFlag&&!province">请输选择城市</div>
+            <div class="error_tip error_location" v-show="validateFlag&&!retParam.province">请输选择城市</div>
         </div>
     </div>
 </template>
@@ -98,35 +98,40 @@
         },
         watch: {
             country(newVal, oldVal) {
-                console.log(newVal, oldVal);
+                //console.log(newVal, oldVal);
             }
         },
         methods: {
             //选择国家
             selCountryChange(val) {
+                let obj = {}
+                obj = this.countrys.find((item) => {
+                    return item.id === val
+                })
+
                 this.initNullFlag = false;
                 this.selCountry = '';
                 selCountry = '';
-                this.$nextTick(() => {
-                    setTimeout(() => {
-                        this.selCountry = val;
-                        selCountry = val;
-                    }, 100)
-                })
-                this.retParam.country = val;
+
+                setTimeout(() => {
+                    this.selCountry = val;
+                    selCountry = val;
+                }, 100)
+
+                this.retParam.country = obj.name;
                 this.$emit('countryCityChange', this.retParam)
-                console.log(this.retParam);
+                //console.log(this.retParam);
             },
             //选择城市
             onCityChange(val) {
-                this.retParam = {
-                    country: selCountry,
-                    province: val[0],
-                    city: val[1],
-                    area: val[2]
-                }
-                this.$emit('countryCityChange', this.retParam)
-                console.log(this.retParam);
+                setTimeout(() => {
+                    var locationArr = this.$refs.cityBox.inputValue.split(' / ');
+                    this.retParam.province = locationArr[0];
+                    this.retParam.city = locationArr[1];
+                    this.retParam.area = locationArr[2]
+                    this.$emit('countryCityChange', this.retParam)
+                    //console.log(this.retParam);
+                }, 100)
             },
             //初始化地址
             initLocation() {
@@ -140,7 +145,7 @@
                 }
             },
             //验证有效性（是否选择）
-            validate(flag=true) {//flag:true,false,
+            validate(flag = true) {//flag:true,false,
                 this.validateFlag = flag;
                 return this.province; //只要选择了省，说明国家与城市都选择完成，检验成功
             }

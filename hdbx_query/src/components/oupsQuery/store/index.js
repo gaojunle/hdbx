@@ -1,3 +1,41 @@
+function validateId(rule, value, callback) {
+    if (value === '') {
+        callback(new Error('请输入证件号码'));
+    } else {
+        if (/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
+            callback();
+        } else {
+            callback(new Error('请输入正确身份证号'));
+        }
+    }
+}
+
+var checkOpusInfo = (rule, value, callback) => {
+    console.log(store.sdata)
+    //输入文字
+    if ('A'.indexOf(store.sdata.opusType) > -1) {
+        if (!value) {
+            callback(new Error('请输入字数'));
+        }
+        if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+        }
+    }
+    //输入时长
+    else if ('IH'.indexOf(store.sdata.opusType) > -1) {
+        if (!Number.isInteger(store.timeLength.h) || !Number.isInteger(store.timeLength.m || !Number.isInteger(store.timeLength.s))) {
+            callback(new Error('请输入数字值时长'));
+        }
+        if (!store.timeLength.h || !store.timeLength.m || !store.timeLength.s) {
+            callback(new Error('请输入时长'));
+        }
+        callback();
+    }
+    else {
+        callback();
+    }
+    callback();
+};
 const store = {
     debug: true,
     user: {
@@ -28,7 +66,8 @@ const store = {
         "appearProvince": "",
         "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
         "authAttachment": {//选择代理人时，授权委托书
-
+            "attachmentName": "",
+            "path": "",
         },
         "agentDesc": "",
         "attachments": [
@@ -83,7 +122,7 @@ const store = {
         "opusTypeDesc": "",
         "owners": [
             {
-                "applyType":"1",
+                "applyType": "1",
                 "applyCopy": "0",
                 "cardBack": "",
                 "cardFront": "",
@@ -119,7 +158,16 @@ const store = {
         "appearProvince": "",
         "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
         "authAttachment": {//选择代理人时，授权委托书
-
+            "attachmentId": "附件Id",
+            "flowNumber": "流水号",
+            "segmentName": "系列名称",
+            "attachmentName": "",
+            "relevantFileName": "附件类型，系列作品附件附件类型为null",
+            "path": "",
+            "remark": "备注",
+            "createTime": "创建时间",
+            "updateTime": "修改时间",
+            "baseId": null
         },
         "agentDesc": "",
         "attachments": [
@@ -174,7 +222,7 @@ const store = {
         "opusTypeDesc": "",
         "owners": [
             {
-                "applyType":"1",
+                "applyType": "1",
                 "applyCopy": "0",
                 "cardBack": "",
                 "cardFront": "",
@@ -336,17 +384,28 @@ const store = {
         opusTypeDesc: [
             {required: true, message: '请输入作品类型描述', trigger: 'blur'}
         ],
+
         opusInfo: [
-            {required: true, message: '请输入', trigger: 'blur'}
+            {validator: checkOpusInfo, trigger: 'blur'}
         ],
         segmentName: [
             {required: true, message: '请输入样本名称', trigger: 'blur'}
         ],
+        peopleKind: [
+            {required: true, message: '请选择著作权人类型', trigger: 'change'}
+        ],
         ownerName: [
             {required: true, message: '请输入著作权人姓名', trigger: 'blur'}
         ],
+        idType: [
+            {required: true, message: '请选择证件类型', trigger: 'change'}
+        ],
         idNumber: [
             {required: true, message: '请输入证件号码', trigger: 'blur'}
+        ],
+        idNumberID: [
+            {required: true, message: '请输入证件号码', trigger: 'blur'},
+            {validator: validateId, trigger: 'blur'}
         ],
         mobile: [
             {required: true, message: '请输入手机号', trigger: 'blur'}

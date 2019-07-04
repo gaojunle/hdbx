@@ -57,9 +57,8 @@
                 </el-date-picker>
 
                 <span class="title required">创作完成地点：</span>
-                <!--ref="CC_completeCountry"-->
                 <CountryCitySelect
-
+                        ref="CC_completeCountry"
                         :countryDisabled="isDisabled('completeCountry')"
                         :cityDisabled="isDisabled('completeCity')"
                         :country="sdata.completeCountry"
@@ -93,8 +92,8 @@
                         placeholder="年/月/日">
                 </el-date-picker>
                 <span class="title required">首次发表地点：</span>
-                <!-- ref="CC_appearCountry"-->
                 <CountryCitySelect
+                        ref="CC_appearCountry"
                         :countryDisabled="isDisabled('appearCountry')"
                         :cityDisabled="isDisabled('appearProvince')"
                         :country="sdata.appearCountry"
@@ -129,7 +128,7 @@
                         v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
                 </div>
                 <div class="flex" v-if="sdata.opusType=='A'">
-                    <el-form-item prop="opusInfo" :rules="rules_opusInfo">
+                    <el-form-item prop="opusInfo" :rules="rules.opusInfo">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="sdata.opusInfo"
                                   class="w220"></el-input>
@@ -137,7 +136,7 @@
                     <span class="label">字</span>
                 </div>
                 <div class="flex" v-if="sdata.opusType=='H'||sdata.opusType=='I'">
-                    <el-form-item prop="opusInfo" :rules="rules_opusInfo">
+                    <el-form-item prop="opusInfo" :rules="rules.opusInfo">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="timeLength.h" max="60" class="w220" type="number"
                                   placeholder=""></el-input>
@@ -162,6 +161,7 @@
                     <FileUpload
                             ref="FU_attachments"
                             v-if="!isDisabled('attachments')"
+                            :path="sdata.attachments.length>0?sdata.attachments[0].attachmentList[0].path:''"
                             @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[0].attachmentList,'multi')})"
                             theme="btn"
                             uptext="上传">
@@ -208,6 +208,7 @@
                                     ref="FU_attachments"
                                     v-if="!isDisabled('attachments')"
                                     style="margin-top: 20px;"
+                                    :path="sdata.attachments.length>0?sdata.attachments[0].attachmentList[0].path:''"
                                     @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[index].attachmentList,'multi')})"
                                     theme="btn"
                                     uptext="上传"></FileUpload>
@@ -240,42 +241,12 @@
         components: {FileUpload, CountryCitySelect},
         mixins: [myMixin],
         data() {
-            var checkOpusInfo = (rule, value, callback) => {
-                //输入文字
-                if ('A'.indexOf(this.sdata.opusType) > -1) {
-                    if (!value) {
-                        callback(new Error('请输入字数'));
-                    }
-                    if (!Number.isInteger(value)) {
-                        callback(new Error('请输入数字值'));
-                    }
-                }
-                //输入时长
-                else if ('IH'.indexOf(this.sdata.opusType) > -1) {
-                    if (!Number.isInteger(this.timeLength.h) || !Number.isInteger(this.timeLength.m || !Number.isInteger(this.timeLength.s))) {
-                        callback(new Error('请输入数字值时长'));
-                    }
-                    if (!this.timeLength.h || !this.timeLength.m || !this.timeLength.s) {
-                        callback(new Error('请输入时长'));
-                    }
-                    callback();
-                }
-                else {
-                    callback();
-                }
-                callback();
-            };
             return {
-                options: options,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata,
                 timeLength: {
                     h: '',
                     m: '',
                     s: ''
-                },
-                rules_opusInfo: [{validator: checkOpusInfo, trigger: 'blur'}]
+                }
             }
         },
 
@@ -303,9 +274,6 @@
             'timeLength.s'(newVal) {
                 this.sdata.opusInfo = (this.timeLength.h * 60 * 60 + this.timeLength.m * 60 + this.timeLength.s) * 1000
             },
-        },
-        mounted() {
-
         }
     }
 </script>

@@ -4,6 +4,7 @@
         <span class="title required">权利拥有状况：</span>
         <el-radio-group
                 :disabled="isDisabled('rightScope')"
+                @change="rightScopeChange"
                 v-model="sdata.rightScope" class="small">
             <el-radio-button v-for="item in options.options_rightScope"
                              :key="item.val"
@@ -30,28 +31,22 @@
 
 <script>
     import '../components/index.less'
-    import options from '../store/options'
-    import store from '../store/index'
     import myMixin from '../store/mixin'
 
     export default {
-        components: {},
         mixins: [myMixin],
         data() {
-            return {
-                options: options,
-                user: store.user,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata
-            }
+            return {}
         },
         methods: {
             //所有权切换
-            /*rightScopeChange(val) {
-                console.log(val)
-                this.sdata.rightOwnType = val - 1;
-            }*/
+            rightScopeChange(val) {
+                console.log(this.sdata.rightScope)
+                //this.sdata.rightOwnType = val - 1;
+            }
+        },
+        created() {
+            console.log(this.sdata)
         },
         mounted() {
         }

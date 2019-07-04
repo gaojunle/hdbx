@@ -135,7 +135,7 @@
         methods: {
             onFileAdded(evt) {
                 //TODO 此处为无接口测试代码
-                const reader = new FileReader()
+                /*const reader = new FileReader()
                 reader.onload = (e) => {
                     this.filePath = e.target.result;
                     this.$emit('fileSuccess', {
@@ -143,15 +143,23 @@
                         fileName: evt.file.name
                     })
                 }
-                reader.readAsDataURL(evt.file)
+                reader.readAsDataURL(evt.file)*/
             },
             onFileSuccess(rootFile, file, response, chunk) {
                 let res = JSON.parse(response);
                 //console.log(file);
-                this.$emit('fileSuccess', {
-                    filePath: res.data.filePath,
-                    fileName: file.name
-                })
+                if(this.theme == 'idcard'){
+                    this.$emit('idcardFileSuccess', {
+                        filePath: res.data.filePath,
+                        fileName: file.name
+                    })
+                }else{
+                    this.$emit('fileSuccess', {
+                        filePath: res.data.filePath,
+                        fileName: file.name
+                    })
+                }
+
                 this.filePath = res.data.filePath
             },
 
