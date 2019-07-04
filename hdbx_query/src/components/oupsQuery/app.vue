@@ -7,11 +7,14 @@
 </template>
 
 <script>
+    import store from './store/index'
+    import myMixin from './store/mixin'
     import topNav from '@components/common/header'
     import hdFooter from '@components/common/hdFooter'
     import breadcrumb from '@components/common/breadcrumb'
 
     export default {
+        mixins: [myMixin],
         data() {
             return {}
         },
@@ -20,6 +23,16 @@
         mounted() {
 
         },
-        watch: {}
+        created() {
+            console.log(this.sdata)
+            if (this.getSessionData()) {
+                store.sdata = this.getSessionData();
+                this.sdata = store.sdata;
+            }
+
+            if (this.$route.query.clear == 1) {
+                this.clearSessionData()
+            }
+        },
     }
 </script>

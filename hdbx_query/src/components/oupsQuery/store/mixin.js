@@ -12,17 +12,6 @@ const myMixin = {
             fdata: store.fdata
         }
     },
-    created() {
-        //console.log(this.sdata)
-        if (this.getSessionData()) {
-            store.sdata = this.getSessionData();
-            this.sdata = store.sdata;
-        }
-
-        if (this.$route.query.clear == 1) {
-            this.clearSessionData()
-        }
-    },
     methods: {
         //上一步
         stepPrev(step, applyType) {
@@ -32,9 +21,9 @@ const myMixin = {
         //下一步
         async stepNext(step, applyType) {
             flag = true;
-            console.log(this.sdata.rightScope)
-            var t = await this.validate();
 
+            var t = await this.validate();
+            console.log(t)
             if (!t) {
                 return false
             }

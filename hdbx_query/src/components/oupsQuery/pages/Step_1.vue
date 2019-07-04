@@ -161,7 +161,7 @@
                     <FileUpload
                             ref="FU_attachments"
                             v-if="!isDisabled('attachments')"
-                            :path="sdata.attachments.length>0?sdata.attachments[0].attachmentList[0].path:''"
+                            :path="sdata.attachments[0].attachmentList.length>0?sdata.attachments[0].attachmentList[0].path:''"
                             @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[0].attachmentList,'multi')})"
                             theme="btn"
                             uptext="上传">
@@ -208,7 +208,7 @@
                                     ref="FU_attachments"
                                     v-if="!isDisabled('attachments')"
                                     style="margin-top: 20px;"
-                                    :path="sdata.attachments.length>0?sdata.attachments[0].attachmentList[0].path:''"
+                                    :path="sdata.attachments[0].attachmentList.length>0?sdata.attachments[0].attachmentList[0].path:''"
                                     @fileSuccess="((params)=>{onFileUploaded(params,sdata.attachments[index].attachmentList,'multi')})"
                                     theme="btn"
                                     uptext="上传"></FileUpload>

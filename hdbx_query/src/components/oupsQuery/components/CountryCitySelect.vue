@@ -14,7 +14,7 @@
                         :value="item.id">
                 </el-option>
             </el-select>
-            <div class="error_tip error_country" v-show="validateFlag&&!retParam.country">请输选择国家</div>
+            <div class="error_tip error_country" v-show="validateFlag&&!validateCountry()">请输选择国家</div>
         </div>
         <div class="city-box">
             <el-cascader
@@ -26,7 +26,7 @@
                     value="location"
                     :props="props">
             </el-cascader>
-            <div class="error_tip error_location" v-show="validateFlag&&!retParam.province">请输选择城市</div>
+            <div class="error_tip error_location" v-show="validateFlag&&!validate()">请输选择城市</div>
         </div>
     </div>
 </template>
@@ -53,6 +53,7 @@
             area: ''
         },
         data() {
+            let that = this;
             return {
                 initNullFlag: true,
                 props: {
@@ -80,12 +81,14 @@
                                     _d: item
                                 }));
                                 // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                                that.citys = nodes;
                                 resolve(nodes);
                             }
                         }, 100);
                     }
                 },
                 countrys: [],
+                citys: [],
                 selCountry: '',//001中国大陆
                 retParam: {
                     country: '',
@@ -93,7 +96,7 @@
                     city: '',
                     area: ''
                 },
-                validateFlag: false //是否进行校验标记
+                validateFlag: false //是否要对组件进行校验标记
             }
         },
         watch: {
@@ -145,9 +148,48 @@
                 }
             },
             //验证有效性（是否选择）
-            validate(flag = true) {//flag:true,false,
-                this.validateFlag = flag;
-                return this.province; //只要选择了省，说明国家与城市都选择完成，检验成功
+            validate(validateFlag = true) {//flag:true,false,
+                let that = this;
+                let flag = false;
+
+                this.validateFlag = validateFlag;
+
+                if (this.country) {//有初始值
+                    //并且没修改过，直接返回true
+                    if (this.country && !this.retParam.country) {
+                        flag = true;
+                    } else {
+                        valid()
+                    }
+                } else {//无初始化值
+                    valid()
+                }
+
+                function valid() {
+                    //选择了国家
+                    if (that.retParam.country) {
+                        //国家无下级返回true
+                        if (that.citys.length == 0) {
+                            flag = true;
+                            console.log('选择了国家', that.citys)
+                        }
+                        //国家有下级，并选择，则返回true
+                        if (that.citys.length > 0 && that.retParam.province) {
+                            flag = true;
+                        }
+                    }
+                }
+
+                console.log(flag)
+                return flag;
+            },
+            validateCountry() {
+                console.log(this.country, this.retParam.country, '----------', !this.country || !this.retParam.country)
+                if (!this.country && !this.retParam.country) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
         },
         async mounted() {
