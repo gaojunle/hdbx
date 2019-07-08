@@ -302,6 +302,7 @@
 
             //权限归属切换行为
             changeRightOwnType() {
+                console.log(this.user)
                 this._initData();
                 switch (this.typeGroup) {
                     case '111'://个人作品[1、1、1]

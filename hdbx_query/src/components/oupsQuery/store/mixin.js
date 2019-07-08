@@ -6,6 +6,7 @@ var flag = true;
 const myMixin = {
     data() {
         return {
+            user:store.user,
             options: options,
             sdata: store.sdata,
             rules: store.rules,
