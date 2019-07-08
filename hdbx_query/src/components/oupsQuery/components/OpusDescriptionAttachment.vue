@@ -28,11 +28,6 @@
         mixins: [myMixin],
         data() {
             return {
-                options: options,
-                user: store.user,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata
             }
         },
         methods: {},

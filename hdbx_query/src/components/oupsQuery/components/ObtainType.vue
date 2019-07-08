@@ -30,7 +30,7 @@
                         :path="sdata.obtainTypeAttachment[idx].path"
                         :examples="{exampleUrl:options.exampleUrl}"
                         :disabled="isDisabled('obtainType')"
-                        @fileSuccess="((params)=>{onFileUploaded(params,sdata.obtainType,'single')})">
+                        @fileSuccess="((params)=>{onFileUploaded(params,sdata.obtainTypeAttachment[idx],'single')})">
                 </FileUpload>
             </div>
         </div>
@@ -39,8 +39,6 @@
 
 <script>
     import '../components/index.less'
-    import options from '../store/options'
-    import store from '../store/index'
     import myMixin from '../store/mixin'
     import FileUpload from '../components/FileUpload'
 
@@ -49,11 +47,6 @@
         mixins: [myMixin],
         data() {
             return {
-                options: options,
-                user: store.user,
-                sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata
             }
         },
         methods: {},

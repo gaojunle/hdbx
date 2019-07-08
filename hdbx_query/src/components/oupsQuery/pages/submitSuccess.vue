@@ -1,5 +1,5 @@
 <template>
-    <div class="step step_5" v-show="$route.params.step==5">
+    <div class="step step_5">
         <div class="suc-box">
             <div class="info">
                 <div class="suc-title">

@@ -1,66 +1,72 @@
 // 定义一个混入对象
 import store from './index'
 import options from '../store/options'
+import api from '@api'
 
-var flag = true;
+var canNextFlag = true;
 const myMixin = {
     data() {
         return {
-            user:store.user,
+            flowNumber: null, //是否回显标识，在app创建时判断
+            user: store.user,
             options: options,
             sdata: store.sdata,
-            rules: store.rules,
-            fdata: store.fdata
+            rules: store.rules
         }
     },
     methods: {
         //上一步
         stepPrev(step, applyType) {
-            step = parseInt(step);
-            this.$router.push('/index/' + (--step))
+            this.$router.go(-1)
         },
         //下一步
-        async stepNext(step, applyType) {
-            flag = true;
-
+        async stepNext(applyType) {
+            let step = this.$route.name;
+            canNextFlag = true;
+            console.log(this.sdata)
             var t = await this.validate();
-            console.log(t)
             if (!t) {
                 return false
             }
             //return false
-            step = parseInt(step);
 
             switch (step) {
-                case 0:
+                case 'chooseIdentity':
                     //填报身份不一致时，清除缓存
-                    console.log(this.sdata.applyType, applyType.toString())
+                    //console.log(this.sdata.applyType, applyType.toString())
                     if (this.sdata.applyType != applyType.toString()) {
                         this.clearSessionData()
                     }
                     this.sdata.applyType = applyType.toString();
-                    this.$router.push('/index/' + (++step))
+                    this.$router.push('/creativeInfo')
                     break;
-                case 1:
-                    this.$router.push('/index/' + (++step))
+                case 'creativeInfo':
+                    this.$router.push('/ownershipInfo')
                     break;
-                case 2:
-                    this.$router.push('/index/' + (++step))
+                case 'ownershipInfo':
+                    this.$router.push('/confirmApplication')
                     break;
-                case 3:
-                    //确认填写完成后，清掉缓存
-                    this.clearSessionData()
-                    this.$router.push('/index/' + (++step))
+                case 'confirmApplication':
+                    //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
+                    if (!this.flowNumber) {
+                        api.Z11BaseInfo(this.sdata).then((ret) => {
+                            this.clearSessionData()
+                            this.$router.push('/submitMaterial')
+                        })
+                    } else {
+                        api.reFillin(this.sdata).then((ret) => {
+                            this.clearSessionData()
+                            this.$router.push('/submitMaterial')
+                        })
+                    }
                     break;
-                case 4:
-                    this.$router.push('/index/' + (++step))
+                case 'submitMaterial':
+                    this.$router.push('/submitSuccess')
                     break;
-                case 5:
-                    this.$router.push('/index/' + (++step))
                     break;
                 default:
                     this.clearSessionData()
-                    this.$router.push('/index/0')
+                    this.$router.push('/chooseIdentity')
             }
             this.setSessionData();
         },
@@ -80,9 +86,9 @@ const myMixin = {
                         }
                     }
                 })
-                //console.log('validate next:' + flag);
+                //console.log('validate next:' + canNextFlag);
                 setTimeout(() => {
-                    resolve(flag)
+                    resolve(canNextFlag)
                 }, 400)
             })
         },
@@ -91,19 +97,19 @@ const myMixin = {
             if (ref.$el.className.indexOf('el-form') > -1) {
                 ref.validate((val) => {
                     if (val == false) {
-                        flag = false;
+                        canNextFlag = false;
                     }
                 })
             } else {
                 if (ref.validate() == false) {
-                    flag = false;
+                    canNextFlag = false;
                 }
             }
         },
 
         //验证是否可编辑
         isDisabled(key) {
-            return store.fdata.reFillin.indexOf(key) == -1;
+            return store.reFillin.indexOf(key) == -1;
         },
 
         //国家城市选择后回调处理方法
@@ -134,7 +140,7 @@ const myMixin = {
         //将select字段值转为text显示
         formatOptionData(option, val) {
             var ret = '';
-            console.log(option, this.options[option])
+            //console.log(option, this.options[option])
             this.options[option].forEach((item) => {
                 if (item.val == val) {
                     ret = item.text;
@@ -174,6 +180,10 @@ const myMixin = {
             store.sdata = store.sdata_init;
             this.sdata = store.sdata_init;
             sessionStorage.setItem('sdata', null)
+        },
+        //设置用户真实信息
+        setUserInfo() {
+            this.user = getCookie('webUserInfo') || {}
         }
     }
 }

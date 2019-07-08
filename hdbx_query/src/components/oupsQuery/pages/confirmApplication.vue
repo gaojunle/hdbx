@@ -1,5 +1,5 @@
 <template>
-    <div class="step step_3" v-show="$route.params.step==3">
+    <div class="step step_3">
         <div class="f_box">
             <div class="info-title">作品信息</div>
             <div class="info-cont">
@@ -40,7 +40,8 @@
                     </el-col>
                     <el-col :span="12">
                         <span class="label">创作完成地点：</span>
-                        <span class="text">{{sdata.completeCountry+'-'+sdata.completeProvince+'-'+sdata.completeCity}}</span>
+
+                        <span class="text">{{sdata.completeCountry+formatNull(sdata.completeProvince)+formatNull(sdata.completeCity)}}</span>
                     </el-col>
                 </el-row>
                 <el-row>
@@ -50,14 +51,14 @@
                     </el-col>
                     <el-col :span="12">
                         <span class="label">首次发表地点：</span>
-                        <span class="text">{{sdata.appearCountry+'-'+sdata.appearProvince+'-'+sdata.appearCity}}</span>
+                        <span class="text">{{sdata.appearCountry+formatNull(sdata.appearProvince)+formatNull(sdata.appearCity)}}</span>
                     </el-col>
                 </el-row>
                 <el-row class="sample flex-info">
                     <span class="label">作品样本：</span>
                     <div class="sample-cont flex-1">
                         <div class="samples_multi" v-if="sdata.opusNature==1">
-                            <div class="sample_list" v-if="idx%3==0"
+                            <div class="sample_list" style="padding: 0px;" v-if="idx%3==0"
                                  v-for="(_item,idx) in sdata.attachments[0].attachmentList">
                                 <div class="item" v-if="(i>=idx)&&i<(idx+3)"
                                      v-for="(ufile,i) in sdata.attachments[0].attachmentList">
@@ -107,7 +108,7 @@
                                 </div>
                                 <div class="item">
                                     <p>{{item.name}}</p>
-                                    <p>{{item.province + '-' + item.city}}</p>
+                                    <p>{{(item.province?item.province:'') + formatNull(item.city)}}</p>
                                     <p>{{formatOptionData('options_idType_all',item.idType)}}</p>
                                     <p>{{item.idNumber}}</p>
                                 </div>
@@ -302,11 +303,15 @@
     export default {
         components: {LoadMore, WaysBox, AddressBox},
         mixins: [myMixin],
+        filters: {},
         data() {
-            return {
-            }
+            return {}
         },
 
-        methods: {}
+        methods: {
+            formatNull(val) {
+                return val ? ('-' + val) : '';
+            }
+        }
     }
 </script>

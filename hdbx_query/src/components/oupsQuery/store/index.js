@@ -10,50 +10,39 @@ function validateId(rule, value, callback) {
     }
 }
 
-var checkOpusInfo = (rule, value, callback) => {
-    console.log(store.sdata)
-    //输入文字
-    if ('A'.indexOf(store.sdata.opusType) > -1) {
-        if (!value) {
-            callback(new Error('请输入字数'));
-        }
-        if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-        }
+function getNowDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+        month = "0" + month;
     }
-    //输入时长
-    else if ('IH'.indexOf(store.sdata.opusType) > -1) {
-        if (!Number.isInteger(store.timeLength.h) || !Number.isInteger(store.timeLength.m || !Number.isInteger(store.timeLength.s))) {
-            callback(new Error('请输入数字值时长'));
-        }
-        if (!store.timeLength.h || !store.timeLength.m || !store.timeLength.s) {
-            callback(new Error('请输入时长'));
-        }
-        callback();
+    if (day < 10) {
+        day = "0" + day;
     }
-    else {
-        callback();
-    }
-    callback();
-};
+    var nowDate = year + "-" + month + "-" + day;
+    return nowDate
+}
+
 const store = {
     debug: true,
     user: {
-        "headImg": "https://res.wx.qq.com/a/wx_fed/webwx/res/static/img/2zrdI1g.jpg",
+        "headImg": "",
         "createTime": 1552894531054,
-        "id": "160048479429853184",
+        "id": "",
         "sex": 1,
         "status": 1,
-        "email": "hu@qq.com",
-        "userName": "humintest",
+        "email": "",
+        "userName": "",
         "updateTime": 1552894531054,
         "organizationalId": "76371548973432832",
-        "loginName": "humintest",
-        "phone": "15510113333",
-        "password": "111111",
+        "loginName": "",
+        "phone": "",
+        "password": "",
         "onJob": 1,
-        "authorization_key": "7nbAMnbjfdYyL5HU6tHdfuYnDQgm6PCS",
-        "authorization_token": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpc3MiOiI3bmJBTW5iamZkWXlMNUhVNnRIZGZ1WW5EUWdtNlBDUyJ9.mPdnSSVAzB38BUV9Ptc2T_wUPyukVi3PnI3_CFHCq_E",
+        "authorization_key": "",
+        "authorization_token": "",
         "logintime": 1560932770384
     },
     sdata_init: {
@@ -62,111 +51,19 @@ const store = {
         "appearCity": "",
         "appearArea": "",
         "appearCountry": "",
-        "appearDate": "2018-12-12",
+        "appearDate": getNowDate(),
         "appearProvince": "",
         "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
         "authAttachment": {//选择代理人时，授权委托书
+            "attachmentId": "",
+            "flowNumber": "",
+            "segmentName": "",
             "attachmentName": "",
+            "relevantFileName": "",
             "path": "",
-        },
-        "agentDesc": "",
-        "attachments": [
-            {
-                "attachmentList": [],
-                "segmentName": ""
-            }
-        ],
-        "authors": [
-            {"name": "", "signature": ""}
-        ],
-        "certificateCollectionMethod": "TQ",
-        "certificateCollectionAddress": '1',
-        "completeCity": "",
-        "completeCountry": "",
-        "completeDate": "2018-12-12",
-        "completeProvince": "",
-        "needStamp": "1",
-        "obtainType": "2",
-        "obtainTypeAttachment": [
-            {
-                relevantFileName: 'QLGS-0603',
-                path: '',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0601',
-                path: '',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0602',
-                path: '',
-                remark: 'remark'
-            },
-            {
-                relevantFileName: 'QLGS-0605',
-                path: '',
-                remark: 'remark'
-            }
-        ],
-        "ownObtainDate": "2019-10-19",
-        "opusDescriptionAttachment": {
-            "path": '',
-            "relevantFileName": ""
-        },
-        "opusInditeType": "1",
-        "opusInfo": "",
-        "opusName": "",
-        "opusNature": "2",
-        "opusType": 'A',
-        "opusTypeDesc": "",
-        "owners": [
-            {
-                "applyType": "1",
-                "applyCopy": "0",
-                "cardBack": "",
-                "cardFront": "",
-                "country": "中国大陆",
-                "province": "",
-                "city": "",
-                "idNumber": "",
-                "idType": "",
-                "mobile": "",
-                "name": "",
-                "peopleKind": "1",
-                "role": "PET"
-            }],
-        "publishStatus": "1",
-        "registrationMethod": "MAIL",
-        "rightOwnType": "2",
-        rightOwnTypeAttachment: {//rightOwnType为1时没有附件
-            relevantFileName: '',
-            path: '',
-            remark: ''
-        },
-        "rightScope": "2",
-        rightScopePart: [],
-        "sampleRetentionMedium": "1"
-    },
-    sdata: {
-        "accountType": '2', //accountType 1是个人2是机构
-        "accountId": "133618064657874944",
-        "appearCity": "",
-        "appearArea": "",
-        "appearCountry": "",
-        "appearDate": "2018-12-12",
-        "appearProvince": "",
-        "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
-        "authAttachment": {//选择代理人时，授权委托书
-            "attachmentId": "附件Id",
-            "flowNumber": "流水号",
-            "segmentName": "系列名称",
-            "attachmentName": "",
-            "relevantFileName": "附件类型，系列作品附件附件类型为null",
-            "path": "",
-            "remark": "备注",
-            "createTime": "创建时间",
-            "updateTime": "修改时间",
+            "remark": "",
+            "createTime": "",
+            "updateTime": "",
             "baseId": null
         },
         "agentDesc": "",
@@ -183,7 +80,7 @@ const store = {
         "certificateCollectionAddress": '1',
         "completeCity": "",
         "completeCountry": "",
-        "completeDate": "2018-12-12",
+        "completeDate": getNowDate(),
         "completeProvince": "",
         "needStamp": "1",
         "obtainType": "2",
@@ -209,7 +106,7 @@ const store = {
                 remark: 'remark'
             }
         ],
-        "ownObtainDate": "2019-10-19",
+        "ownObtainDate": getNowDate(),
         "opusDescriptionAttachment": {
             "path": '',
             "relevantFileName": ""
@@ -230,7 +127,7 @@ const store = {
                 "province": "",
                 "city": "",
                 "idNumber": "",
-                "idType": "1",
+                "idType": "",
                 "mobile": "",
                 "name": "",
                 "peopleKind": "",
@@ -248,6 +145,141 @@ const store = {
         rightScopePart: [],
         "sampleRetentionMedium": "1"
     },
+    sdata: {
+        "accountType": '2', //accountType 1是个人2是机构
+        "accountId": "133618064657874944",
+        "appearCity": "",
+        "appearArea": "",
+        "appearCountry": "",
+        "appearDate": getNowDate(),
+        "appearProvince": "",
+        "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
+        "authAttachment": {//选择代理人时，授权委托书
+            "attachmentId": "",
+            "flowNumber": "",
+            "segmentName": "",
+            "attachmentName": "",
+            "relevantFileName": "",
+            "path": "",
+            "remark": "",
+            "createTime": "",
+            "updateTime": "",
+            "baseId": null
+        },
+        "agentDesc": "",
+        "attachments": [
+            {
+                "attachmentList": [],
+                "segmentName": ""
+            }
+        ],
+        "authors": [
+            {"name": "", "signature": ""}
+        ],
+        "certificateCollectionMethod": "TQ",
+        "certificateCollectionAddress": '1',
+        "completeCity": "",
+        "completeCountry": "",
+        "completeDate": getNowDate(),
+        "completeProvince": "",
+        "needStamp": "1",
+        "obtainType": "2",
+        "obtainTypeAttachment": [
+            {
+                relevantFileName: 'QLGS-0603',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0601',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0602',
+                path: '',
+                remark: 'remark'
+            },
+            {
+                relevantFileName: 'QLGS-0605',
+                path: '',
+                remark: 'remark'
+            }
+        ],
+        "ownObtainDate": getNowDate(),
+        "opusDescriptionAttachment": {
+            "path": '',
+            "relevantFileName": ""
+        },
+        "opusInditeType": "1",
+        "opusInfo": "",
+        "opusName": "",
+        "opusNature": "2",
+        "opusType": 'A',
+        "opusTypeDesc": "",
+        "owners": [
+            {
+                "applyType": "1",
+                "applyCopy": "0",
+                "cardBack": "",
+                "cardFront": "",
+                "country": "",
+                "province": "",
+                "city": "",
+                "idNumber": "",
+                "idType": "",
+                "mobile": "",
+                "name": "",
+                "peopleKind": "",
+                "role": "PET"
+            }],
+        "publishStatus": "1",
+        "registrationMethod": "MAIL",
+        "rightOwnType": "2",
+        rightOwnTypeAttachment: {//rightOwnType为1时没有附件
+            relevantFileName: '',
+            path: '',
+            remark: ''
+        },
+        "rightScope": "2",
+        rightScopePart: [],
+        "sampleRetentionMedium": "1"
+    },
+    reFillin: [
+        "agentDesc",
+        "accountId",
+        "applyType",
+        "authAttachment",
+        "opusName",
+        "opusType",
+        "opusTypeDesc",
+        "opusInditeType",
+        "completeDate",
+        "completeCountry",
+        "completeProvince",
+        "completeCity",
+        "publishStatus",
+        "appearDate",
+        "appearCountry",
+        "appearProvince",
+        "appearCity",
+        "opusNature",
+        "opusInfo",
+        "attachments",
+        "rightOwnType",
+        "owners",
+        "authors",
+        "obtainType",
+        "obtainTypeAttachment",
+        "rightScope",
+        "rightScopePart",
+        "opusDescriptionAttachment",
+        "sampleRetentionMedium",
+        "needStamp",
+        "registrationMethod",
+        "certificateCollectionMethod",
+        "certificateCollectionAddress"
+    ],
     fdata: {
         "z11RegisterApplyInfoVo": {
             "accountId": "账户Id",
@@ -383,10 +415,6 @@ const store = {
         ],
         opusTypeDesc: [
             {required: true, message: '请输入作品类型描述', trigger: 'blur'}
-        ],
-
-        opusInfo: [
-            {validator: checkOpusInfo, trigger: 'blur'}
         ],
         segmentName: [
             {required: true, message: '请输入样本名称', trigger: 'blur'}

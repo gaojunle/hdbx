@@ -7,11 +7,14 @@ import queryResultApi from './queryResult'
 import registerQuery from './registerQuery'
 import Z11 from './Z11'
 import R11 from './R11'
+import oupsQuery from './oupsQuery'
+
 export default Object.assign({},
     queryResultApi,
     registerQuery,
     Z11,
     R11,
+    oupsQuery,
     {
         axios,
         USER_HOST,

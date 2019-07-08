@@ -173,14 +173,14 @@
                                     :disabled="isDisabled('owners')"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
                                     theme="idcard"
-                                    :path="sdata.owners[idx].cardFront.path"
+                                    :path="sdata.owners[idx].cardFront"
                                     uptext="请上传证件正面"></FileUpload>
                             <FileUpload
                                     ref="UP_cardBack"
                                     :disabled="isDisabled('owners')"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardBack')})"
                                     theme="idcard"
-                                    :path="sdata.owners[idx].cardBack.path"
+                                    :path="sdata.owners[idx].cardBack"
                                     uptext="请上传证件反面"></FileUpload>
                         </div>
                         <div v-else>
@@ -189,7 +189,7 @@
                                     :disabled="isDisabled('owners')"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
                                     theme="idcard"
-                                    :path="sdata.owners[idx].cardFront.path"
+                                    :path="sdata.owners[idx].cardFront"
                                     uptext="请上传证件"></FileUpload>
                         </div>
                     </div>
@@ -302,8 +302,11 @@
 
             //权限归属切换行为
             changeRightOwnType() {
-                console.log(this.user)
-                this._initData();
+                console.log(this.$route.query)
+                //如果没有flowNumer参数，表示非回填，则初始化数据
+                if (!this.flowNumber) {
+                    this._initData();
+                }
                 switch (this.typeGroup) {
                     case '111'://个人作品[1、1、1]
                         this._applyOwnerInfo({
@@ -432,6 +435,7 @@
                 return false;
             },
             _initData() {
+                console.log('_initData', this.sdata.owners)
                 this.ownerNum = 1;
                 this.authorNum = 1;
                 if (this.sdata.owners.length == 0) {
@@ -530,18 +534,24 @@
             },
             //添加拥有者
             addOwner() {
+                console.log(this.sdata.owners)
+                if (this.sdata.owners[1]) {
+                    return;
+                }
                 this.sdata.owners.push({
-                    "applyType": '1',
-                    "applyCopy": '0',
+                    "applyType": "1",
+                    "applyCopy": "0",
                     "cardBack": "",
                     "cardFront": "",
-                    "country": "台湾",
+                    "country": "",
+                    "province": "",
+                    "city": "",
                     "idNumber": "",
                     "idType": "",
                     "mobile": "",
                     "name": "",
                     "peopleKind": "1",
-                    "role": ""
+                    "role": "PET"
                 })
 
                 if (['112', '122', '212', '222'].indexOf(this.typeGroup) > -1) {

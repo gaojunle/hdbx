@@ -1,6 +1,6 @@
 <template>
     <ul class="steps-list">
-        <li v-for="(item,idx) in steps" :class="{on:curStep==idx}">
+        <li v-for="(item,idx) in steps" :class="{on:curStep == item.route}">
             <span class="s-icon-box">
                 <img :src="curStep==idx?item.imgUrl2:item.imgUrl1" class="s_icon">
             </span>
@@ -13,52 +13,64 @@
     export default {
         name: "StepsList",
         props: {
-            curStep: 0,
             steps: {
                 type: [Array],
-                default(){
+                default() {
                     return [
                         {
+                            route: 'chooseIdentity',
                             imgUrl1: require('../../../assets/img/steps/step_1.png'),
                             imgUrl2: require('../../../assets/img/steps/step_1_on.png'),
                             name: '选择办理身份'
                         },
                         {
+                            route: 'creativeInfo',
                             imgUrl1: require('../../../assets/img/steps/step_2.png'),
                             imgUrl2: require('../../../assets/img/steps/step_2_on.png'),
                             name: '作品创作信息'
                         },
                         {
+                            route: 'ownershipInfo',
                             imgUrl1: require('../../../assets/img/steps/step_3.png'),
                             imgUrl2: require('../../../assets/img/steps/step_3_on.png'),
                             name: '作品权属信息'
                         },
                         {
+                            route: 'confirmApplication',
                             imgUrl1: require('../../../assets/img/steps/step_4.png'),
                             imgUrl2: require('../../../assets/img/steps/step_4_on.png'),
                             name: '确认信息'
                         },
                         {
+                            route: 'submitMaterial',
                             imgUrl1: require('../../../assets/img/steps/step_5.png'),
                             imgUrl2: require('../../../assets/img/steps/step_5_on.png'),
                             name: '打印材料'
                         },
                         {
+                            route: 'submitSuccess',
                             imgUrl1: require('../../../assets/img/steps/step_6.png'),
                             imgUrl2: require('../../../assets/img/steps/step_6_on.png'),
                             name: '提交成功'
                         }
                     ]
                 }
-            },
-
+            }
         },
-        methods: {
-            /*updateValue(event) {
-                const value = event.target.value.trim();
-                this.$emit('input', value);
-            }*/
-        }
+        data() {
+            return {
+                curStep: this.$route.name
+            }
+        },
+        mounted() {
+            //console.log(this.$route)
+        },
+        watch: {
+            '$route'(val) {
+                this.curStep = this.$route.name
+            }
+        },
+        methods: {}
     }
 </script>
 
@@ -98,7 +110,7 @@
                 background: #0068b7;
                 color: white;
 
-                &:before{
+                &:before {
                     content: ' ';
                     position: absolute;
                     width: 13px;
@@ -108,7 +120,7 @@
                     -webkit-background-size: 100% 100%;
                     background-size: 100% 100%;
                 }
-                &:after{
+                &:after {
                     background-image: url("../../../assets/img/steps/s_right.png");
                     -webkit-background-size: 100% 100%;
                     background-size: 100% 100%;
@@ -117,19 +129,19 @@
                     border-color: white;
                 }
             }
-            &:nth-of-type(1){
-                &.on{
-                    &:before{
+            &:nth-of-type(1) {
+                &.on {
+                    &:before {
                         content: none;
                     }
                 }
             }
-            &:nth-last-of-type(1){
-                &:after{
+            &:nth-last-of-type(1) {
+                &:after {
                     content: none;
                 }
-                &.on{
-                    &:after{
+                &.on {
+                    &:after {
                         content: none;
                     }
                 }

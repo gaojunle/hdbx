@@ -1,7 +1,7 @@
 <template>
     <div class="step step_0">
         <div class="mbox">
-            <div class="person" :class="{on:sdata.applyType=='1'}" @click="stepNext($route.params.step,1)">
+            <div class="person" :class="{on:sdata.applyType=='1'}" @click="stepNext(1)">
                 <div class="s_icon s_per"></div>
                 <div class="type">我是著作权人</div>
                 <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
@@ -40,7 +40,7 @@
                               v-model="sdata.agentDesc"></el-input>
                 </el-form-item>
                 <div class="step-btns">
-                    <el-button type="primary" @click="stepNext($route.params.step,2)">确 定</el-button>
+                    <el-button type="primary" @click="stepNext(2)">确 定</el-button>
                 </div>
             </div>
         </el-form>
@@ -61,8 +61,7 @@
                 options: options,
                 showAuthPaper: false,
                 sdata: store.sdata,
-                rules: store.rules,
-                fdata: store.fdata
+                rules: store.rules
             }
         },
 

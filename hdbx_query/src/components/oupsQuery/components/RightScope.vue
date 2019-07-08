@@ -45,9 +45,6 @@
                 //this.sdata.rightOwnType = val - 1;
             }
         },
-        created() {
-            console.log(this.sdata)
-        },
         mounted() {
         }
     }

@@ -136,7 +136,7 @@
                     <span class="label">字</span>
                 </div>
                 <div class="flex" v-if="sdata.opusType=='H'||sdata.opusType=='I'">
-                    <el-form-item prop="opusInfo" :rules="rules.opusInfo">
+                    <el-form-item prop="opusInfo" :rules="[{validator: checkOpusInfo, trigger: 'blur'}]">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="timeLength.h" max="60" class="w220" type="number"
                                   placeholder=""></el-input>
@@ -262,6 +262,42 @@
             delteApus(idx) {
                 this.sdata.attachments.splice(idx, 1)
             },
+            checkOpusInfo(rule, value, callback) {
+                console.log(this.sdata)
+                //输入文字
+                if ('A'.indexOf(this.sdata.opusType) > -1) {
+                    if (!value) {
+                        callback(new Error('请输入字数'));
+                    }
+                    if (!Number.isInteger(value)) {
+                        callback(new Error('请输入数字值'));
+                    }
+                }
+                //输入时长
+                else if ('IH'.indexOf(this.sdata.opusType) > -1) {
+                    if (!Number.isInteger(this.timeLength.h) || !Number.isInteger(this.timeLength.m || !Number.isInteger(this.timeLength.s))) {
+                        callback(new Error('请输入数字值时长'));
+                    }
+                    if (!this.timeLength.h || !this.timeLength.m || !this.timeLength.s) {
+                        callback(new Error('请输入完整时长'));
+                    }
+                    callback();
+                }
+                else {
+                    callback();
+                }
+                callback();
+            }
+        },
+        mounted() {
+            if ('IH'.indexOf(this.sdata.opusType) > -1 && this.sdata.opusInfo) {
+                var mss = parseInt(this.sdata.opusInfo);
+                this.timeLength = {
+                    h: parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                    m: parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)),
+                    s: parseInt((mss % (1000 * 60)) / 1000)
+                }
+            }
         },
         watch: {
             //时分秒填写

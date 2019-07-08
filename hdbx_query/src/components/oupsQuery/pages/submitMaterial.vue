@@ -1,5 +1,5 @@
 <template>
-    <div class="step step_4" v-show="$route.params.step==4">
+    <div class="step step_4">
         <div class="f_box">
             <div class="info-title">
                 <span>请递交以下申请材料，并按要求签字或盖章</span>
