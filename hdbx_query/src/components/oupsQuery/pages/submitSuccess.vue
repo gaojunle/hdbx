@@ -46,8 +46,6 @@
                 sdata: store.sdata
             }
         },
-
-        methods: {},
         mounted() {
 
         }
