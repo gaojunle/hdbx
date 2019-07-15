@@ -1,118 +1,144 @@
 .formback {
   width: 1000px;
   background: #fff;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
 .formheader {
   width: 900px;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
 .formtime {
-  width: 100%; }
+  width: 100%;
+}
 
 .formtime_s, .formtime_e {
   width: 245px;
   float: left;
   font-size: 16px;
-  color: #030303; }
+  color: #030303;
+}
 
 .formtime_e {
-  margin-left: 40px; }
+  margin-left: 40px;
+}
 
 .formtime_s_time {
   width: 160px;
   font-size: 16px;
-  border-bottom: 1px solid #2e2e2e; }
+  border-bottom: 1px solid #2e2e2e;
+}
 
 .bar_code {
   float: right;
   width: 196px;
   height: 100px;
-  border: 1px solid #2e2e2e; }
+  border: 1px solid #2e2e2e;
+}
 
 .formtime_hr {
   height: 15px;
   border-bottom: 1px solid #2e2e2e;
-  width: 100%; }
+  width: 100%;
+}
 
 .from_title {
   width: 100%;
   height: 125px;
   line-height: 125px;
   font-size: 22px;
-  text-align: center; }
+  text-align: center;
+}
 
 .form_table {
   border: 1px solid #2e2e2e !important;
   width: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .form_table > table > tr {
   width: 100%;
-  border-bottom: 1px solid #2e2e2e; }
+  border-bottom: 1px solid #2e2e2e;
+}
 
 .tr_buttom {
-  border-bottom: 1px solid #2e2e2e; }
+  border-bottom: 1px solid #2e2e2e;
+}
 
 .form_table_000 {
   color: #000;
   font-size: 14px;
   font-weight: 400;
   text-indent: 15px;
-  padding: 10px 0; }
+  padding: 10px 0;
+}
 
 .form_table_td_right_text {
   display: block;
   width: 199px;
-  border-right: 1px solid #2e2e2e; }
+  border-right: 1px solid #2e2e2e;
+}
 
 .form_table_td_right {
   display: block;
-  width: 199px; }
+  width: 199px;
+}
 
 .left_th {
-  border-left: 1px solid #2e2e2e; }
+  border-left: 1px solid #2e2e2e;
+}
 
 .form_table_td_right_text {
   width: 696;
-  border-right: 0; }
+  border-right: 0;
+}
 
 .form_table_td_title {
   color: #000;
   font-size: 14px;
   text-indent: 15px;
-  padding: 10px 0; }
+  padding: 10px 0;
+}
 
 .block_td {
-  float: left; }
+  float: left;
+}
 
 .fz400 {
-  font-weight: 600; }
+  font-weight: 600;
+}
 
 .width696 {
   width: 690px;
-  margin-left: 2px; }
+  margin-left: 2px;
+}
 
 .people_text1 {
-  width: 248px; }
+  width: 248px;
+}
 
 .wt_text {
   width: 98%;
   margin: 0 auto;
   padding: 9px 0;
-  text-indent: 15px; }
+  text-indent: 15px;
+}
 
 .chapter {
   float: right;
-  margin-right: 180px; }
+  margin-right: 180px;
+}
 
 .chapter_time {
-  float: right; }
+  float: right;
+}
 
 .chapter_time_ {
-  width: 30px; }
+  width: 30px;
+}
 
 .br_no {
-  border: 0 !important; }
-
+  border: 0 !important;
+}
 /*# sourceMappingURL=applicationfrom.css.map */

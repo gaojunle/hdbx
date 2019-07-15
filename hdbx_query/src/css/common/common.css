@@ -1,45 +1,109 @@
-/*
-Error: Invalid GBK character "\xE5"
-        on line 16 of common.scss
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 
-11: 
-12: body {
-13:   background: #f8f8f8;
-14:   color: #333;
-15:   font-size: 14px;
-16:   font-family: "Microsoft YaHei", "微软雅黑", Verdana, Arial, Helvetica;
-17: }
-18: 
-19: td, th, caption {
-20:   font-size: 14px;
-21: }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
 
-Backtrace:
-common.scss:16
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1300:in `rescue in block in find_encoding_error'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1297:in `block in find_encoding_error'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `each_with_index'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:1296:in `find_encoding_error'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/util.rb:905:in `check_sass_encoding'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:436:in `check_encoding!'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:392:in `_to_tree'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:381:in `_render_with_sourcemap'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/engine.rb:298:in `render_with_sourcemap'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `each'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/plugin.rb:82:in `update_stylesheets'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/sass_scss.rb:51:in `process_result'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:52:in `parse'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/lib/sass/exec/base.rb:19:in `parse!'
-C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/sass-3.4.23/bin/scss:13:in `<top (required)>'
-C:/Ruby23-x64/bin/scss:22:in `load'
-C:/Ruby23-x64/bin/scss:22:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid GBK character \"\xE5\"\A         on line 16 of common.scss\A \A 11: \A 12: body {\A 13:   background: #f8f8f8;\A 14:   color: #333;\A 15:   font-size: 14px;\A 16:   font-family: \"Microsoft YaHei\", \"微软雅黑\", Verdana, Arial, Helvetica;\A 17: }\A 18: \A 19: td, th, caption {\A 20:   font-size: 14px;\A 21: }"; }
+body {
+  background: #f8f8f8;
+  color: #333;
+  font-size: 14px;
+  font-family: "Microsoft YaHei", "微软雅黑", Verdana, Arial, Helvetica;
+}
+
+td, th, caption {
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-size: 100%;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+a {
+  color: #555;
+  text-decoration: none;
+}
+
+/*a:hover { text-decoration:underline; }*/
+img {
+  border: none;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+input, textarea, select, button {
+  font: 14px Verdana, Helvetica, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+ul, li {
+  list-style: none;
+}
+
+.g-clear {
+  clear: both;
+  zoom: 1;
+}
+
+.g-clear:after {
+  content: ' ';
+  height: 0;
+  display: block;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/** 页面内容 公用样式  请保持页面格式一致, 否则代码不生效 */
+.mainBox {
+  width: 100%;
+  display: block;
+}
+
+.mainBox > .bodyBox {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+.mainBox > .bodyBox > .contBox {
+  width: 1180px;
+  display: block;
+  margin: 20px auto;
+}
+
+.mainBox > .bodyBox > .contBox > .leftContBox {
+  width: 800px;
+  display: block;
+  float: left;
+  margin-right: 12px;
+}
+
+.mainBox > .bodyBox > .contBox > .rightContBox {
+  width: 360px;
+  display: block;
+  float: left;
+}
+/*# sourceMappingURL=common.css.map */

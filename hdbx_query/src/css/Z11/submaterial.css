@@ -1,41 +1,61 @@
 .submaterial {
-  margin-bottom: 40px; }
-  .submaterial h3 {
-    font-size: 18px;
-    background: #f6f6f6;
-    height: 40px;
-    line-height: 40px;
-    padding-left: 38px; }
-  .submaterial .table {
-    padding: 20px 0; }
-    .submaterial .table table {
-      width: 100%; }
-      .submaterial .table table tr {
-        line-height: 40px;
-        text-align: left; }
-        .submaterial .table table tr td p {
-          line-height: 1.5; }
-      .submaterial .table table .w80 {
-        width: 80px; }
-      .submaterial .table table .w100 {
-        width: 100px; }
-      .submaterial .table table .w450 {
-        width: 450px; }
+  margin-bottom: 40px;
+}
+
+.submaterial h3 {
+  font-size: 18px;
+  background: #f6f6f6;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 38px;
+}
+
+.submaterial .table {
+  padding: 20px 0;
+}
+
+.submaterial .table table {
+  width: 100%;
+}
+
+.submaterial .table table tr {
+  line-height: 40px;
+  text-align: left;
+}
+
+.submaterial .table table tr td p {
+  line-height: 1.5;
+}
+
+.submaterial .table table .w80 {
+  width: 80px;
+}
+
+.submaterial .table table .w100 {
+  width: 100px;
+}
+
+.submaterial .table table .w450 {
+  width: 450px;
+}
 
 .hd-button.printSubmit {
   margin: 0 auto;
-  width: 230px !important; }
+  width: 230px !important;
+}
 
 .hd-button.print {
   margin: 0 auto;
-  width: 80px !important; }
+  width: 80px !important;
+}
 
 .center {
   display: block;
   width: 2em;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
 .pad_left_38 {
-  padding-left: 38px; }
-
+  padding-left: 38px;
+}
 /*# sourceMappingURL=submaterial.css.map */

@@ -1,173 +1,258 @@
 .wrap {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0 100px;
   width: 100%;
   position: relative;
-  margin-bottom: 50px; }
-  .wrap .titles {
-    margin-left: 250px;
-    margin-top: 30px; }
-  .wrap .pross {
-    width: 100%;
-    margin-top: 20px; }
+  margin-bottom: 50px;
+}
+
+.wrap .titles {
+  margin-left: 250px;
+  margin-top: 30px;
+}
+
+.wrap .pross {
+  width: 100%;
+  margin-top: 20px;
+}
 
 .el-upload-list__item-name {
   margin-left: -310px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 label {
   display: inline-block;
   min-width: 100px;
-  text-align: left; }
+  text-align: left;
+}
 
 .inp {
   margin-top: 30px;
   max-width: 1200px;
-  margin-left: 300px; }
+  margin-left: 300px;
+}
 
 .name {
   margin-bottom: 30px;
-  position: relative; }
-  .name span {
-    color: #f00;
-    font-size: 20px;
-    font-weight: bold; }
-  .name label {
-    font-size: 18px; }
-  .name .lei {
-    position: absolute;
-    top: 0;
-    left: 500px; }
-  .name .input {
-    margin-left: 120px;
-    margin-top: -25px; }
-  .name .input-select {
-    min-width: 100px;
-    height: 25px;
-    line-height: 25px;
-    border: 1px solid #000;
-    position: absolute;
-    left: 120px;
-    z-index: 100000; }
-    .name .input-select p {
-      font-weight: bold;
-      margin-right: 5px;
-      margin-left: 5px; }
-    .name .input-select ul {
-      background: #fff;
-      position: absolute;
-      left: 0;
-      top: 30px;
-      border: 1px solid #000;
-      box-sizing: border-box;
-      padding: 0 5px; }
-      .name .input-select ul li {
-        border-bottom: 1px dotted #ccc; }
-      .name .input-select ul .title {
-        color: #000;
-        font-size: 16px;
-        font-weight: bold; }
+  position: relative;
+}
+
+.name span {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.name label {
+  font-size: 18px;
+}
+
+.name .lei {
+  position: absolute;
+  top: 0;
+  left: 500px;
+}
+
+.name .input {
+  margin-left: 120px;
+  margin-top: -25px;
+}
+
+.name .input-select {
+  min-width: 100px;
+  height: 25px;
+  line-height: 25px;
+  border: 1px solid #000;
+  position: absolute;
+  left: 120px;
+  z-index: 100000;
+}
+
+.name .input-select p {
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.name .input-select ul {
+  background: #fff;
+  position: absolute;
+  left: 0;
+  top: 30px;
+  border: 1px solid #000;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0 5px;
+}
+
+.name .input-select ul li {
+  border-bottom: 1px dotted #ccc;
+}
+
+.name .input-select ul .title {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+}
 
 .form {
-  margin-bottom: 50px; }
-  .form span {
-    color: #f00;
-    font-size: 20px;
-    font-weight: bold; }
-  .form .natrue {
-    font-size: 18px;
-    margin-right: 50px; }
-  .form label {
-    font-size: 16px; }
-  .form .div {
-    display: inline;
-    margin-left: -20px; }
+  margin-bottom: 50px;
+}
+
+.form span {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form .natrue {
+  font-size: 18px;
+  margin-right: 50px;
+}
+
+.form label {
+  font-size: 16px;
+}
+
+.form .div {
+  display: inline;
+  margin-left: -20px;
+}
 
 .ri {
-  margin-bottom: 50px; }
-  .ri .qi {
-    display: inline;
-    margin-bottom: 30px;
-    margin-right: 50px;
-    position: relative; }
-    .ri .qi .trunk {
-      display: inline;
-      margin-right: 150px; }
-    .ri .qi .trunks {
-      float: right; }
-    .ri .qi .span {
-      color: #f00;
-      font-size: 20px;
-      font-weight: bold; }
-    .ri .qi label {
-      font-size: 18px; }
+  margin-bottom: 50px;
+}
+
+.ri .qi {
+  display: inline;
+  margin-bottom: 30px;
+  margin-right: 50px;
+  position: relative;
+}
+
+.ri .qi .trunk {
+  display: inline;
+  margin-right: 150px;
+}
+
+.ri .qi .trunks {
+  float: right;
+}
+
+.ri .qi .span {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ri .qi label {
+  font-size: 18px;
+}
 
 .lang {
   position: relative;
-  margin-bottom: 50px; }
-  .lang span {
-    color: #f00;
-    font-size: 20px;
-    font-weight: bold; }
-  .lang label {
-    font-size: 18px; }
-  .lang .right {
-    position: absolute;
-    left: 200px;
-    top: 0; }
-    .lang .right .top {
-      width: 150px;
-      position: relative; }
-      .lang .right .top span {
-        display: inline;
-        color: #000;
-        font-size: 16px;
-        font-weight: normal;
-        position: absolute;
-        top: 5px;
-        right: 0px; }
-    .lang .right .bottom {
-      position: relative; }
-      .lang .right .bottom div {
-        display: inline; }
-      .lang .right .bottom span {
-        display: inline;
-        color: #000;
-        font-size: 14px;
-        font-weight: normal; }
+  margin-bottom: 50px;
+}
+
+.lang span {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.lang label {
+  font-size: 18px;
+}
+
+.lang .right {
+  position: absolute;
+  left: 200px;
+  top: 0;
+}
+
+.lang .right .top {
+  width: 150px;
+  position: relative;
+}
+
+.lang .right .top span {
+  display: inline;
+  color: #000;
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}
+
+.lang .right .bottom {
+  position: relative;
+}
+
+.lang .right .bottom div {
+  display: inline;
+}
+
+.lang .right .bottom span {
+  display: inline;
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+}
 
 .work {
   margin-bottom: 30px;
-  position: relative; }
-  .work span {
-    color: #f00;
-    font-size: 20px;
-    font-weight: bold; }
-  .work label {
-    font-size: 18px; }
-  .work .up {
-    margin-top: -30px;
-    margin-left: 140px; }
-  .work .xi {
-    margin-top: -30px;
-    margin-left: 140px; }
-    .work .xi span {
-      display: inline;
-      color: #000;
-      font-size: 14px;
-      font-weight: normal; }
-    .work .xi .adds {
-      margin-top: 20px; }
-    .work .xi .item {
-      margin-top: 10px; }
-    .work .xi .xis {
-      margin-top: -25px;
-      margin-left: 60px; }
-    .work .xi .uplod {
-      margin-top: -35px;
-      margin-left: 300px; }
+  position: relative;
+}
+
+.work span {
+  color: #f00;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.work label {
+  font-size: 18px;
+}
+
+.work .up {
+  margin-top: -30px;
+  margin-left: 140px;
+}
+
+.work .xi {
+  margin-top: -30px;
+  margin-left: 140px;
+}
+
+.work .xi span {
+  display: inline;
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.work .xi .adds {
+  margin-top: 20px;
+}
+
+.work .xi .item {
+  margin-top: 10px;
+}
+
+.work .xi .xis {
+  margin-top: -25px;
+  margin-left: 60px;
+}
+
+.work .xi .uplod {
+  margin-top: -35px;
+  margin-left: 300px;
+}
 
 .next {
-  margin-left: 140px; }
-
+  margin-left: 140px;
+}
 /*# sourceMappingURL=informations.css.map */

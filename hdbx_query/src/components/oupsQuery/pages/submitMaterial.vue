@@ -100,6 +100,7 @@
 </template>
 <script>
     import '../components/index.less'
+    import api from '@api'
     import options from '../store/options'
     import store from '../store/index'
     import myMixin from '../store/mixin'
@@ -167,11 +168,14 @@
             }
         },
 
-        methods: {
-
-        },
+        methods: {},
         mounted() {
-
+            api.applyDocument({}).then((ret) => {
+                console.log(ret);
+            })
+            api.searchApplicationDocuments({}).then((ret) => {
+                console.log(ret);
+            })
         }
     }
 </script>

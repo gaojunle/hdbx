@@ -33,4 +33,21 @@ export default {
         return this.axios(API_HOST + "/RegisterBaseInfo/z11InfoAndReFillInfo", data)
     },
 
+    /**
+     * 查询申请材料清单
+     * @param data 参数
+     * @returns {*}
+     */
+    searchApplicationDocuments(data) {
+        return this.axios(API_HOST + "/opusManageServer/opusExamine/searchApplicationDocuments", data)
+    },
+    /**
+     * 打印数据
+     * @param data 参数
+     * @returns {*}
+     */
+    applyDocument(data) {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/applyDocument/2019Z11L0000496", data)
+    },
+
 }
