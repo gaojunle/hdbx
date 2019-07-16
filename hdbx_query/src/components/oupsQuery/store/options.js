@@ -537,7 +537,8 @@ const options = {
                 {applyType: '1', accountType: '1'},//applyType 1是著作权人2是代理人 //accountType 1是个人2是机构
                 {applyType: '2', accountType: '1'},
                 {applyType: '2', accountType: '2'}
-            ]
+            ],
+            relevantFileName: '' //对应附件的描述类型名，个人作品为空；
         },
         {
             val: '2',
@@ -547,7 +548,8 @@ const options = {
                 {applyType: '1', accountType: '2'},
                 {applyType: '2', accountType: '1'},
                 {applyType: '2', accountType: '2'}
-            ]
+            ],
+            relevantFileName: 'QLGS-0801'
         },
         {
             val: '3',
@@ -556,7 +558,8 @@ const options = {
                 {applyType: '1', accountType: '2'},
                 {applyType: '2', accountType: '1'},
                 {applyType: '2', accountType: '2'}
-            ]
+            ],
+            relevantFileName: 'QLGS-0804'
         },
         {
             val: '4',
@@ -565,7 +568,8 @@ const options = {
                 {applyType: '1', accountType: '2'},
                 {applyType: '2', accountType: '1'},
                 {applyType: '2', accountType: '2'}
-            ]
+            ],
+            relevantFileName: 'QLGS-0802'
         },
         {
             val: '5',
@@ -575,7 +579,8 @@ const options = {
                 {applyType: '1', accountType: '2'},
                 {applyType: '2', accountType: '1'},
                 {applyType: '2', accountType: '2'}
-            ]
+            ],
+            relevantFileName: 'QLGS-0803'
         },
     ],
 

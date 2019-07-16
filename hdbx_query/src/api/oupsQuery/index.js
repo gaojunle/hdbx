@@ -10,7 +10,7 @@ export default {
      * @returns {*}
      */
     Z11BaseInfo(data) {
-        return this.axios(API_HOST + "/RegisterBaseInfo/Z11BaseInfo", data, {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/Z11BaseInfo", data, {
             method: 'POST'
         })
     },
@@ -30,7 +30,7 @@ export default {
      * @returns {*}
      */
     z11InfoAndReFillInfo(data) {
-        return this.axios(API_HOST + "/RegisterBaseInfo/z11InfoAndReFillInfo", data)
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/z11InfoAndReFillInfo/" + data.flowNumber, {})
     },
 
     /**
@@ -47,7 +47,7 @@ export default {
      * @returns {*}
      */
     applyDocument(data) {
-        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/applyDocument/2019Z11L0000496", data)
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/applyDocument/" + data.flowNumber, {})
     },
 
 }

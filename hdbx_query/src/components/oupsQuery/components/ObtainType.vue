@@ -18,6 +18,8 @@
                         :disabled="isDisabled('obtainType')"
                         v-model="sdata.ownObtainDate"
                         type="date"
+                        format="yyyy-MM-dd"
+                        value-format="timestamp"
                         placeholder="年/月/日">
                 </el-date-picker>
             </p>

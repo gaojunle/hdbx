@@ -303,8 +303,9 @@
             //权限归属切换行为
             changeRightOwnType() {
                 console.log(this.$route.query)
-                //如果没有flowNumer参数，表示非回填，则初始化数据
-                if (!this.flowNumber) {
+                this.sdata.rightOwnTypeAttachment.relevantFileName = this.options.options_rightOwnType[this.sdata.rightOwnType - 1].relevantFileName;
+                //如果没有flowNumer参数并且是非编辑状态，表示非回填，则初始化数据
+                if (!this.flowNumber && !this.getSessionData()) {
                     this._initData();
                 }
                 switch (this.typeGroup) {
@@ -351,7 +352,7 @@
                         this._applyOwnerInfo({
                             ownerNum: 100,
                             authorNum: 100
-                        })
+                        }, true)
                         this.disableds = {
                             owner_applyType: true,
                             ownerName: !!this.user.userName,
@@ -433,6 +434,7 @@
                 }
 
                 return false;
+
             },
             _initData() {
                 console.log('_initData', this.sdata.owners)

@@ -11,7 +11,7 @@ function validateId(rule, value, callback) {
 }
 
 function getNowDate() {
-    var date = new Date();
+    /*var date = new Date();
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
@@ -20,8 +20,8 @@ function getNowDate() {
     }
     if (day < 10) {
         day = "0" + day;
-    }
-    var nowDate = year + "-" + month + "-" + day;
+    }*/
+    var nowDate = new Date().getTime().toString();
     return nowDate
 }
 
@@ -86,7 +86,7 @@ const store = {
         "obtainType": "2",
         "obtainTypeAttachment": [
             {
-                relevantFileName: 'QLGS-0603',
+                relevantFileName: 'QLGS-0603',//继承作品－与被继承人关系证明
                 path: '',
                 remark: 'remark'
             },
@@ -109,7 +109,8 @@ const store = {
         "ownObtainDate": getNowDate(),
         "opusDescriptionAttachment": {
             "path": '',
-            "relevantFileName": ""
+            "remark": '',
+            "relevantFileName": "QLGS-07"
         },
         "opusInditeType": "1",
         "opusInfo": "",
@@ -131,7 +132,7 @@ const store = {
                 "mobile": "",
                 "name": "",
                 "peopleKind": "",
-                "role": "PET"
+                "role": "OWN"
             }],
         "publishStatus": "1",
         "registrationMethod": "MAIL",
@@ -209,7 +210,8 @@ const store = {
         "ownObtainDate": getNowDate(),
         "opusDescriptionAttachment": {
             "path": '',
-            "relevantFileName": ""
+            "remark": '',
+            "relevantFileName": "QLGS-07"
         },
         "opusInditeType": "1",
         "opusInfo": "",
@@ -231,7 +233,7 @@ const store = {
                 "mobile": "",
                 "name": "",
                 "peopleKind": "",
-                "role": "PET"
+                "role": "OWN"
             }],
         "publishStatus": "1",
         "registrationMethod": "MAIL",

@@ -170,12 +170,13 @@
 
         methods: {},
         mounted() {
-            api.applyDocument({}).then((ret) => {
+            //从路由参数上得到flowNumer来加载打印数据
+            api.applyDocument({flowNumber: this.$route.query.flowNumber}).then((ret) => {
                 console.log(ret);
             })
-            api.searchApplicationDocuments({}).then((ret) => {
+            /*api.searchApplicationDocuments({}).then((ret) => {
                 console.log(ret);
-            })
+            })*/
         }
     }
 </script>

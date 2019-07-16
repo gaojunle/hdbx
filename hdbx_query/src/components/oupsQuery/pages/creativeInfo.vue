@@ -53,6 +53,8 @@
                         :disabled="isDisabled('completeDate')"
                         v-model="sdata.completeDate"
                         type="date"
+                        format="yyyy-MM-dd"
+                        value-format="timestamp"
                         placeholder="年/月/日">
                 </el-date-picker>
 
@@ -89,6 +91,8 @@
                         :disabled="isDisabled('appearDate')"
                         v-model="sdata.appearDate"
                         type="date"
+                        format="yyyy-MM-dd"
+                        value-format="timestamp"
                         placeholder="年/月/日">
                 </el-date-picker>
                 <span class="title required">首次发表地点：</span>
@@ -121,13 +125,13 @@
             2、【电影作品H和以类似摄制电影的方法创作的作品I】需填写时长，单个作品填写作品时长，系列作品填写最长作品时长
             3、【文字作品A，摄影作品G】需要上传作品样本
             -->
-            <div class="f_box p_nums" v-if="'AIH'.indexOf(sdata.opusType)>-1">
+            <div class="f_box p_nums" v-if="'AMIH'.indexOf(sdata.opusType)>-1">
                 <div class="title required">
                     <span v-if="sdata.opusNature=='2'">最长</span><span
-                        v-if="'A'.indexOf(sdata.opusType)>-1">作品字数：</span><span
+                        v-if="'AM'.indexOf(sdata.opusType)>-1">作品字数：</span><span
                         v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
                 </div>
-                <div class="flex" v-if="sdata.opusType=='A'">
+                <div class="flex" v-if="'AM'.indexOf(sdata.opusType)>-1">
                     <el-form-item prop="opusInfo" :rules="rules.opusInfo">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="sdata.opusInfo"
@@ -242,6 +246,7 @@
         mixins: [myMixin],
         data() {
             return {
+                completeDate: '1563272801989',
                 timeLength: {
                     h: '',
                     m: '',

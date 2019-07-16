@@ -103,18 +103,18 @@
                                 <div class="item">
                                     <p>{{formatOptionData('options_peopleKind',item.peopleKind)}}</p>
                                     <p>{{item.country}}</p>
-                                    <p>居民身份证</p>
+                                    <p>{{formatOptionData('options_idType_all',item.idType)}}</p>
                                     <p>手机号码</p>
                                 </div>
                                 <div class="item">
                                     <p>{{item.name}}</p>
                                     <p>{{(item.province?item.province:'') + formatNull(item.city)}}</p>
-                                    <p>{{formatOptionData('options_idType_all',item.idType)}}</p>
                                     <p>{{item.idNumber}}</p>
+                                    <p>{{item.mobile}}</p>
                                 </div>
                                 <div class="item card">
-                                    <p><img :src="item.cardFront" alt=""></p>
-                                    <p><img :src="item.cardBack" alt=""></p>
+                                    <p v-if="item.cardFront"><img :src="item.cardFront" alt=""></p>
+                                    <p v-if="item.cardBack"><img :src="item.cardBack" alt=""></p>
                                 </div>
                             </div>
                         </div>
@@ -315,3 +315,22 @@
         }
     }
 </script>
+<style lang='less' scoped>
+    .owner-info {
+        .item {
+            p {
+                min-height: 24px;
+            }
+            &.card {
+                img {
+                    border-radius: 3px;
+                    display: block;
+                    background: whitesmoke;
+                    width: 160px;
+                    height: 106px;
+                }
+            }
+        }
+    }
+
+</style>

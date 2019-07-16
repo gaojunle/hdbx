@@ -14,6 +14,14 @@ const myMixin = {
             rules: store.rules
         }
     },
+    watch: {
+        '$route'() {
+            //路由切换时，如果中间步骤数据信息sesssion为空，则直接跳转到首页；
+            if (['confirmApplication', 'creativeInfo', 'ownershipInfo'].indexOf(this.$route.name) > -1 && !this.getSessionData()) {
+                this.$router.replace('/chooseIdentity')
+            }
+        }
+    },
     methods: {
         //上一步
         stepPrev(step, applyType) {
@@ -23,7 +31,7 @@ const myMixin = {
         async stepNext(applyType) {
             let step = this.$route.name;
             canNextFlag = true;
-            console.log(this.sdata)
+            console.log(this.sdata, step)
             var t = await this.validate();
             if (!t) {
                 return false
@@ -51,12 +59,12 @@ const myMixin = {
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()
-                            this.$router.push('/submitMaterial')
+                            this.$router.push('/submitMaterial?flowNumber=' + ret.data)
                         })
                     } else {
                         api.reFillin(this.sdata).then((ret) => {
                             this.clearSessionData()
-                            this.$router.push('/submitMaterial')
+                            this.$router.push('/submitMaterial?flowNumber=' + ret.data)
                         })
                     }
                     break;
@@ -168,6 +176,12 @@ const myMixin = {
                 dataRef.attachmentName = uploadedParams.fileName;
                 dataRef.path = uploadedParams.filePath
             }
+        },
+
+        //日期转时间戳
+        dateToReltime(ref, key, date) {
+            ref[key] = date;
+            console.log(ref[key])
         },
 
         setSessionData() {
