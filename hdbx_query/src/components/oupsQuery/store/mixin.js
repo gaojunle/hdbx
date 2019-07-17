@@ -56,6 +56,7 @@ const myMixin = {
                     break;
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
+                    return false;
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()

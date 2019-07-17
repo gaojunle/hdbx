@@ -76,7 +76,7 @@ const store = {
         "authors": [
             {"name": "", "signature": ""}
         ],
-        "certificateCollectionMethod": "TQ",
+        "certificateCollectionMethod": "HD",//TQ表示大厅领取
         "certificateCollectionAddress": '1',
         "completeCity": "",
         "completeCountry": "",
@@ -135,7 +135,7 @@ const store = {
                 "role": "OWN"
             }],
         "publishStatus": "1",
-        "registrationMethod": "MAIL",
+        "registrationMethod": "HD",
         "rightOwnType": "2",
         rightOwnTypeAttachment: {//rightOwnType为1时没有附件
             relevantFileName: '',
@@ -177,7 +177,7 @@ const store = {
         "authors": [
             {"name": "", "signature": ""}
         ],
-        "certificateCollectionMethod": "TQ",
+        "certificateCollectionMethod": "HD",
         "certificateCollectionAddress": '1',
         "completeCity": "",
         "completeCountry": "",
@@ -236,7 +236,7 @@ const store = {
                 "role": "OWN"
             }],
         "publishStatus": "1",
-        "registrationMethod": "MAIL",
+        "registrationMethod": "HD",
         "rightOwnType": "2",
         rightOwnTypeAttachment: {//rightOwnType为1时没有附件
             relevantFileName: '',

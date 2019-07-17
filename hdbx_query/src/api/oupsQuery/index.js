@@ -34,6 +34,14 @@ export default {
     },
 
     /**
+     * 获取登记大厅地址
+     * @param data 参数
+     * @returns {*}
+     */
+    getRegistrationMethod(data) {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/getRegistrationMethod", data)
+    },
+    /**
      * 查询申请材料清单
      * @param data 参数
      * @returns {*}

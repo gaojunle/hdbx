@@ -12,6 +12,7 @@
 
 <script>
     import api from '../../api'
+    import options from './store/options'
     import store from './store/index'
     import myMixin from './store/mixin'
     import topNav from '@components/common/header'
@@ -27,7 +28,18 @@
         components: {topNav, breadcrumb, hdFooter, StepsList},
         methods: {},
         mounted() {
-
+            api.getRegistrationMethod({}).then(ret => {
+                options.options_registrationMethod_TQ = [];
+                ret.data.forEach((item, idx) => {
+                    if (item.parent == 'HALL') {
+                        options.options_registrationMethod_TQ.push({
+                            val: item.code,
+                            name: item.value,
+                            addr: item.description
+                        })
+                    }
+                });
+            })
         },
         created() {
             //TODO 登录后，调用setUser方法，此外测试用户登录后刷新即可；

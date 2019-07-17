@@ -266,8 +266,7 @@
             </el-radio-group>
 
             <el-row>
-                <WaysBox v-show="sdata.registrationMethod == 'TQ'"></WaysBox>
-                <AddressBox v-show="sdata.registrationMethod == 'MAIL'"></AddressBox>
+                <WaysBox v-show="sdata.registrationMethod != 'MAIL'" v-model="sdata.registrationMethodAddress"></WaysBox>
             </el-row>
         </div>
         <div class="f_box sampleRetention">
@@ -277,13 +276,12 @@
                             v-model="sdata.certificateCollectionMethod" class="big">
                 <el-radio-button v-for="(item,idx) in options.options_certificateCollectionMethod"
                                  :key="item.val"
-                                 :label="item.val">
-                    {{item.text}}
+                                 :label="item.val">{{item.text}}
                 </el-radio-button>
             </el-radio-group>
-            <WaysBox v-show="sdata.certificateCollectionMethod == 'TQ'"></WaysBox>
-            <AddressBox
-                    v-show="sdata.certificateCollectionMethod == 'MAIL'||sdata.certificateCollectionMethod == 'EMS'"></AddressBox>
+            <WaysBox v-if="['EMS','MAIL'].indexOf(sdata.certificateCollectionMethod)==-1 "
+                     v-model="sdata.certificateCollectionAddress"></WaysBox>
+            <AddressBox v-else :regAddress="sdata.certificateCollectionAddress"></AddressBox>
         </div>
         <div class="step-btns big">
             <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
