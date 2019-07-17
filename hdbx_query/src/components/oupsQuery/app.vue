@@ -36,7 +36,7 @@
 
             //TODO 测试判断用户是否登录
             if (!getCookie('webUserInfo')) {
-                this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录</p>', '提示', {
+                this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录，并刷新</p>', '提示', {
                     dangerouslyUseHTMLString: true
                 });
             }
@@ -44,6 +44,7 @@
             //获取是否回显标记；
             this.flowNumber = this.$route.query.flowNumber;
 
+            //如果本地有数据，优先使用session数据，然后判断是否是回填数据；
             if (this.getSessionData()) {
                 store.sdata = this.getSessionData();
                 this.sdata = store.sdata;
@@ -53,7 +54,9 @@
                         this.sdata = ret.data.z11RegisterApplyInfoVo;
                         store.sdata = ret.data.z11RegisterApplyInfoVo;
                         store.reFillin = ret.data.reFillin;
+                        console.log(this.sdata)
                         this.setSessionData();
+                        //location.reload();
                     })
                 }
             }

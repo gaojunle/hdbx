@@ -59,12 +59,12 @@ const myMixin = {
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()
-                            this.$router.push('/submitMaterial?flowNumber=' + ret.data)
+                            this.$router.push('/submitMaterial?submitFlowNumber=' + ret.data)
                         })
                     } else {
                         api.reFillin(this.sdata).then((ret) => {
                             this.clearSessionData()
-                            this.$router.push('/submitMaterial?flowNumber=' + ret.data)
+                            this.$router.push('/submitMaterial?submitFlowNumber=' + ret.data)
                         })
                     }
                     break;
@@ -166,15 +166,17 @@ const myMixin = {
         //文件上传成功回调
         onFileUploaded(uploadedParams, dataRef, type) {
             console.log(uploadedParams, dataRef, type)
+            let path = uploadedParams.filePath
+
             let item = {
                 attachmentName: uploadedParams.fileName,
-                path: uploadedParams.filePath
+                path: path
             }
             if (type == 'multi') {
                 dataRef.push(item);
             } else {
                 dataRef.attachmentName = uploadedParams.fileName;
-                dataRef.path = uploadedParams.filePath
+                dataRef.path = path
             }
         },
 

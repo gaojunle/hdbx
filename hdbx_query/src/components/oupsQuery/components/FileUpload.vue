@@ -147,6 +147,8 @@
             },
             onFileSuccess(rootFile, file, response, chunk) {
                 let res = JSON.parse(response);
+                //TODO 此外为显示外面，替换原host地址
+                res.data.filePath = res.data.filePath.replace('http://10.10.202.82:9090', 'http://210.14.147.108:8002/resource')
                 //console.log(file);
                 if(this.theme == 'idcard'){
                     this.$emit('idcardFileSuccess', {

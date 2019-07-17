@@ -54,7 +54,7 @@
                         <span class="text">{{sdata.appearCountry+formatNull(sdata.appearProvince)+formatNull(sdata.appearCity)}}</span>
                     </el-col>
                 </el-row>
-                <el-row class="sample flex-info">
+                <el-row class="sample flex-info" v-if="sdata.attachments.length>0 && sdata.attachments[0].attachmentList>0">
                     <span class="label">作品样本：</span>
                     <div class="sample-cont flex-1">
                         <div class="samples_multi" v-if="sdata.opusNature==1">
@@ -146,7 +146,7 @@
                             <div class="owner-info">
                                 <div class="item" style="width: 100%">
                                     <p>{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</p>
-                                    <img class="up_img" :src="sdata.rightOwnTypeAttachment.relevantFileName"
+                                    <img class="up_img" :src="sdata.rightOwnTypeAttachment.path"
                                          alt="">
                                 </div>
                             </div>
