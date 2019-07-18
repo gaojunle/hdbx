@@ -54,7 +54,8 @@
                         <span class="text">{{sdata.appearCountry+formatNull(sdata.appearProvince)+formatNull(sdata.appearCity)}}</span>
                     </el-col>
                 </el-row>
-                <el-row class="sample flex-info" v-if="sdata.attachments.length>0 && sdata.attachments[0].attachmentList>0">
+                <el-row class="sample flex-info"
+                        v-if="sdata.attachments.length>0 && sdata.attachments[0].attachmentList>0">
                     <span class="label">作品样本：</span>
                     <div class="sample-cont flex-1">
                         <div class="samples_multi" v-if="sdata.opusNature==1">
@@ -146,8 +147,9 @@
                             <div class="owner-info">
                                 <div class="item" style="width: 100%">
                                     <p>{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</p>
-                                    <img class="up_img" :src="sdata.rightOwnTypeAttachment.path"
-                                         alt="">
+                                    <a :href="sdata.rightOwnTypeAttachment.path" target="_blank" class="img-box">
+                                        <img class="up_img" :src="sdata.rightOwnTypeAttachment.path" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -163,8 +165,10 @@
                                 <div class="item" style="width: 100%">
                                     <p>{{formatOptionData('options_obtainType',sdata.obtainType)}}</p>
                                     <div class="img-list">
-                                        <img v-for="(item,idx) in sdata.obtainTypeAttachment" class="up_img"
-                                             :src="item.path" alt="">
+                                        <a :href="item.path" target="_blank" class="img-box"
+                                           v-for="(item,idx) in sdata.obtainTypeAttachment">
+                                            <img class="up_img" :src="item.path" alt="">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +202,9 @@
                         <div class="owner-box">
                             <div class="owner-info">
                                 <div class="item">
-                                    <img class="up_img" :src="sdata.opusDescriptionAttachment.path" alt="">
+                                    <a :href="sdata.opusDescriptionAttachment.path" target="_blank" class="img-box">
+                                        <img class="up_img" :src="sdata.opusDescriptionAttachment.path" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +218,9 @@
                         <div class="owner-box">
                             <div class="owner-info">
                                 <div class="item">
-                                    <img class="up_img" :src="sdata.authAttachment.path" alt="">
+                                    <a :href="sdata.authAttachment.path" target="_blank" class="img-box">
+                                        <img class="up_img" :src="sdata.authAttachment.path" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -257,8 +265,8 @@
             <div class="info-title">登记办理方式： <span class="tip">注意：在线申请后需要递交相关材料才可以完成办理</span></div>
 
             <el-radio-group :disabled="isDisabled('registrationMethod')"
-                            v-model="sdata.registrationMethod" class="big">
-                <el-radio-button v-for="(item,idx) in options.options_registrationMethod"
+                            v-model="sdata.registrationMethodType" class="big">
+                <el-radio-button v-for="(item,idx) in options.options_registrationMethodType"
                                  :key="item.val"
                                  :label="item.val">
                     {{item.text}}
@@ -266,7 +274,7 @@
             </el-radio-group>
 
             <el-row>
-                <WaysBox v-show="sdata.registrationMethod != 'MAIL'" v-model="sdata.registrationMethodAddress"></WaysBox>
+                <WaysBox v-show="sdata.registrationMethodType != 'MAIL'" v-model="sdata.registrationMethod"></WaysBox>
             </el-row>
         </div>
         <div class="f_box sampleRetention">
@@ -281,7 +289,8 @@
             </el-radio-group>
             <WaysBox v-if="['EMS','MAIL'].indexOf(sdata.certificateCollectionMethod)==-1 "
                      v-model="sdata.certificateCollectionAddress"></WaysBox>
-            <AddressBox v-else :regAddress="sdata.certificateCollectionAddress"></AddressBox>
+            <AddressBox v-else
+                        v-model="sdata.certificateCollectionAddress"></AddressBox>
         </div>
         <div class="step-btns big">
             <el-button @click="stepPrev($route.params.step)" class="big">上一步</el-button>
@@ -303,9 +312,33 @@
         mixins: [myMixin],
         filters: {},
         data() {
-            return {}
+            return {
+                //selRegistrationMethod: '135094976349601792'
+                selectAddressId: ''
+            }
         },
-
+        watch: {
+            'sdata.registrationMethodType'(val) {
+                if (val == 'HALL') {
+                    this.sdata.registrationMethod = 'TQ';
+                } else {
+                    this.sdata.registrationMethod = '';
+                }
+            },
+            'sdata.certificateCollectionAddress'(val) {
+                //EMS或挂号信时，保留所选择地址id，以备切换回来使用；
+                if (this.sdata.certificateCollectionMethod != 'HALL') {
+                    this.selectAddressId = val;
+                }
+            },
+            'sdata.certificateCollectionMethod'(val) {
+                if (val == 'HALL') {
+                    this.sdata.certificateCollectionAddress = 'TQ';
+                } else {
+                    this.sdata.certificateCollectionAddress = this.selectAddressId;
+                }
+            }
+        },
         methods: {
             formatNull(val) {
                 return val ? ('-' + val) : '';
@@ -314,6 +347,9 @@
     }
 </script>
 <style lang='less' scoped>
+    .img-list{
+        display: flex;
+    }
     .owner-info {
         .item {
             p {
@@ -328,6 +364,18 @@
                     height: 106px;
                 }
             }
+        }
+    }
+
+    .img-box {
+        display: inline-block;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 160px;
+            height: auto;
+            border-radius: 0px;
+            margin-right: 0px;
         }
     }
 

@@ -28,11 +28,12 @@
         components: {topNav, breadcrumb, hdFooter, StepsList},
         methods: {},
         mounted() {
+            //获取登记方式
             api.getRegistrationMethod({}).then(ret => {
-                options.options_registrationMethod_TQ = [];
+                options.options_registrationMethod = [];
                 ret.data.forEach((item, idx) => {
                     if (item.parent == 'HALL') {
-                        options.options_registrationMethod_TQ.push({
+                        options.options_registrationMethod.push({
                             val: item.code,
                             name: item.value,
                             addr: item.description
@@ -66,9 +67,8 @@
                         this.sdata = ret.data.z11RegisterApplyInfoVo;
                         store.sdata = ret.data.z11RegisterApplyInfoVo;
                         store.reFillin = ret.data.reFillin;
-                        console.log(this.sdata)
                         this.setSessionData();
-                        //location.reload();
+                        location.reload();
                     })
                 }
             }

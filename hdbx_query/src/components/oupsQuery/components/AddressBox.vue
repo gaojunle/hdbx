@@ -9,7 +9,8 @@
             <ul class="receive-type-child address-list">
                 <li v-for="(address, index) in addressList" class="clearfix" :key="index">
                     <div class="address-box">
-                        <el-radio v-model="receiveAddress" :label="address.id" border>{{address.name}}</el-radio>
+                        <el-radio name="address" v-model="selectAddressId" :label="address.id" border>{{address.name}}
+                        </el-radio>
                         <div class="phone">{{ address.phone | phoneShow }}</div>
                         <div class="address">{{ address | addressShow }}
                             <span class="default" v-if="parseInt(address.isDefault) === 1">默认地址</span>
@@ -39,53 +40,13 @@
         components: {AddressEditBox},
         data() {
             return {
-                receiveAddress: this.propReceiveAddress, // 地址选择
-                receiveModeChild: 'tq', // 大厅
+                selectAddressId: '', // 选择地址ID
                 addressList: [], // 地址列表
                 userInfo: getCookie(), // 用户信息
             }
         },
-        model: {
-            prop: 'receiveType',
-            event: 'change'
-        },
         props: {
-            receiveType: String, // 办理方式
-            receiveModes: {
-                type: Array,
-                default: () => [
-                    {
-                        name: '登记大厅自取',
-                        value: 'xc'
-                    },
-                    {
-                        name: '挂号信',
-                        value: 'mail'
-                    },
-                ]
-            }, // 办理方式选择
-            receiveModeChildren: {
-                type: Array,
-                default: () => [
-                    {
-                        name: `<span class="hall">中国版权保护中心版权登记大厅（天桥）</span>
-                               <span>地址：北京市西城区天桥南大街1号天桥艺术大厦A座一层</span>`,
-                        value: 'tq'
-                    },
-                ]
-            }, // 大厅选择
-            propReceiveAddress: {
-                type: String,
-                default: ''
-            }, // 地址选项
-            defaultAddress: {
-                type: String,
-                default: API_HOST + '/userServer/address/default'
-            }, // 设置默认地址
-            getAddressList: {
-                type: String,
-                default: API_HOST + '/userServer/address/address/list'
-            }, // 地址信息列表查询
+            value: '',//所选择地址，可v-model与父组件交互
             disabled: {
                 type: Boolean,
                 default: false
@@ -103,7 +64,7 @@
              * @param index 当前索引
              */
             setDefaultAddress(address) {
-                axios(this.defaultAddress + `/${this.userId}/${address.id}`, {}, {
+                axios(API_HOST + '/userServer/address/default' + `/${this.userId}/${address.id}`, {}, {
                     method: 'put'
                 }).then(res => {
                     if (res.data) {
@@ -112,7 +73,7 @@
                         address.isDefault = '1'
                         this.addressList.splice(index, 1)
                         this.addressList.unshift(address)
-                        //this.receiveAddress = params.id
+                        //this.receiveAddress = address.id
                     }
                 })
             },
@@ -135,31 +96,28 @@
                 let index = this.addressList.findIndex(item => item.id === data.id)
                 if (index > -1) this.addressList.splice(index, 1)
                 data.isDefault === '1' ? this.addressList.unshift(data) : this.addressList.splice(1, 0, data)
-            },
-            /**
-             * 获取领取地址id
-             * @returns {*}
-             */
-            getReceiveAddress() {
-                return this.receiveAddress
             }
         },
         mounted() {
-
+            this.selectAddressId = this.value;
         },
         watch: {
-            defaultAddress: {
-                handle(v, o) {
-                    console.log(v, 'v');
-                    console.log(o, 'o');
-
-                },
-                deep: true
-            },
+            selectAddressId(newVal) {
+                this.$emit('input', newVal);
+            }
         },
         created() {
-            if (this.userId) axios(this.getAddressList + `/${this.userId}`).then(res => {
-                if (res.data) this.addressList.push(...res.data)
+            if (this.userId) axios(API_HOST + '/userServer/address/address/list' + `/${this.userId}`).then(res => {
+                if (res.data) {
+                    res.data.forEach((addr) => {
+                        console.log(this.selectAddressId)
+                        if (addr.isDefault == 1 && !this.selectAddressId) {
+                            this.selectAddressId = addr.id;
+                            this.$emit('input', addr.id);
+                        }
+                    })
+                    this.addressList.push(...res.data)
+                }
             })
         }
     }

@@ -615,17 +615,18 @@ const options = {
             text: '否'
         }
     ],
-    //登记办理方式
-    options_registrationMethod: [
+    //登记办理类型
+    options_registrationMethodType: [
         {
-            val: 'TQ',
+            val: 'HALL',
             text: '中国版权保护中心版权登记大厅'
         }, {
             val: 'MAIL',
             text: '邮寄到中国版权保护中心'
         }
     ],
-    options_registrationMethod_TQ: [
+    //登记办理方式
+    options_registrationMethod: [
         /*{
             val: '1',
             name: '中国版权保护中心版权登记大厅（天桥）',
@@ -636,7 +637,7 @@ const options = {
     //证书领取方式
     options_certificateCollectionMethod: [
         {
-            val: 'TQ',
+            val: 'HALL',
             text: '登记大厅自取'
         },
         {

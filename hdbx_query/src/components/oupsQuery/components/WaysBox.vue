@@ -3,16 +3,16 @@
         <div class="way-box">
             <div class="way-check-box"
                  :class="{on:value==item.val}"
-                 v-for="(item,idx) in options.options_registrationMethod_TQ"
+                 v-for="(item,idx) in options.options_registrationMethod"
                  v-if="idx < limit"
                  @click="selectWay(item.val)">
-                <div class="w-title">{{item.val}}{{item.name}}</div>
+                <div class="w-title">{{item.name}}</div>
                 <div class="w-info">{{item.addr}}</div>
             </div>
         </div>
-        <LoadMore v-if="options.options_registrationMethod_TQ.length>3"
+        <LoadMore v-if="options.options_registrationMethod.length>3"
                   @triggerLoadMore="triggerLoadMore"
-                  dataLabel="'options.options_registrationMethod_TQ'"></LoadMore>
+                  dataLabel="'options.options_registrationMethod'"></LoadMore>
     </div>
 </template>
 
@@ -38,12 +38,13 @@
                 limit: this.showNum
             }
         },
+
         methods: {
-            selectWay(idx, code) {
-                this.$emit('input', code)
+            selectWay(code) {
+                this.$emit('input', code);
             },
             triggerLoadMore(isFold) {
-                this.limit = isFold ? this.showNum : options.options_registrationMethod_TQ.length;
+                this.limit = isFold ? this.showNum : options.options_registrationMethod.length;
             }
         },
         mounted() {
