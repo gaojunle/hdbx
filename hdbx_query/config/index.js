@@ -48,7 +48,7 @@ module.exports = {
             // "http://webstatic.hefantv.com/h5/common/wxShare.js" +
             //     "?timestamp=" +
             //     Date.now(),
-            // "http://webstatic.hefantv.com/h5/lib/zepto_min.js" +
+            // "http://webauthAttachmentstatic.hefantv.com/h5/lib/zepto_min.js" +
             //     "?timestamp=" +
             //     Date.now(),
             // "http://webstatic.hefantv.com/h5/lib/vconsole.min.js" +

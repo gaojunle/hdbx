@@ -8,8 +8,12 @@
             </div>
             <ul class="receive-type-child address-list">
                 <li v-for="(address, index) in addressList" class="clearfix" :key="index">
-                    <div class="address-box">
-                        <el-radio name="address" v-model="selectAddressId" :label="address.id" border>{{address.name}}
+                    <div :class="['address-box',selectAddressIndex==index?'on':'']">
+                        <el-radio name="address"
+                                  v-model="selectAddressId"
+                                  :label="address.id"
+                                  border
+                                  @change="(val)=>{selectAddress(val,index)}">{{address.name}}
                         </el-radio>
                         <div class="phone">{{ address.phone | phoneShow }}</div>
                         <div class="address">{{ address | addressShow }}
@@ -20,14 +24,14 @@
                                  @click="setDefaultAddress(address)">设为默认地址
                             </div>
                             <div class="updata" @click="updataAddress(address.id)">修改</div>
-                            <div class="updata" @click="delAddress(address.id)">删除</div>
+                            <div class="updata" @click="delAddress(index)">删除</div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
 
-        <AddressEditBox ref="AddressEditBox"></AddressEditBox>
+        <AddressEditBox @changeAddressList="changeAddressList" ref="AddressEditBox"></AddressEditBox>
     </div>
 </template>
 
@@ -40,6 +44,7 @@
         components: {AddressEditBox},
         data() {
             return {
+                selectAddressIndex: 0,
                 selectAddressId: '', // 选择地址ID
                 addressList: [], // 地址列表
                 userInfo: getCookie(), // 用户信息
@@ -58,6 +63,9 @@
         },
 
         methods: {
+            selectAddress(val, index) {
+                this.selectAddressIndex = index;
+            },
             /**
              * 设置默认地址
              * @param address 当前数据
@@ -85,8 +93,24 @@
                     addressId = id
                 this.$refs.AddressEditBox.showEdit(userId, addressId)
             },
-            delAddress(id) {
-                alert('删除地址，')
+            delAddress(idx) {
+                let addrId = this.addressList[idx].id;
+
+                this.$confirm('是否确认删除地址?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios(API_HOST + '/userServer/address/address' + `/${addrId}`, {}, {
+                        method: 'delete'
+                    }).then(res => {
+                        if (res.data) {
+                            this.addressList.splice(idx, 1);
+                            this.$message.success('删除成功');
+                        }
+                    })
+                })
+
             },
             /**
              * 修改地址列表
@@ -132,7 +156,7 @@
             display: flex;
             justify-content: space-between;
             color: rgb(102, 102, 102);
-            padding-bottom: 30px;
+            padding-bottom: 20px;
             .addr-add {
                 cursor: pointer;
                 color: rgb(0, 104, 183);
@@ -140,7 +164,6 @@
         }
         .address-list {
             > li {
-                padding-bottom: 20px;
                 color: rgb(102, 102, 102);
                 .el-radio {
                     width: 148px;
@@ -173,6 +196,10 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    padding: 10px 0px;
+                    &.on {
+                        background: #f5f8f9;
+                    }
                     .address {
                         flex: 1;
                         .default {

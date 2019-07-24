@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 
 const devMode = process.env.NODE_ENV === "development";
+
 /**
  * @description 将代码注入到html页面中
  * @date 2018-08-14
@@ -18,9 +19,10 @@ const devMode = process.env.NODE_ENV === "development";
  * @param {Array} [jsPath] 需要注入的js路径
  */
 class HtmlWebpackPluginExc {
-    constructor(options = { jsPath: [] }) {
+    constructor(options = {jsPath: []}) {
         this.options = options;
     }
+
     apply(compiler) {
         compiler.hooks.compilation.tap("HtmlWebpackPluginExc", compilation => {
             compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync(
@@ -49,7 +51,7 @@ module.exports = {
     getEntry() {
         var files = glob.sync(path.resolve(__dirname, "../src/entrys/**/*.js"));
         var newEntries = {};
-        files.forEach(function(pathUrl) {
+        files.forEach(function (pathUrl) {
             if (/index\.js$/.test(pathUrl)) {
                 let _Aname = pathUrl.split("/"),
                     _name = _Aname[_Aname.length - 2];
@@ -91,12 +93,12 @@ module.exports = {
                             minify: devMode
                                 ? {}
                                 : {
-                                      removeAttributeQuotes: true, //压缩 去掉引号
-                                      caseSensitive: false, //是否大小写敏感
-                                      collapseBooleanAttributes: true, //是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
-                                      conservativeCollapse: true, //折叠成一行
-                                      collapseWhitespace: true //是否去除空格
-                                  }
+                                    removeAttributeQuotes: true, //压缩 去掉引号
+                                    caseSensitive: false, //是否大小写敏感
+                                    collapseBooleanAttributes: true, //是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
+                                    conservativeCollapse: true, //折叠成一行
+                                    collapseWhitespace: true //是否去除空格
+                                }
                         })
                     );
                 }
@@ -139,50 +141,52 @@ module.exports = {
                         options: {
                             ident: "postcss",
                             plugins: devMode
-                                ? []
+                                ? [
+                                    require('autoprefixer')({browsers: ['last 5 Chrome versions', 'last 3 Firefox versions', 'Safari >= 6', 'ie > 8']})
+                                ]
                                 : [
-                                      require("postcss-cssnext")(), //给css代码 添加浏览器兼容
-                                      require("postcss-sprites")({
-                                          spritePath:
-                                              "./dist/assets/img/sprites",
-                                          //   匹配需要转化成雪碧图的图片
-                                          filterBy: function(image) {
-                                              if (
-                                                  image.url.indexOf(
-                                                      "/sprites/"
-                                                  ) === -1
-                                              ) {
-                                                  return Promise.reject();
-                                              }
-                                              return Promise.resolve();
-                                          },
-                                          // 将同一个文件下的图片 打包到雪碧图
-                                          groupBy: function(image) {
-                                              let groups = null,
-                                                  groupIndex = 0,
-                                                  groupName = "icon";
+                                    require("postcss-cssnext")(), //给css代码 添加浏览器兼容
+                                    require("postcss-sprites")({
+                                        spritePath:
+                                            "./dist/assets/img/sprites",
+                                        //   匹配需要转化成雪碧图的图片
+                                        filterBy: function (image) {
+                                            if (
+                                                image.url.indexOf(
+                                                    "/sprites/"
+                                                ) === -1
+                                            ) {
+                                                return Promise.reject();
+                                            }
+                                            return Promise.resolve();
+                                        },
+                                        // 将同一个文件下的图片 打包到雪碧图
+                                        groupBy: function (image) {
+                                            let groups = null,
+                                                groupIndex = 0,
+                                                groupName = "icon";
 
-                                              groups = image.url.split("/");
-                                              groupIndex = groups.findIndex(
-                                                  item => item === "sprites"
-                                              );
-                                              groupName =
-                                                  groups[groupIndex - 1];
-                                              return Promise.resolve(groupName);
-                                          }
-                                      })
-                                  ]
+                                            groups = image.url.split("/");
+                                            groupIndex = groups.findIndex(
+                                                item => item === "sprites"
+                                            );
+                                            groupName =
+                                                groups[groupIndex - 1];
+                                            return Promise.resolve(groupName);
+                                        }
+                                    })
+                                ]
                         }
                     },
                     type === "less"
                         ? {
-                              loader: "less-loader"
-                          }
+                            loader: "less-loader"
+                        }
                         : type === "sass"
-                            ? {
-                                  loader: "sass-loader"
-                              }
-                            : {}
+                        ? {
+                            loader: "sass-loader"
+                        }
+                        : {}
                 ]
             };
         if (type === "css") loader.use.pop();

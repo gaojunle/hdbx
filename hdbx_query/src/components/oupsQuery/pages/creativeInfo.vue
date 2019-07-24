@@ -55,7 +55,8 @@
                         type="date"
                         format="yyyy-MM-dd"
                         value-format="timestamp"
-                        placeholder="年/月/日">
+                        placeholder="年/月/日"
+                        :picker-options="completeDatePickerOptions">
                 </el-date-picker>
 
                 <span class="title required">创作完成地点：</span>
@@ -93,7 +94,8 @@
                         type="date"
                         format="yyyy-MM-dd"
                         value-format="timestamp"
-                        placeholder="年/月/日">
+                        placeholder="年/月/日"
+                        :picker-options="appearDatePickerOptions">
                 </el-date-picker>
                 <span class="title required">首次发表地点：</span>
                 <CountryCitySelect
@@ -246,7 +248,17 @@
         mixins: [myMixin],
         data() {
             return {
-                completeDate: '1563272801989',
+                //completeDate: '1563272801989',
+                completeDatePickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                },
+                appearDatePickerOptions: {
+                    disabledDate: (time) => {
+                        return (time.getTime() < this.sdata.completeDate) || (time.getTime() >= Date.now());
+                    },
+                },
                 timeLength: {
                     h: '',
                     m: '',

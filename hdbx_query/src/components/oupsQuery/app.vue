@@ -47,6 +47,7 @@
             autoToLogin()
             this.setUserInfo();
 
+            console.log('this.user', JSON.parse(JSON.stringify(this.user)));
             //TODO 测试判断用户是否登录
             if (!getCookie('webUserInfo')) {
                 this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录，并刷新</p>', '提示', {
@@ -57,15 +58,40 @@
             //获取是否回显标记；
             this.flowNumber = this.$route.query.flowNumber;
 
-            //如果本地有数据，优先使用session数据，然后判断是否是回填数据；
+            //如果本地有数据，优先使用session数据（用户编辑数据），然后判断是否是回填数据；
             if (this.getSessionData()) {
                 store.sdata = this.getSessionData();
                 this.sdata = store.sdata;
             } else {
                 if (this.flowNumber) {
                     api.z11InfoAndReFillInfo({flowNumber: this.flowNumber}).then((ret) => {
-                        this.sdata = ret.data.z11RegisterApplyInfoVo;
-                        store.sdata = ret.data.z11RegisterApplyInfoVo;
+                        var _sdata = ret.data.z11RegisterApplyInfoVo;
+                        if (!_sdata.authAttachment) {
+                            _sdata.authAttachment = {//选择代理人时，授权委托书
+                                "attachmentId": "",
+                                "flowNumber": "",
+                                "segmentName": "",
+                                "attachmentName": "",
+                                "relevantFileName": "",
+                                "path": "",
+                                "remark": "",
+                                "createTime": "",
+                                "updateTime": "",
+                                "baseId": null
+                            }
+                        }
+                        if (!_sdata.rightOwnTypeAttachment) {
+                            _sdata.rightOwnTypeAttachment = {//rightOwnType为1时没有附件
+                                relevantFileName: '',
+                                path: '',
+                                remark: ''
+                            }
+                        }
+                        if (!_sdata.rightScopePart) {
+                            _sdata.rightScopePart = [];
+                        }
+                        this.sdata = _sdata;
+                        store.sdata = _sdata;
                         store.reFillin = ret.data.reFillin;
                         this.setSessionData();
                         location.reload();
@@ -77,7 +103,7 @@
                 this.clearSessionData()
             }
 
-            console.log(this.sdata)
+            console.log('this.sdata', JSON.parse(JSON.stringify(this.sdata)))
         },
     }
 </script>

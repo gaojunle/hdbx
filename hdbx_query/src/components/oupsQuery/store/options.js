@@ -131,22 +131,22 @@ const options = {
     options_relevantFileName: [
         {
             val: 'QLGS-0801',
-            text: '合作作品创作声名/协议',
+            text: '合作作品创作声明/协议',
             exampleUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1417347526,3693915681&fm=26&gp=0.jpg'
         },
         {
             val: 'QLGS-0804',
-            text: '法人作品创作声名',
+            text: '法人作品创作声明',
             exampleUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1417347526,3693915681&fm=26&gp=0.jpg'
         },
         {
             val: 'QLGS-0802',
-            text: '职务作品创作声名',
+            text: '职务作品创作声明',
             exampleUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1417347526,3693915681&fm=26&gp=0.jpg'
         },
         {
             val: 'QLGS-0803',
-            text: '委托作品创作声名',
+            text: '委托作品创作声明',
             exampleUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1417347526,3693915681&fm=26&gp=0.jpg'
         }
     ],
@@ -284,29 +284,17 @@ const options = {
             ],
             '香港': [
                 {
-                    val: '13',
-                    text: '统一社会信用代码证'
-                },
-                {
                     val: '9',
                     text: '其它证件'
                 }
             ],
             '澳门': [
                 {
-                    val: '13',
-                    text: '统一社会信用代码证'
-                },
-                {
                     val: '9',
                     text: '其它证件'
                 }
             ],
             '台湾': [
-                {
-                    val: '13',
-                    text: '统一社会信用代码证'
-                },
                 {
                     val: '9',
                     text: '其它证件'

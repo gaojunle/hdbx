@@ -137,11 +137,11 @@ const myMixin = {
 
                 //切换国家时对身份类型及证件类型影响
                 item.idType = '';
-                if (item.peopleKind == '无') {
+                if (item.peopleKind == '其它') {
                     item.peopleKind = ''
                 }
                 if (item.country != '中国大陆' && item.applyType == '2') {
-                    item.peopleKind = '0'
+                    item.peopleKind = '4'
                 }
             }
         },
@@ -181,10 +181,19 @@ const myMixin = {
             }
         },
 
-        //日期转时间戳
-        dateToReltime(ref, key, date) {
-            ref[key] = date;
-            console.log(ref[key])
+        //时间戳转日期
+        reltimeToDate(timestamp) {
+            var date = new Date();
+
+            try {
+                date = new Date(parseFloat(timestamp));
+            } catch (e) {
+                date = new Date();
+            }
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            var D = date.getDate() + ' ';
+            return Y + M + D;
         },
 
         setSessionData() {
@@ -200,7 +209,10 @@ const myMixin = {
         },
         //设置用户真实信息
         setUserInfo() {
-            this.user = getCookie('webUserInfo') || {}
+            this.user = getCookie('webUserInfo') || {};
+            store.user = this.user;
+            this.sdata.accountType = (parseInt(this.user.accountType) + 1);//accountType：用户类型，0：个人、1：机构
+            store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
         }
     }
 }

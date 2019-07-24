@@ -88,8 +88,9 @@
         color: rgb(118, 138, 162);
         margin-bottom: 20px;
         > li {
+            display: inline-block;
             position: relative;
-            width: 50%;
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -101,6 +102,7 @@
                 width: 13px;
                 height: 50px;
                 right: 0px;
+                top:0px;
                 background-color: #e3e9ed;
                 background-image: url("../../../assets/img/steps/right.png");
                 -webkit-background-size: 100% 100%;
@@ -116,6 +118,7 @@
                     width: 13px;
                     height: 50px;
                     left: -13px;
+                    top: 0px;
                     background-image: url("../../../assets/img/steps/s_left.png");
                     -webkit-background-size: 100% 100%;
                     background-size: 100% 100%;

@@ -13,11 +13,11 @@
             </el-radio-button>
         </el-radio-group>
         <el-form-item
-                v-if="sdata.rightScope=='2'"
                 class="rightScopePart"
                 prop="rightScopePart"
                 :rules="rules.rightScopePart">
             <el-checkbox-group :disabled="isDisabled('rightScopePart')"
+                               @change="rightScopePartChange"
                                v-model="sdata.rightScopePart">
                 <el-checkbox-button v-for="item in options.options_rightScopePart"
                                     :label="item.val"
@@ -32,6 +32,7 @@
 <script>
     import '../components/index.less'
     import myMixin from '../store/mixin'
+    import options from "../store/options";
 
     export default {
         mixins: [myMixin],
@@ -41,11 +42,21 @@
         methods: {
             //所有权切换
             rightScopeChange(val) {
-                console.log(this.sdata.rightScope)
-                //this.sdata.rightOwnType = val - 1;
+                if (this.sdata.rightScope == '1') {
+                    this.sdata.rightScopePart = [];
+                    options.options_rightScopePart.forEach(item => {
+                        this.sdata.rightScopePart.push(item.val);
+                    })
+                }
+            },
+            rightScopePartChange(val) {
+                if (this.sdata.rightScopePart.length < options.options_rightScopePart.length) {
+                    this.sdata.rightScope = '2'
+                }
             }
         },
         mounted() {
+            this.rightScopeChange();
         }
     }
 </script>

@@ -36,7 +36,7 @@
                 <el-row>
                     <el-col :span="12">
                         <span class="label">创作日期：</span>
-                        <span class="text">{{sdata.completeDate}}</span>
+                        <span class="text">{{reltimeToDate(sdata.completeDate)}}</span>
                     </el-col>
                     <el-col :span="12">
                         <span class="label">创作完成地点：</span>
@@ -47,7 +47,7 @@
                 <el-row>
                     <el-col :span="12">
                         <span class="label">首次发表日期：</span>
-                        <span class="text">{{sdata.appearDate}}</span>
+                        <span class="text">{{reltimeToDate(sdata.appearDate)}}</span>
                     </el-col>
                     <el-col :span="12">
                         <span class="label">首次发表地点：</span>
@@ -147,7 +147,7 @@
                             <div class="owner-info">
                                 <div class="item" style="width: 100%">
                                     <p>{{formatOptionData('options_rightOwnType',sdata.rightOwnType)}}</p>
-                                    <a :href="sdata.rightOwnTypeAttachment.path" target="_blank" class="img-box">
+                                    <a v-if="sdata.rightOwnTypeAttachment && sdata.rightOwnTypeAttachment.path" :href="sdata.rightOwnTypeAttachment.path" target="_blank" class="img-box">
                                         <img class="up_img" :src="sdata.rightOwnTypeAttachment.path" alt="">
                                     </a>
                                 </div>
@@ -164,7 +164,7 @@
                             <div class="owner-info">
                                 <div class="item" style="width: 100%">
                                     <p>{{formatOptionData('options_obtainType',sdata.obtainType)}}</p>
-                                    <div class="img-list">
+                                    <div class="img-list" v-if="sdata.obtainTypeAttachment.length>0 && sdata.obtainTypeAttachment[0].path">
                                         <a :href="item.path" target="_blank" class="img-box"
                                            v-for="(item,idx) in sdata.obtainTypeAttachment">
                                             <img class="up_img" :src="item.path" alt="">
@@ -274,7 +274,7 @@
             </el-radio-group>
 
             <el-row>
-                <WaysBox v-show="sdata.registrationMethodType != 'MAIL'" v-model="sdata.registrationMethod"></WaysBox>
+                <WaysBox v-model="sdata.registrationMethod"></WaysBox>
             </el-row>
         </div>
         <div class="f_box sampleRetention">
@@ -318,13 +318,6 @@
             }
         },
         watch: {
-            'sdata.registrationMethodType'(val) {
-                if (val == 'HALL') {
-                    this.sdata.registrationMethod = 'TQ';
-                } else {
-                    this.sdata.registrationMethod = '';
-                }
-            },
             'sdata.certificateCollectionAddress'(val) {
                 //EMS或挂号信时，保留所选择地址id，以备切换回来使用；
                 if (this.sdata.certificateCollectionMethod != 'HALL') {

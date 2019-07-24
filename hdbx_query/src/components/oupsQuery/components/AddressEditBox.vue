@@ -83,15 +83,16 @@
                     detailAddress: '', // 详细地址
                     name: '', // 收件人
                     phone: '', // 手机号
-                    isDefault: false //默认地址
+                    isDefault: 0 //默认地址
                 }, // 传参
                 rules: {
                     name: [
                         {required: true, message: '请输入收货人', trigger: 'blur'},
-                        {min: 3, max: 25, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                        {min: 2, max: 25, message: '长度在 3 到 5 个字符', trigger: 'blur'}
                     ],
                     detailAddress: [
-                        {required: true, message: '请输入详细地址', trigger: 'blur'}
+                        {required: true, message: '请输入详细地址', trigger: 'blur'},
+                        {min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur'}
                     ],
                     phone: [
                         {
@@ -155,7 +156,7 @@
                             area: area, // 区/县列表
                             detailAddress: detailAddress, // 详细地址
                             phone: phone, // 手机号
-                            isDefault: isDefault == '1'
+                            isDefault: isDefault=='1'
                         }
                         this.location = [province, city, area]
                         this.isShow = true;
@@ -178,10 +179,13 @@
                             method = 'post'
                         }
                         this.addrForm.accountId = this.userId
+                        this.addrForm.isDefault = this.addrForm.isDefault ? '1' : '0';
                         axios(this.addApdataAddress, this.addrForm, {method}).then(res => {
                             if (res.data) {
                                 this.hideEdit(res.data)
-                                if (this.checkbox) this.defaultAddress(res.data)
+                                if (this.checkbox) {
+                                    this.defaultAddress(res.data)
+                                }
                             }
                         })
                     }

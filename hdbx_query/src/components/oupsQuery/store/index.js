@@ -28,25 +28,29 @@ function getNowDate() {
 const store = {
     debug: true,
     user: {
-        "headImg": "",
-        "createTime": 1552894531054,
+        "accountStatus": 1,
         "id": "",
-        "sex": 1,
-        "status": 1,
-        "email": "",
-        "userName": "",
-        "updateTime": 1552894531054,
-        "organizationalId": "76371548973432832",
-        "loginName": "",
+        "personId": "",
+        "accountName": "",
+        "accountType": 0,   //accountType 1是个人2是机构(登录后是0,1)
+        "auditTime": 1554715927498,
+        "authenticationState": 2,
+        "updateTime": 1554715927498,
         "phone": "",
-        "password": "",
-        "onJob": 1,
+        "createTime": 1546572171870,
+        "createDate": 1546572171000,
+        "email": "",
+        "auditId": "",
+        "accountSource": 1,
+        "headImg": "",
+        "nickName": "aaa",
+        "password": "0",
+        "isAgreement": 1,
         "authorization_key": "",
         "authorization_token": "",
-        "logintime": 1560932770384
+        "logintime": 1563849416712
     },
     sdata_init: {
-        "accountType": '2', //accountType 1是个人2是机构
         "accountId": "133618064657874944",
         "appearCity": "",
         "appearArea": "",
@@ -143,12 +147,11 @@ const store = {
             path: '',
             remark: ''
         },
-        "rightScope": "2",
+        "rightScope": "1",
         rightScopePart: [],
         "sampleRetentionMedium": "1"
     },
     sdata: {
-        "accountType": '2', //accountType 1是个人2是机构
         "accountId": "133618064657874944",
         "appearCity": "",
         "appearArea": "",
@@ -245,7 +248,7 @@ const store = {
             path: '',
             remark: ''
         },
-        "rightScope": "2",
+        "rightScope": "1",
         rightScopePart: [],
         "sampleRetentionMedium": "1"
     },

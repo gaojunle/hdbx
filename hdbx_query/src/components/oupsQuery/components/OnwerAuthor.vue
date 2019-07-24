@@ -253,6 +253,7 @@
         mixins: [myMixin],
         data() {
             return {
+                accountType: '1',
                 ownerNum: 1,
                 isOwnerAndDel: true,
                 authorNum: 1,
@@ -271,7 +272,8 @@
         computed: {
             typeGroup() {
                 var applyType = this.sdata.applyType; //1是著作权人2是代理人，默认为空
-                var accountType = this.sdata.accountType; //1是个人2是机构
+                var accountType = (parseInt(this.user.accountType) + 1).toString(); //1是个人2是机构
+                this.accountType = accountType;
                 var rightOwnType = this.sdata.rightOwnType; //所迁权属类型 1个人作品、2合作作品、3法人作品、4职务作品、5委托作品
                 var type = '' + applyType + accountType + rightOwnType;
                 console.log('[applyType,accountType,rightOwnType]=' + type)
@@ -283,7 +285,7 @@
             rightOwnTypeIns(ins) {
                 var flag = false;
                 ins.forEach((item) => {
-                    if (item.applyType == this.sdata.applyType && item.accountType == this.sdata.accountType) {
+                    if (item.applyType == this.sdata.applyType && item.accountType == this.accountType) {
                         flag = true;
                         return flag;
                     }
@@ -294,7 +296,7 @@
             applyTypeChange(val, idx) {
                 var item = this.sdata.owners[idx];
                 if (item.country != '中国大陆' && item.applyType == '2') {
-                    item.peopleKind = '无'
+                    item.peopleKind = '4'
                 } else {
                     item.peopleKind = val.toString()
                 }
@@ -302,7 +304,7 @@
 
             //权限归属切换行为
             changeRightOwnType() {
-                console.log(this.$route.query)
+                console.log('this.$route.query', this.$route.query)
                 this.sdata.rightOwnTypeAttachment.relevantFileName = this.options.options_rightOwnType[this.sdata.rightOwnType - 1].relevantFileName;
                 //如果没有flowNumer参数并且是非编辑状态，表示非回填，则初始化数据
                 if (!this.flowNumber && !this.getSessionData()) {
@@ -315,10 +317,10 @@
                         })
 
                         this.disableds = {
-                            ownerName: !!this.user.userName,
+                            ownerName: !!this.user.accountName,
                             mobile: !!this.user.phone,
                             ownerDel: true,
-                            authorName: !!this.user.userName,
+                            authorName: !!this.user.accountName,
                         }
                         break;
                     case '123'://法人作品[1,2,3]
@@ -329,7 +331,7 @@
 
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.userName,
+                            ownerName: !!this.user.accountName,
                             mobile: !!this.user.phone,
                             authorName: true
                         }
@@ -343,7 +345,7 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.userName,
+                            ownerName: !!this.user.accountName,
                             mobile: !!this.user.phone,
                         }
                         break;
@@ -352,10 +354,10 @@
                         this._applyOwnerInfo({
                             ownerNum: 100,
                             authorNum: 100
-                        }, true)
+                        })
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.userName,
+                            ownerName: !!this.user.accountName,
                             mobile: !!this.user.phone,
                             authorName: true,
                             authorDel: true,
@@ -371,7 +373,7 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.userName,
+                            ownerName: !!this.user.accountName,
                             mobile: !!this.user.phone,
                             authorName: false
                         }
@@ -468,17 +470,23 @@
                 this.sdata.authors[0].name = '';
             },
             _applyOwnerInfo(opts, owner0) {
+                console.log(opts,this.sdata)
+                if(!this.flowNumber){
+                    this.sdata.owners = this.sdata.owners.splice(0,1)
+                    this.sdata.authors = this.sdata.authors.splice(0,1)
+                }
                 this.ownerNum = opts.ownerNum || 1;
                 this.authorNum = opts.authorNum || 1;
                 this.sdata.owners[0].applyType = opts.applyType || '1';
+
                 if (!this.sdata.owners[0].peopleKind) {
                     this.sdata.owners[0].peopleKind = opts.peopleKind || '1';
                 }
 
                 if (!owner0) {
-                    this.sdata.owners[0].name = this.user.userName;
+                    this.sdata.owners[0].name = this.user.accountName;
                     this.sdata.owners[0].mobile = this.user.phone;
-                    this.sdata.authors[0].name = this.user.userName;
+                    this.sdata.authors[0].name = this.user.accountName;
                 }
             },
 
@@ -537,9 +545,7 @@
             //添加拥有者
             addOwner() {
                 console.log(this.sdata.owners)
-                if (this.sdata.owners[1]) {
-                    return;
-                }
+
                 this.sdata.owners.push({
                     "applyType": "1",
                     "applyCopy": "0",
