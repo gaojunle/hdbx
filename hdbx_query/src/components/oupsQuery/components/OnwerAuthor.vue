@@ -6,7 +6,7 @@
             <el-radio-group @change="changeRightOwnType" v-model="sdata.rightOwnType"
                             :disabled="isDisabled('rightOwnType')">
                 <el-radio-button
-                        v-if="rightOwnTypeIns(item.ins)"
+                        v-if="rightOwnTypeIns(item)"
                         v-for="(item,idx) in options.options_rightOwnType"
                         :key="item.val"
                         :label="item.val">
@@ -282,11 +282,14 @@
         },
         methods: {
             //根据申请类型和登录人类型，显示对应的权利归属
-            rightOwnTypeIns(ins) {
+            rightOwnTypeIns(rightOwnTypeItem) {
                 var flag = false;
-                ins.forEach((item) => {
+                rightOwnTypeItem.ins.forEach((item) => {
                     if (item.applyType == this.sdata.applyType && item.accountType == this.accountType) {
                         flag = true;
+                        if (!this.sdata.rightOwnType) {
+                            this.sdata.rightOwnType = rightOwnTypeItem.val;
+                        }
                         return flag;
                     }
                 })
@@ -318,7 +321,6 @@
 
                         this.disableds = {
                             ownerName: !!this.user.accountName,
-                            mobile: !!this.user.phone,
                             ownerDel: true,
                             authorName: !!this.user.accountName,
                         }
@@ -332,7 +334,6 @@
                         this.disableds = {
                             owner_applyType: true,
                             ownerName: !!this.user.accountName,
-                            mobile: !!this.user.phone,
                             authorName: true
                         }
                         break;
@@ -358,7 +359,6 @@
                         this.disableds = {
                             owner_applyType: true,
                             ownerName: !!this.user.accountName,
-                            mobile: !!this.user.phone,
                             authorName: true,
                             authorDel: true,
                         }
@@ -374,7 +374,6 @@
                         this.disableds = {
                             owner_applyType: true,
                             ownerName: !!this.user.accountName,
-                            mobile: !!this.user.phone,
                             authorName: false
                         }
                         break;
@@ -470,10 +469,10 @@
                 this.sdata.authors[0].name = '';
             },
             _applyOwnerInfo(opts, owner0) {
-                console.log(opts,this.sdata)
-                if(!this.flowNumber){
-                    this.sdata.owners = this.sdata.owners.splice(0,1)
-                    this.sdata.authors = this.sdata.authors.splice(0,1)
+                console.log(opts, this.sdata)
+                if (!this.flowNumber) {
+                    this.sdata.owners = this.sdata.owners.splice(0, 1)
+                    this.sdata.authors = this.sdata.authors.splice(0, 1)
                 }
                 this.ownerNum = opts.ownerNum || 1;
                 this.authorNum = opts.authorNum || 1;
@@ -559,7 +558,7 @@
                     "mobile": "",
                     "name": "",
                     "peopleKind": "1",
-                    "role": "PET"
+                    "role": "OWN"
                 })
 
                 if (['112', '122', '212', '222'].indexOf(this.typeGroup) > -1) {

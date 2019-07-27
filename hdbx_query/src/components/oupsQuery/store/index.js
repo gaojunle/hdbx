@@ -51,7 +51,7 @@ const store = {
         "logintime": 1563849416712
     },
     sdata_init: {
-        "accountId": "133618064657874944",
+        "accountId": "",
         "appearCity": "",
         "appearArea": "",
         "appearCountry": "",
@@ -87,7 +87,7 @@ const store = {
         "completeDate": getNowDate(),
         "completeProvince": "",
         "needStamp": "1",
-        "obtainType": "2",
+        "obtainType": "1",
         "obtainTypeAttachment": [
             {
                 relevantFileName: 'QLGS-0603',//继承作品－与被继承人关系证明
@@ -119,7 +119,7 @@ const store = {
         "opusInditeType": "1",
         "opusInfo": "",
         "opusName": "",
-        "opusNature": "2",
+        "opusNature": "1",
         "opusType": 'A',
         "opusTypeDesc": "",
         "owners": [
@@ -141,7 +141,7 @@ const store = {
         "publishStatus": "1",
         "registrationMethodType": "HALL",
         "registrationMethod": "TQ",
-        "rightOwnType": "2",
+        "rightOwnType": "",
         rightOwnTypeAttachment: {//rightOwnType为1时没有附件
             relevantFileName: '',
             path: '',
@@ -152,7 +152,7 @@ const store = {
         "sampleRetentionMedium": "1"
     },
     sdata: {
-        "accountId": "133618064657874944",
+        "accountId": "",
         "appearCity": "",
         "appearArea": "",
         "appearCountry": "",
@@ -188,7 +188,7 @@ const store = {
         "completeDate": getNowDate(),
         "completeProvince": "",
         "needStamp": "1",
-        "obtainType": "2",
+        "obtainType": "1",
         "obtainTypeAttachment": [
             {
                 relevantFileName: 'QLGS-0603',
@@ -220,7 +220,7 @@ const store = {
         "opusInditeType": "1",
         "opusInfo": "",
         "opusName": "",
-        "opusNature": "2",
+        "opusNature": "1",
         "opusType": 'A',
         "opusTypeDesc": "",
         "owners": [
@@ -242,7 +242,7 @@ const store = {
         "publishStatus": "1",
         "registrationMethodType": "HALL",
         "registrationMethod": "TQ",
-        "rightOwnType": "2",
+        "rightOwnType": "",
         rightOwnTypeAttachment: {//rightOwnType为1时没有附件
             relevantFileName: '',
             path: '',

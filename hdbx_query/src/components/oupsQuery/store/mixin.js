@@ -32,6 +32,7 @@ const myMixin = {
             let step = this.$route.name;
             canNextFlag = true;
             console.log(this.sdata, step)
+            //return false
             var t = await this.validate();
             if (!t) {
                 return false
@@ -211,6 +212,9 @@ const myMixin = {
         setUserInfo() {
             this.user = getCookie('webUserInfo') || {};
             store.user = this.user;
+            this.sdata.accountId = this.user.id;
+            store.sdata.accountId = this.user.id;
+            console.log(this.sdata.accountId)
             this.sdata.accountType = (parseInt(this.user.accountType) + 1);//accountType：用户类型，0：个人、1：机构
             store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
         }

@@ -41,6 +41,16 @@
                     }
                 });
             })
+
+
+            //获取著作权人信息
+            api.ownerInfo({
+                "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
+                "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
+                "accountId": "205998977357840384"
+            }).then(ret => {
+                console.log(ret);
+            })
         },
         created() {
             //TODO 登录后，调用setUser方法，此外测试用户登录后刷新即可；
@@ -53,6 +63,7 @@
                 this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录，并刷新</p>', '提示', {
                     dangerouslyUseHTMLString: true
                 });
+                return false;
             }
 
             //获取是否回显标记；

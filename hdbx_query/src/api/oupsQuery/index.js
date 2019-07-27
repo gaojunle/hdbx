@@ -5,6 +5,15 @@ import {API_HOST, APIDOC_HOST} from '@share/api/config'
 
 export default {
     /**
+     * 获取著作人第一位的个人信息
+     * @param data 参数
+     * @returns {*}
+     */
+    ownerInfo(data) {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/ownerInfo", data, {
+            method: 'POST'
+        })
+    },    /**
      * 初次提交数据
      * @param data 参数
      * @returns {*}
