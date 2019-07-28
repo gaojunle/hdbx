@@ -26,7 +26,18 @@
             return {}
         },
         components: {topNav, breadcrumb, hdFooter, StepsList},
-        methods: {},
+        methods: {
+            //设置用户真实信息
+            setUserInfo() {
+                this.user = getCookie('webUserInfo') || {};
+                store.user = this.user;
+                this.sdata.accountId = this.user.id;
+                store.sdata.accountId = this.user.id;
+                console.log(this.sdata.accountId)
+                this.sdata.accountType = (parseInt(this.user.accountType) + 1);//accountType：用户类型，0：个人、1：机构
+                store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
+            }
+        },
         mounted() {
             //获取登记方式
             api.getRegistrationMethod({}).then(ret => {
@@ -40,16 +51,6 @@
                         })
                     }
                 });
-            })
-
-
-            //获取著作权人信息
-            api.ownerInfo({
-                "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
-                "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
-                "accountId": "205998977357840384"
-            }).then(ret => {
-                console.log(ret);
             })
         },
         created() {

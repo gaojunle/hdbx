@@ -100,8 +100,14 @@
             }
         },
         watch: {
-            country(newVal, oldVal) {
-                //console.log(newVal, oldVal);
+            async country(newVal, oldVal) {
+                if (this.country == '中国大陆') {
+                    this.selCountry = this.country;
+                    selCountry = this.selCountry
+                    this.countrys = await areaFun.getArea('Country');
+                    this.selCountryChange('001')
+                    this.initLocation()
+                }
             }
         },
         methods: {
@@ -194,6 +200,7 @@
         },
         async mounted() {
             this.selCountry = this.country;
+            console.log(this.selCountry)
             selCountry = this.selCountry
             this.countrys = await areaFun.getArea('Country');
 

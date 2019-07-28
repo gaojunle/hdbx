@@ -45,10 +45,10 @@
                             </el-radio-group>
                         </div>
                         <div class="flex">
-                            <!--国家/城市选择-->
+                            <!--国家/城市选择   -->
                             <CountryCitySelect
                                     ref="CC_owners"
-                                    :countryDisabled="isDisabled('owners')"
+                                    :countryDisabled="isDisabled('owners')||user.accountType==0"
                                     :cityDisabled="isDisabled('owners')"
                                     :country="item.country"
                                     :province="item.province"
@@ -63,7 +63,7 @@
                                 <el-select class="mr10"
                                            v-if="item.applyType=='1'"
                                            v-model="item.peopleKind"
-                                           :disabled="isDisabled('owners')||item.applyType=='1'"
+                                           :disabled="isDisabled('owners')||user.accountType==0"
                                            placeholder="请选择">
                                     <el-option
                                             v-for="it in options.options_peopleKind"
@@ -91,7 +91,7 @@
                                 <el-select class="mr10"
                                            v-else
                                            v-model="item.peopleKind"
-                                           :disabled="isDisabled('owners')"
+                                           :disabled="isDisabled('owners')||user.accountType==0"
                                            placeholder="请选择">
                                     <el-option
                                             v-for="it in options.options_peopleKind"
@@ -120,7 +120,7 @@
                                           :rules="rules.idType">
                                 <el-select
                                         class="mr10"
-                                        :disabled="isDisabled('owners')"
+                                        :disabled="isDisabled('owners') || isDisabled('idType')"
                                         v-model="item.idType"
                                         placeholder="请选择证件类型">
                                     <el-option
@@ -137,8 +137,10 @@
                                     class="flex-1"
                                     :prop="'owners.' + idx + '.idNumber'"
                                     :rules="item.idType=='1'?rules.idNumberID:rules.idNumber">
-                                <el-input :disabled="isDisabled('owners')" placeholder="证件号码"
-                                          v-model="item.idNumber"></el-input>
+                                <el-input
+                                        :disabled="isDisabled('owners')||isDisabled('idNumber')"
+                                        placeholder="证件号码"
+                                        v-model="item.idNumber"></el-input>
                             </el-form-item>
                         </div>
                         <div class="flex"><!--手机件号-->
@@ -152,6 +154,15 @@
                                     <template slot="prepend">手机号码</template>
                                 </el-input>
                             </el-form-item>
+                        </div>
+                        <div class="flex"><!--个人/机构选择-->
+                            <div class="el-radio-group">
+                                <label role="radio" class="el-radio-button is-active">
+                                    <input :checked="idx==0" @change="(val)=>{changeOnwer(val,idx)}"
+                                           type="radio" tabindex="-1" class="el-radio-button__orig-radio">
+                                    <span class="el-radio-button__inner">著作人</span>
+                                </label>
+                            </div>
                         </div>
                         <div class="fuben" v-if="idx<0"><!--是否选择副本-->
                             <span>申请证书副本：</span>
@@ -243,6 +254,7 @@
 </template>
 
 <script>
+    import api from '../../../api'
     import '../components/index.less'
     import myMixin from '../store/mixin'
     import FileUpload from '../components/FileUpload'
@@ -281,6 +293,11 @@
             }
         },
         methods: {
+            //代理人申请时，设置哪著作人为申请人；将点击著作人提到第一位
+            changeOnwer(val, idx) {
+                var temp = this.sdata.owners.splice(idx, 1);
+                this.sdata.owners.unshift(...temp);
+            },
             //根据申请类型和登录人类型，显示对应的权利归属
             rightOwnTypeIns(rightOwnTypeItem) {
                 var flag = false;
@@ -320,9 +337,10 @@
                         })
 
                         this.disableds = {
-                            ownerName: !!this.user.accountName,
+                            idType: !!this.ownerInfo.idType,
+                            ownerName: !!this.ownerInfo.name,
                             ownerDel: true,
-                            authorName: !!this.user.accountName,
+                            authorName: !!this.ownerInfo.name,
                         }
                         break;
                     case '123'://法人作品[1,2,3]
@@ -333,7 +351,7 @@
 
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.accountName,
+                            ownerName: !!this.ownerInfo.name,
                             authorName: true
                         }
                         break;
@@ -346,7 +364,7 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.accountName,
+                            ownerName: !!this.ownerInfo.name,
                             mobile: !!this.user.phone,
                         }
                         break;
@@ -358,7 +376,7 @@
                         })
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.accountName,
+                            ownerName: !!this.ownerInfo.name,
                             authorName: true,
                             authorDel: true,
                         }
@@ -373,7 +391,7 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.user.accountName,
+                            ownerName: !!this.ownerInfo.name,
                             authorName: false
                         }
                         break;
@@ -483,9 +501,12 @@
                 }
 
                 if (!owner0) {
-                    this.sdata.owners[0].name = this.user.accountName;
+                    this.sdata.owners[0].name = this.ownerInfo.name;
+                    this.sdata.owners[0].country = this.ownerInfo.country;
+                    this.sdata.owners[0].idType = this.ownerInfo.peopleType;
+                    this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
-                    this.sdata.authors[0].name = this.user.accountName;
+                    this.sdata.authors[0].name = this.ownerInfo.name;
                 }
             },
 
@@ -573,7 +594,17 @@
             },
         },
         mounted() {
-            this.changeRightOwnType();
+            //获取著作权人信息
+            api.ownerInfo({
+                "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
+                "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
+                "accountId": this.user.id
+            }).then(ret => {
+                //console.log(ret);
+                this.ownerInfo = ret.data;
+                console.log('this.ownerInfo ', this.ownerInfo);
+                this.changeRightOwnType();
+            })
         }
     }
 </script>

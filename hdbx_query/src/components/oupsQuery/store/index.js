@@ -50,6 +50,7 @@ const store = {
         "authorization_token": "",
         "logintime": 1563849416712
     },
+    ownerInfo: {},
     sdata_init: {
         "accountId": "",
         "appearCity": "",

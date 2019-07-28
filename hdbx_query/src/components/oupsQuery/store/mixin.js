@@ -9,6 +9,7 @@ const myMixin = {
         return {
             flowNumber: null, //是否回显标识，在app创建时判断
             user: store.user,
+            ownerInfo: store.ownerInfo,
             options: options,
             sdata: store.sdata,
             rules: store.rules
@@ -58,6 +59,7 @@ const myMixin = {
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
                     //return false;
+                    this.sdata.accountId = this.user.id;
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()
@@ -137,7 +139,9 @@ const myMixin = {
                 item['area'] = params.area;
 
                 //切换国家时对身份类型及证件类型影响
-                item.idType = '';
+                if (this.user.accountType != '0') { //登陆人是个人，身份信息从实名数据取；不要重置
+                    item.idType = '';
+                }
                 if (item.peopleKind == '其它') {
                     item.peopleKind = ''
                 }
@@ -207,16 +211,6 @@ const myMixin = {
             store.sdata = store.sdata_init;
             this.sdata = store.sdata_init;
             sessionStorage.setItem('sdata', null)
-        },
-        //设置用户真实信息
-        setUserInfo() {
-            this.user = getCookie('webUserInfo') || {};
-            store.user = this.user;
-            this.sdata.accountId = this.user.id;
-            store.sdata.accountId = this.user.id;
-            console.log(this.sdata.accountId)
-            this.sdata.accountType = (parseInt(this.user.accountType) + 1);//accountType：用户类型，0：个人、1：机构
-            store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
         }
     }
 }
