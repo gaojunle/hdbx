@@ -13,7 +13,8 @@ export default {
         return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/ownerInfo", data, {
             method: 'POST'
         })
-    },    /**
+    },
+    /**
      * 初次提交数据
      * @param data 参数
      * @returns {*}
@@ -28,8 +29,11 @@ export default {
      * @param data 参数
      * @returns {*}
      */
-    reFillin(data) {
-        return this.axios(API_HOST + "/RegisterBaseInfo/opusExamine/reFillin", data, {
+    reFillin(z11RegisterApplyInfoVo, flowNumber) {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/opusExamine/reFillin", {
+            z11RegisterApplyInfoVo: z11RegisterApplyInfoVo,
+            flowNumber: flowNumber
+        }, {
             method: 'POST'
         })
     },

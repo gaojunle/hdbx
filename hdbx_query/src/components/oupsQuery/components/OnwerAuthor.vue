@@ -32,7 +32,8 @@
                 <p class="sub_title" v-if="ownerNum>1">第 {{idx+1}} 位</p>
                 <div class="cont">
                     <div class="f_left">
-                        <div class="flex"><!--个人/机构选择-->
+                        <!--个人/机构选择-->
+                        <div class="flex">
                             <el-radio-group v-model="item.applyType"
                                             @change="(val)=>{applyTypeChange(val,idx)}"
                                             :disabled="disableds.owner_applyType && idx==0">
@@ -44,11 +45,11 @@
                                 </el-radio-button>
                             </el-radio-group>
                         </div>
+                        <!--国家/城市选择 -->
                         <div class="flex">
-                            <!--国家/城市选择   -->
                             <CountryCitySelect
                                     ref="CC_owners"
-                                    :countryDisabled="isDisabled('owners')||user.accountType==0"
+                                    :countryDisabled="isDisabled('owners') || (disableds.country&&idx==0)"
                                     :cityDisabled="isDisabled('owners')"
                                     :country="item.country"
                                     :province="item.province"
@@ -57,13 +58,14 @@
                                     @countryCityChange="((param)=>{countryCityChange(param,item,'')})"
                             ></CountryCitySelect>
                         </div>
-                        <div class="flex"><!--身份类型/署名-->
+                        <!--身份类型/姓名-->
+                        <div class="flex">
                             <el-form-item :prop="'owners.' + idx + '.peopleKind'"
                                           :rules="rules.peopleKind">
                                 <el-select class="mr10"
                                            v-if="item.applyType=='1'"
                                            v-model="item.peopleKind"
-                                           :disabled="isDisabled('owners')||user.accountType==0"
+                                           :disabled="isDisabled('owners')||(disableds.peopleKind&&idx==0)"
                                            placeholder="请选择">
                                     <el-option
                                             v-for="it in options.options_peopleKind"
@@ -91,7 +93,7 @@
                                 <el-select class="mr10"
                                            v-else
                                            v-model="item.peopleKind"
-                                           :disabled="isDisabled('owners')||user.accountType==0"
+                                           :disabled="isDisabled('owners')||(disableds.peopleKind&&idx==0)"
                                            placeholder="请选择">
                                     <el-option
                                             v-for="it in options.options_peopleKind"
@@ -115,12 +117,13 @@
                                         placeholder="著作权人姓名名名称，与身份证明文件保持一致"></el-input>
                             </el-form-item>
                         </div>
-                        <div class="flex"><!--证件类型/证件号-->
+                        <!--证件类型/证件号-->
+                        <div class="flex">
                             <el-form-item :prop="'owners.' + idx + '.idType'"
                                           :rules="rules.idType">
                                 <el-select
                                         class="mr10"
-                                        :disabled="isDisabled('owners') || isDisabled('idType')"
+                                        :disabled="isDisabled('owners') || (disableds.idType&&idx==0)"
                                         v-model="item.idType"
                                         placeholder="请选择证件类型">
                                     <el-option
@@ -138,12 +141,13 @@
                                     :prop="'owners.' + idx + '.idNumber'"
                                     :rules="item.idType=='1'?rules.idNumberID:rules.idNumber">
                                 <el-input
-                                        :disabled="isDisabled('owners')||isDisabled('idNumber')"
+                                        :disabled="isDisabled('owners')||(disableds.idNumber&&idx==0)"
                                         placeholder="证件号码"
                                         v-model="item.idNumber"></el-input>
                             </el-form-item>
                         </div>
-                        <div class="flex"><!--手机件号-->
+                        <!--手机件号-->
+                        <div class="flex">
                             <el-form-item
                                     class="flex-1"
                                     :prop="'owners.' + idx + '.mobile'"
@@ -155,16 +159,18 @@
                                 </el-input>
                             </el-form-item>
                         </div>
-                        <div class="flex"><!--个人/机构选择-->
+                        <!--是否设置为申请人-->
+                        <!--<div class="flex">
                             <div class="el-radio-group">
                                 <label role="radio" class="el-radio-button is-active">
                                     <input :checked="idx==0" @change="(val)=>{changeOnwer(val,idx)}"
                                            type="radio" tabindex="-1" class="el-radio-button__orig-radio">
-                                    <span class="el-radio-button__inner">著作人</span>
+                                    <span class="el-radio-button__inner">申请人</span>
                                 </label>
                             </div>
-                        </div>
-                        <div class="fuben" v-if="idx<0"><!--是否选择副本-->
+                        </div>-->
+                        <!--是否选择副本-->
+                        <!--<div class="fuben" v-if="idx<0">
                             <span>申请证书副本：</span>
                             <el-radio-group :disabled="isDisabled('owners')"
                                             v-model="item.applyCopy" class="small">
@@ -174,7 +180,7 @@
                                     {{item.text}}
                                 </el-radio-button>
                             </el-radio-group>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="f_right">
                         <div class="copy_upload" v-if="['1','15','16','17'].indexOf(item.idType)>-1">
@@ -204,14 +210,14 @@
                                     uptext="请上传证件"></FileUpload>
                         </div>
                     </div>
-                    <div class="opts" v-if="!isDisabled('owners') && idx!=0 && isOwnerAndDel">
+                    <div class="opts" v-if="!isDisabled('owners') && idx!=0">
                         <el-button type="text" @click="removeOwner(idx)">删除</el-button>
                         <el-button type="text" @click="clearOwner(idx)">清空</el-button>
                     </div>
                 </div>
             </div>
             <el-button
-                    v-if="!isDisabled('owners') && ownerNum>sdata.owners.length && isOwnerAndDel"
+                    v-if="!isDisabled('owners') && ownerNum>sdata.owners.length"
                     type="text"
                     @click="addOwner">+添加著作权人
             </el-button>
@@ -267,32 +273,41 @@
             return {
                 accountType: '1',
                 ownerNum: 1,
-                isOwnerAndDel: true,
                 authorNum: 1,
-                isAuthorAndDel: true,
                 disableds: {
-                    owner_applyType: false,
-                    peopleKind: false,
-                    ownerName: false,
-                    mobile: false,
-                    ownerDel: false,
-                    authorName: false,
-                    authorDel: false,
+                    owner_applyType: false, //著作人类型（个人、机构）
+                    country: false,         //著作人国家
+                    peopleKind: false,      //著作人身份类型
+                    ownerName: false,       //著作人名
+                    idType: false,          //著作人证件类型
+                    idNumber: false,        //著作人证件号码
+                    mobile: false,          //著作人手机号
+                    ownerDel: false,        //著作人删除按钮
+                    authorName: false,      //作者名
+                    authorDel: false,       //作者删除按钮
                 },
             }
         },
         computed: {
             typeGroup() {
-                var applyType = this.sdata.applyType; //1是著作权人2是代理人，默认为空
-                var accountType = (parseInt(this.user.accountType) + 1).toString(); //1是个人2是机构
+                var applyType = this.sdata.applyType; //申请类型，1是著作权人2是代理人，默认为空
+                var accountType = this.getUserAccountType(); //1是个人2是机构
                 this.accountType = accountType;
+                //权利属性默认值
+                if (!this.flowNumber && applyType == '1' && accountType == '2' && this.sdata.rightOwnType == '1') {
+                    this.sdata.rightOwnType = '2';
+                }
                 var rightOwnType = this.sdata.rightOwnType; //所迁权属类型 1个人作品、2合作作品、3法人作品、4职务作品、5委托作品
                 var type = '' + applyType + accountType + rightOwnType;
-                console.log('[applyType,accountType,rightOwnType]=' + type)
+
+                console.info('[applyType,accountType,rightOwnType]=' + type)
                 return type;
             }
         },
         methods: {
+            getUserAccountType() {
+                return (parseInt(this.user.accountType) + 1).toString();
+            },
             //代理人申请时，设置哪著作人为申请人；将点击著作人提到第一位
             changeOnwer(val, idx) {
                 var temp = this.sdata.owners.splice(idx, 1);
@@ -324,7 +339,7 @@
 
             //权限归属切换行为
             changeRightOwnType() {
-                console.log('this.$route.query', this.$route.query)
+                //console.log('this.$route.query', this.$route.query)
                 this.sdata.rightOwnTypeAttachment.relevantFileName = this.options.options_rightOwnType[this.sdata.rightOwnType - 1].relevantFileName;
                 //如果没有flowNumer参数并且是非编辑状态，表示非回填，则初始化数据
                 if (!this.flowNumber && !this.getSessionData()) {
@@ -337,10 +352,13 @@
                         })
 
                         this.disableds = {
+                            owner_applyType: true,
+                            country: !!this.ownerInfo.country,
+                            peopleKind: true,
+                            ownerName: true,
                             idType: !!this.ownerInfo.idType,
-                            ownerName: !!this.ownerInfo.name,
+                            idNumber: !!this.ownerInfo.idNumber,
                             ownerDel: true,
-                            authorName: !!this.ownerInfo.name,
                         }
                         break;
                     case '123'://法人作品[1,2,3]
@@ -351,8 +369,11 @@
 
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.ownerInfo.name,
-                            authorName: true
+                            country: !!this.ownerInfo.country,
+                            peopleKind: true,
+                            ownerName: true,
+                            idType: !!this.ownerInfo.idType,
+                            idNumber: !!this.ownerInfo.idNumber
                         }
                         break;
                     case '124': //职务作品[1,2,4]
@@ -364,8 +385,11 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.ownerInfo.name,
-                            mobile: !!this.user.phone,
+                            country: !!this.ownerInfo.country,
+                            peopleKind: true,
+                            ownerName: true,
+                            idType: !!this.ownerInfo.idType,
+                            idNumber: !!this.ownerInfo.idNumber
                         }
                         break;
                     case '112'://合作作品[1,1 ,2], [1,2,2]
@@ -374,9 +398,15 @@
                             ownerNum: 100,
                             authorNum: 100
                         })
+
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.ownerInfo.name,
+                            country: !!this.ownerInfo.country,
+                            peopleKind: true,
+                            ownerName: true,
+                            idType: !!this.ownerInfo.idType,
+                            idNumber: !!this.ownerInfo.idNumber,
+                            ownerDel: true,
                             authorName: true,
                             authorDel: true,
                         }
@@ -391,8 +421,11 @@
                         this.sdata.authors[0].name = '';
                         this.disableds = {
                             owner_applyType: true,
-                            ownerName: !!this.ownerInfo.name,
-                            authorName: false
+                            country: !!this.ownerInfo.country,
+                            peopleKind: true,
+                            ownerName: true,
+                            idType: !!this.ownerInfo.idType,
+                            idNumber: !!this.ownerInfo.idNumber
                         }
                         break;
                     case '211'://[2,1 ,1], [2,2,1]
@@ -487,7 +520,6 @@
                 this.sdata.authors[0].name = '';
             },
             _applyOwnerInfo(opts, owner0) {
-                console.log(opts, this.sdata)
                 if (!this.flowNumber) {
                     this.sdata.owners = this.sdata.owners.splice(0, 1)
                     this.sdata.authors = this.sdata.authors.splice(0, 1)
@@ -507,6 +539,7 @@
                     this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
                     this.sdata.authors[0].name = this.ownerInfo.name;
+                    console.log(this.ownerInfo)
                 }
             },
 
@@ -564,8 +597,6 @@
             },
             //添加拥有者
             addOwner() {
-                console.log(this.sdata.owners)
-
                 this.sdata.owners.push({
                     "applyType": "1",
                     "applyCopy": "0",
@@ -594,17 +625,19 @@
             },
         },
         mounted() {
-            //获取著作权人信息
-            api.ownerInfo({
-                "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
-                "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
-                "accountId": this.user.id
-            }).then(ret => {
-                //console.log(ret);
-                this.ownerInfo = ret.data;
-                console.log('this.ownerInfo ', this.ownerInfo);
+            if (!this.flowNumber) {//获取著作权人信息
+                api.ownerInfo({
+                    "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
+                    "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
+                    "accountId": this.user.id
+                }).then(ret => {
+                    this.ownerInfo = ret.data;
+                    this.changeRightOwnType();
+                })
+            } else {
                 this.changeRightOwnType();
-            })
+            }
+
         }
     }
 </script>

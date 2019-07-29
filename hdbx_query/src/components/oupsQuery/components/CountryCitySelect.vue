@@ -186,11 +186,11 @@
                     }
                 }
 
-                console.log(flag)
+                //console.log(flag)
                 return flag;
             },
             validateCountry() {
-                console.log(this.country, this.retParam.country, '----------', !this.country || !this.retParam.country)
+                //console.log(this.country, this.retParam.country, '----------', !this.country || !this.retParam.country)
                 if (!this.country && !this.retParam.country) {
                     return false;
                 } else {
@@ -200,7 +200,7 @@
         },
         async mounted() {
             this.selCountry = this.country;
-            console.log(this.selCountry)
+            //console.log('selCountry', this.selCountry)
             selCountry = this.selCountry
             this.countrys = await areaFun.getArea('Country');
 

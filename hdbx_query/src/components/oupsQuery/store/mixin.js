@@ -32,7 +32,7 @@ const myMixin = {
         async stepNext(applyType) {
             let step = this.$route.name;
             canNextFlag = true;
-            console.log(this.sdata, step)
+            console.log(this.sdata, step, this.flowNumber)
             //return false
             var t = await this.validate();
             if (!t) {
@@ -58,15 +58,16 @@ const myMixin = {
                     break;
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
-                    //return false;
                     this.sdata.accountId = this.user.id;
+                    console.log(this.flowNumber)
+                    return false;
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()
                             this.$router.push('/submitMaterial?submitFlowNumber=' + ret.data)
                         })
                     } else {
-                        api.reFillin(this.sdata).then((ret) => {
+                        api.reFillin(this.sdata, this.flowNumber).then((ret) => {
                             this.clearSessionData()
                             this.$router.push('/submitMaterial?submitFlowNumber=' + ret.data)
                         })
@@ -75,9 +76,10 @@ const myMixin = {
                 case 'submitMaterial':
                     this.$router.push('/submitSuccess')
                     break;
-                    break;
                 default:
-                    this.clearSessionData()
+                    this.clearSessionData();
+                    this.flowNumber = null;
+                    console.log('default', this.flowNumber)
                     this.$router.push('/chooseIdentity')
             }
             this.setSessionData();
@@ -210,7 +212,7 @@ const myMixin = {
         clearSessionData() {
             store.sdata = store.sdata_init;
             this.sdata = store.sdata_init;
-            sessionStorage.setItem('sdata', null)
+            sessionStorage.removeItem('sdata')
         }
     }
 }
