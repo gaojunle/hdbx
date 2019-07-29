@@ -148,6 +148,7 @@
                 this.province && loction.push(this.province)
                 this.city && loction.push(this.city)
                 this.area && loction.push(this.area)
+                console.log(this.area)
                 if (loction.length > 0) {
                     var cIpt = this.$refs.cityBox.$el.querySelector('.el-input__inner');
                     cIpt.value = loction.join('/')

@@ -67,7 +67,7 @@
                         :country="sdata.completeCountry"
                         :province="sdata.completeProvince"
                         :city="sdata.completeCity"
-                        :area="sdata.completeArea"
+                        :area="sdata.appearCity"
                         @countryCityChange="((param)=>{countryCityChange(param,sdata,'complete')})"
                 ></CountryCitySelect>
             </div>

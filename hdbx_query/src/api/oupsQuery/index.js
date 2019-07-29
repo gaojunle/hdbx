@@ -30,7 +30,7 @@ export default {
      * @returns {*}
      */
     reFillin(z11RegisterApplyInfoVo, flowNumber) {
-        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/opusExamine/reFillin", {
+        return this.axios(API_HOST + "/registerQueryOpusServer/RegisterBaseInfo/Z11ReviseFinish", {
             z11RegisterApplyInfoVo: z11RegisterApplyInfoVo,
             flowNumber: flowNumber
         }, {

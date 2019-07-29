@@ -93,6 +93,7 @@
 
             //获取是否回显标记；
             this.flowNumber = this.$route.query.flowNumber;
+            store.flowNumber = this.$route.query.flowNumber;
 
             //如果本地有数据，优先使用session数据（用户编辑数据），然后判断是否是回填数据；
             if (this.getSessionData()) {

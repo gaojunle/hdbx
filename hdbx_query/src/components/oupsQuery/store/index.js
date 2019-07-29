@@ -27,6 +27,7 @@ function getNowDate() {
 
 const store = {
     debug: true,
+    flowNumber: null,
     user: {
         "accountStatus": 1,
         "id": "",

@@ -7,7 +7,7 @@ var canNextFlag = true;
 const myMixin = {
     data() {
         return {
-            flowNumber: null, //是否回显标识，在app创建时判断
+            flowNumber: store.flowNumber, //是否回显标识，在app创建时判断
             user: store.user,
             ownerInfo: store.ownerInfo,
             options: options,
@@ -59,8 +59,6 @@ const myMixin = {
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
                     this.sdata.accountId = this.user.id;
-                    console.log(this.flowNumber)
-                    return false;
                     if (!this.flowNumber) {
                         api.Z11BaseInfo(this.sdata).then((ret) => {
                             this.clearSessionData()
@@ -79,8 +77,8 @@ const myMixin = {
                 default:
                     this.clearSessionData();
                     this.flowNumber = null;
-                    console.log('default', this.flowNumber)
-                    this.$router.push('/chooseIdentity')
+                    this.$router.push('/chooseIdentity');
+                    location.reload()
             }
             this.setSessionData();
         },
