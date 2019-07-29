@@ -539,7 +539,6 @@
                     this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
                     this.sdata.authors[0].name = this.ownerInfo.name;
-                    console.log(this.ownerInfo)
                 }
             },
 
@@ -602,7 +601,7 @@
                     "applyCopy": "0",
                     "cardBack": "",
                     "cardFront": "",
-                    "country": "",
+                    "country": "001",
                     "province": "",
                     "city": "",
                     "idNumber": "",

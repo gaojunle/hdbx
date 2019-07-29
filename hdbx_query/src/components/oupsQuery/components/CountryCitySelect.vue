@@ -62,6 +62,7 @@
                         setTimeout(async () => {
                             let citys = null;
 
+                            console.log(selCountry);
                             if (!selCountry) {
                                 resolve([])
                                 return;
@@ -106,7 +107,6 @@
                     selCountry = this.selCountry
                     this.countrys = await areaFun.getArea('Country');
                     this.selCountryChange('001')
-                    this.initLocation()
                 }
             }
         },
@@ -148,7 +148,6 @@
                 this.province && loction.push(this.province)
                 this.city && loction.push(this.city)
                 this.area && loction.push(this.area)
-                console.log(this.area)
                 if (loction.length > 0) {
                     var cIpt = this.$refs.cityBox.$el.querySelector('.el-input__inner');
                     cIpt.value = loction.join('/')
@@ -200,8 +199,10 @@
             }
         },
         async mounted() {
+            var countrys = JSON.parse(sessionStorage.getItem('Country'));
+            console.log()
             this.selCountry = this.country;
-            //console.log('selCountry', this.selCountry)
+            console.log('selCountry', this.selCountry)
             selCountry = this.selCountry
             this.countrys = await areaFun.getArea('Country');
 
