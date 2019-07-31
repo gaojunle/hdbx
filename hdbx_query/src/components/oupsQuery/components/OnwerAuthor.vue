@@ -363,8 +363,8 @@
                         break;
                     case '123'://法人作品[1,2,3]
                         this._applyOwnerInfo({
-                            applyType: '2',
-                            peopleKind: '2'
+                            peopleKind: '2',
+                            applyType: this.getUserAccountType()
                         })
 
                         this.disableds = {
@@ -379,8 +379,7 @@
                     case '124': //职务作品[1,2,4]
                         this._applyOwnerInfo({
                             authorNum: 100,
-                            applyType: '2',
-                            peopleKind: '2'
+                            applyType: this.getUserAccountType()
                         })
                         this.sdata.authors[0].name = '';
                         this.disableds = {
@@ -396,13 +395,14 @@
                     case '122':
                         this._applyOwnerInfo({
                             ownerNum: 100,
-                            authorNum: 100
+                            authorNum: 100,
+                            applyType: this.getUserAccountType()
                         })
 
                         this.disableds = {
                             owner_applyType: true,
                             country: !!this.ownerInfo.country,
-                            peopleKind: true,
+                            peopleKind: !!this.ownerInfo.peopleKind,
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
                             idNumber: !!this.ownerInfo.idNumber,
@@ -416,7 +416,8 @@
                     case '125':
                         this._applyOwnerInfo({
                             ownerNum: 100,
-                            authorNum: 100
+                            authorNum: 100,
+                            applyType: this.getUserAccountType()
                         })
                         this.sdata.authors[0].name = '';
                         this.disableds = {
@@ -528,14 +529,11 @@
                 this.authorNum = opts.authorNum || 1;
                 this.sdata.owners[0].applyType = opts.applyType || '1';
 
-                if (!this.sdata.owners[0].peopleKind) {
-                    this.sdata.owners[0].peopleKind = opts.peopleKind || '1';
-                }
-
                 if (!owner0) {
-                    this.sdata.owners[0].name = this.ownerInfo.name;
                     this.sdata.owners[0].country = this.ownerInfo.country;
-                    this.sdata.owners[0].idType = this.ownerInfo.peopleType;
+                    this.sdata.owners[0].peopleKind = this.ownerInfo.peopleKind;
+                    this.sdata.owners[0].name = this.ownerInfo.name;
+                    this.sdata.owners[0].idType = this.ownerInfo.idType;
                     this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
                     this.sdata.authors[0].name = this.ownerInfo.name;
@@ -631,6 +629,7 @@
                     "accountId": this.user.id
                 }).then(ret => {
                     this.ownerInfo = ret.data;
+                    console.log('this.ownerInfo', JSON.parse(JSON.stringify(this.ownerInfo)))
                     this.changeRightOwnType();
                 })
             } else {

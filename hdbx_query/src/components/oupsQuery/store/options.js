@@ -205,6 +205,11 @@ const options = {
             type: '2'
         },
         {
+            val: '22',
+            text: '机关法人',
+            type: '2'
+        },
+        {
             val: '23',
             text: '事业单位法人',
             type: '2'
@@ -222,6 +227,11 @@ const options = {
         {
             val: '4',
             text: '其它',
+            type: '2'
+        },
+        {
+            val: '5',
+            text: '军队单位',
             type: '2'
         }
     ],
@@ -335,7 +345,7 @@ const options = {
         },
         {
             val: '9',
-            text: '其它证件',
+            text: '其它',
         },
         {
             val: '10',
