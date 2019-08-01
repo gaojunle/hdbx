@@ -34,18 +34,43 @@ const myMixin = {
             canNextFlag = true;
             console.log(this.sdata, step, this.flowNumber)
             //return false
+
+            //校验填写
             var t = await this.validate();
             if (!t) {
                 return false
             }
-            //return false
 
             switch (step) {
                 case 'chooseIdentity':
                     //填报身份不一致时，清除缓存
-                    //console.log(this.sdata.applyType, applyType.toString())
-                    if (this.sdata.applyType != applyType.toString()) {
-                        this.clearSessionData()
+                    //console.log(this.getSessionData().applyType, applyType.toString())
+                    if (this.getSessionData() && (this.getSessionData().applyType != applyType.toString())) {
+                        this.clearSessionData();
+
+                        this.$router.push('/creativeInfo');
+                        if(applyType == '1'){
+                            this.sdata.applyType = applyType.toString();
+                        }else{
+                            var authAttachment = {//选择代理人时，授权委托书
+                                "attachmentId": "",
+                                "flowNumber": "",
+                                "segmentName": "",
+                                "attachmentName": this.sdata.authAttachment.attachmentName,
+                                "relevantFileName": "QLGS-01",
+                                "path": this.sdata.authAttachment.path,
+                                "remark": "",
+                                "createTime": "",
+                                "updateTime": "",
+                                "baseId": null
+                            }
+                            var agentDesc = this.sdata.agentDesc;
+
+                            this.sdata.authAttachment = authAttachment;
+                            this.sdata.agentDesc = agentDesc;
+                        }
+                        this.setSessionData();
+                        location.reload()
                     }
                     this.sdata.applyType = applyType.toString();
                     this.$router.push('/creativeInfo')
@@ -126,7 +151,7 @@ const myMixin = {
 
         //国家城市选择后回调处理方法
         countryCityChange(params, item, type) {
-            console.log('countryCityChange:', JSON.stringify(params), item, type)
+            //console.log('countryCityChange:', JSON.stringify(params), item, type)
             if (type) {
                 item[type + 'Country'] = params.country
                 item[type + 'Province'] = params.province;

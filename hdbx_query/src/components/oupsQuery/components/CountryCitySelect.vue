@@ -62,7 +62,7 @@
                         setTimeout(async () => {
                             let citys = null;
 
-                            console.log(selCountry);
+                            //console.log(selCountry);
                             if (!selCountry) {
                                 resolve([])
                                 return;
@@ -200,9 +200,8 @@
         },
         async mounted() {
             var countrys = JSON.parse(sessionStorage.getItem('Country'));
-            console.log()
             this.selCountry = this.country;
-            console.log('selCountry', this.selCountry)
+           // console.log('selCountry', this.selCountry)
             selCountry = this.selCountry
             this.countrys = await areaFun.getArea('Country');
 

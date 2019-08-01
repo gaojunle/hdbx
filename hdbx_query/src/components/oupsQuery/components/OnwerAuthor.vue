@@ -533,10 +533,13 @@
                     this.sdata.owners[0].country = this.ownerInfo.country;
                     this.sdata.owners[0].peopleKind = this.ownerInfo.peopleKind;
                     this.sdata.owners[0].name = this.ownerInfo.name;
-                    this.sdata.owners[0].idType = this.ownerInfo.idType;
                     this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
                     this.sdata.authors[0].name = this.ownerInfo.name;
+                    setTimeout(() => {
+                        //受著作人类型个人/机构影响
+                        this.sdata.owners[0].idType = this.ownerInfo.idType;
+                    }, 100)
                 }
             },
 

@@ -289,7 +289,6 @@ const store = {
         "certificateCollectionMethod",
         "certificateCollectionAddress"
     ],
-
     rules: {
         agentDesc: [
             {required: true, message: '请输入登记信息', trigger: 'blur'}
