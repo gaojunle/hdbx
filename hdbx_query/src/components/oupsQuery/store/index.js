@@ -1,3 +1,8 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
 function validateId(rule, value, callback) {
     if (value === '') {
         callback(new Error('请输入证件号码'));
@@ -9,6 +14,7 @@ function validateId(rule, value, callback) {
         }
     }
 }
+
 
 function getNowDate() {
     /*var date = new Date();
@@ -25,6 +31,16 @@ function getNowDate() {
     return nowDate
 }
 
+const store1 = new Vuex.Store({
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment(state) {
+            state.count++
+        }
+    }
+})
 const store = {
     debug: true,
     flowNumber: null,
@@ -52,107 +68,109 @@ const store = {
         "logintime": 1563849416712
     },
     ownerInfo: {},
-    sdata_init: {
-        "accountId": "",
-        "appearCity": "",
-        "appearArea": "",
-        "appearCountry": "",
-        "appearDate": getNowDate(),
-        "appearProvince": "",
-        "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
-        "authAttachment": {//选择代理人时，授权委托书
-            "attachmentId": "",
-            "flowNumber": "",
-            "segmentName": "",
-            "attachmentName": "",
-            "relevantFileName": "QLGS-01",
-            "path": "",
-            "remark": "",
-            "createTime": "",
-            "updateTime": "",
-            "baseId": null
-        },
-        "agentDesc": "",
-        "attachments": [
-            {
-                "attachmentList": [],
-                "segmentName": ""
-            }
-        ],
-        "authors": [
-            {"name": "", "signature": ""}
-        ],
-        "certificateCollectionMethod": "HALL",//HALL表示大厅领取
-        "certificateCollectionAddress": 'TQ',
-        "completeCity": "",
-        "completeCountry": "",
-        "completeDate": getNowDate(),
-        "completeProvince": "",
-        "needStamp": "1",
-        "obtainType": "1",
-        "obtainTypeAttachment": [
-            {
-                relevantFileName: 'QLGS-0603',//继承作品－与被继承人关系证明
-                path: '',
-                remark: 'remark'
+    sdata_init: (() => {
+        return {
+            "accountId": "",
+            "appearCity": "",
+            "appearArea": "",
+            "appearCountry": "",
+            "appearDate": getNowDate(),
+            "appearProvince": "",
+            "applyType": "",//申请者身份类型applyType 1是著作权人2是代理人，默认为空
+            "authAttachment": {//选择代理人时，授权委托书
+                "attachmentId": "",
+                "flowNumber": "",
+                "segmentName": "",
+                "attachmentName": "",
+                "relevantFileName": "QLGS-01",
+                "path": "",
+                "remark": "",
+                "createTime": "",
+                "updateTime": "",
+                "baseId": null
             },
-            {
-                relevantFileName: 'QLGS-0601',
-                path: '',
-                remark: 'remark'
+            "agentDesc": "",
+            "attachments": [
+                {
+                    "attachmentList": [],
+                    "segmentName": ""
+                }
+            ],
+            "authors": [
+                {"name": "", "signature": ""}
+            ],
+            "certificateCollectionMethod": "HALL",//HALL表示大厅领取
+            "certificateCollectionAddress": 'TQ',
+            "completeCity": "",
+            "completeCountry": "",
+            "completeDate": getNowDate(),
+            "completeProvince": "",
+            "needStamp": "1",
+            "obtainType": "1",
+            "obtainTypeAttachment": [
+                {
+                    relevantFileName: 'QLGS-0603',//继承作品－与被继承人关系证明
+                    path: '',
+                    remark: 'remark'
+                },
+                {
+                    relevantFileName: 'QLGS-0601',
+                    path: '',
+                    remark: 'remark'
+                },
+                {
+                    relevantFileName: 'QLGS-0602',
+                    path: '',
+                    remark: 'remark'
+                },
+                {
+                    relevantFileName: 'QLGS-0605',
+                    path: '',
+                    remark: 'remark'
+                }
+            ],
+            "ownObtainDate": getNowDate(),
+            "opusDescriptionAttachment": {
+                "path": '',
+                "remark": '',
+                "relevantFileName": "QLGS-07"
             },
-            {
-                relevantFileName: 'QLGS-0602',
+            "opusInditeType": "1",
+            "opusInfo": "",
+            "opusName": "",
+            "opusNature": "1",
+            "opusType": 'A',
+            "opusTypeDesc": "",
+            "owners": [
+                {
+                    "applyType": "1",
+                    "applyCopy": "0",
+                    "cardBack": "",
+                    "cardFront": "",
+                    "country": "",
+                    "province": "",
+                    "city": "",
+                    "idNumber": "",
+                    "idType": "",
+                    "mobile": "",
+                    "name": "",
+                    "peopleKind": "",
+                    "role": "OWN"
+                }],
+            "publishStatus": "1",
+            "registrationMethodType": "HALL",
+            "registrationMethod": "TQ",
+            "rightOwnType": "",
+            rightOwnTypeAttachment: {//rightOwnType为1时没有附件
+                relevantFileName: '',
                 path: '',
-                remark: 'remark'
+                remark: ''
             },
-            {
-                relevantFileName: 'QLGS-0605',
-                path: '',
-                remark: 'remark'
-            }
-        ],
-        "ownObtainDate": getNowDate(),
-        "opusDescriptionAttachment": {
-            "path": '',
-            "remark": '',
-            "relevantFileName": "QLGS-07"
-        },
-        "opusInditeType": "1",
-        "opusInfo": "",
-        "opusName": "",
-        "opusNature": "1",
-        "opusType": 'A',
-        "opusTypeDesc": "",
-        "owners": [
-            {
-                "applyType": "1",
-                "applyCopy": "0",
-                "cardBack": "",
-                "cardFront": "",
-                "country": "",
-                "province": "",
-                "city": "",
-                "idNumber": "",
-                "idType": "",
-                "mobile": "",
-                "name": "",
-                "peopleKind": "",
-                "role": "OWN"
-            }],
-        "publishStatus": "1",
-        "registrationMethodType": "HALL",
-        "registrationMethod": "TQ",
-        "rightOwnType": "",
-        rightOwnTypeAttachment: {//rightOwnType为1时没有附件
-            relevantFileName: '',
-            path: '',
-            remark: ''
-        },
-        "rightScope": "1",
-        rightScopePart: [],
-        "sampleRetentionMedium": "1"
-    },
+            "rightScope": "1",
+            rightScopePart: [],
+            "sampleRetentionMedium": "1"
+        };
+    })(),
     sdata: {
         "accountId": "",
         "appearCity": "",

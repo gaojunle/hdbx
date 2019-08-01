@@ -21,6 +21,13 @@ const myMixin = {
             if (['confirmApplication', 'creativeInfo', 'ownershipInfo'].indexOf(this.$route.name) > -1 && !this.getSessionData()) {
                 this.$router.replace('/chooseIdentity')
             }
+            if (!getCookie('webUserInfo')) {
+                if (this.$route.name != 'chooseIdentity') {
+                    this.$router.push('/chooseIdentity');
+                }
+
+                return false;
+            }
         }
     },
     methods: {
@@ -30,9 +37,13 @@ const myMixin = {
         },
         //下一步
         async stepNext(applyType) {
+            //切换账号，当前用户id与sdata内的id不一致时处理；
+            if (this.user.id && getCookie('webUserInfo').id != this.user.id) {
+                this.clearSessionData();
+            }
             let step = this.$route.name;
             canNextFlag = true;
-            console.log(this.sdata, step, this.flowNumber)
+            console.log(JSON.parse(JSON.stringify(this.sdata)), step, this.flowNumber)
             //return false
 
             //校验填写
@@ -46,12 +57,15 @@ const myMixin = {
                     //填报身份不一致时，清除缓存
                     //console.log(this.getSessionData().applyType, applyType.toString())
                     if (this.getSessionData() && (this.getSessionData().applyType != applyType.toString())) {
-                        this.clearSessionData();
+                        if (applyType == '1') {
+                            this.clearSessionData();
 
-                        this.$router.push('/creativeInfo');
-                        if(applyType == '1'){
+                            this.sdata.authAttachment = {};
+                            store.sdata.authAttachment = {};
+                            this.sdata.agentDesc = '';
+                            store.sdata.agentDesc = '';
                             this.sdata.applyType = applyType.toString();
-                        }else{
+                        } else {
                             var authAttachment = {//选择代理人时，授权委托书
                                 "attachmentId": "",
                                 "flowNumber": "",
@@ -65,12 +79,14 @@ const myMixin = {
                                 "baseId": null
                             }
                             var agentDesc = this.sdata.agentDesc;
-
+                            this.clearSessionData();
                             this.sdata.authAttachment = authAttachment;
+                            store.sdata.authAttachment = authAttachment;
                             this.sdata.agentDesc = agentDesc;
+                            store.sdata.agentDesc = agentDesc;
                         }
+                        this.$router.push('/creativeInfo');
                         this.setSessionData();
-                        location.reload()
                     }
                     this.sdata.applyType = applyType.toString();
                     this.$router.push('/creativeInfo')
@@ -227,15 +243,31 @@ const myMixin = {
         },
 
         setSessionData() {
-            sessionStorage.setItem('sdata', JSON.stringify(this.sdata))
+            if (!this.user.id) {
+                alert('未登录');
+                return false;
+            }
+            console.log('setSessionData', this.sdata.opusName);
+            sessionStorage.setItem('hdbx_' + this.user.id, JSON.stringify(this.sdata))
         },
         getSessionData() {
-            return JSON.parse(sessionStorage.getItem('sdata'))
+            if (!this.user.id) {
+                alert('未登录');
+                return false;
+            }
+            return JSON.parse(sessionStorage.getItem('hdbx_' + this.user.id))
         },
         clearSessionData() {
-            store.sdata = store.sdata_init;
-            this.sdata = store.sdata_init;
-            sessionStorage.removeItem('sdata')
+            var sdata_init = JSON.parse(JSON.stringify(store.sdata_init));
+            store.sdata = sdata_init
+            this.sdata = sdata_init;
+
+            //清掉所有登录账号session
+            for (var skey in sessionStorage) {
+                if (skey.substring(0, 5) == 'hdbx_') {
+                    sessionStorage.removeItem(skey)
+                }
+            }
         }
     }
 }
