@@ -41,20 +41,8 @@
             autoToLogin()
             this.setUserInfo();
 
-            //console.log('this.user', JSON.parse(JSON.stringify(this.user)));
-            //TODO 测试判断用户是否登录
-            if (!getCookie('webUserInfo')) {
-                this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录，并刷新</p>', '提示', {
-                    dangerouslyUseHTMLString: true,
-                    callback: action => {
-                        if (this.$route.name != 'chooseIdentity') {
-                            this.$router.push('/chooseIdentity');
-                        }
-                    }
-                });
+            this.noLoginCheck();
 
-                return false;
-            }
             //获取是否回显标记；
             this.flowNumber = this.$route.query.flowNumber;
             store.flowNumber = this.$route.query.flowNumber;
@@ -79,6 +67,10 @@
                     }
                 });
             })
+
+            setInterval(() => {
+                console.log('changeUserCheck', this.changeUserCheck());
+            }, 3000)
         }
     }
 </script>

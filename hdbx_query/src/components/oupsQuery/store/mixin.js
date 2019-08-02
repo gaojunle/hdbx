@@ -21,26 +21,22 @@ const myMixin = {
             if (['confirmApplication', 'creativeInfo', 'ownershipInfo'].indexOf(this.$route.name) > -1 && !this.getSessionData()) {
                 this.$router.replace('/chooseIdentity')
             }
-            if (!getCookie('webUserInfo')) {
-                if (this.$route.name != 'chooseIdentity') {
-                    this.$router.push('/chooseIdentity');
-                }
-
-                return false;
-            }
+            this.noLoginCheck();
         }
     },
     methods: {
         //上一步
         stepPrev(step, applyType) {
-            this.$router.go(-1)
+            if (!this.changeUserCheck()) {
+                this.$router.go(-1);
+            }
         },
         //下一步
         async stepNext(applyType) {
-            //切换账号，当前用户id与sdata内的id不一致时处理；
-            if (this.user.id && getCookie('webUserInfo').id != this.user.id) {
-                this.clearSessionData();
+            if (this.changeUserCheck()) {
+                return false;
             }
+
             let step = this.$route.name;
             canNextFlag = true;
             console.log(JSON.parse(JSON.stringify(this.sdata)), step, this.flowNumber)
@@ -244,7 +240,6 @@ const myMixin = {
 
         setSessionData() {
             if (!this.user.id) {
-                alert('未登录');
                 return false;
             }
             console.log('setSessionData', this.sdata.opusName);
@@ -252,7 +247,6 @@ const myMixin = {
         },
         getSessionData() {
             if (!this.user.id) {
-                alert('未登录');
                 return false;
             }
             return JSON.parse(sessionStorage.getItem('hdbx_' + this.user.id))
@@ -268,6 +262,33 @@ const myMixin = {
                     sessionStorage.removeItem(skey)
                 }
             }
+        },
+
+        ////未登录状态管理
+        noLoginCheck() {
+            if (!getCookie('webUserInfo')) {
+                this.clearSessionData();
+                this.$router.push('/chooseIdentity');
+                return false;
+            }
+        },
+
+        //切换账号，当前用户id与sdata内的id不一致时处理；
+        changeUserCheck() {
+            let cookieUserInfo = getCookie('webUserInfo');
+            if (!cookieUserInfo || (this.user.id && (cookieUserInfo.id != this.user.id))) {
+                this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">您已切换用户，需要首页重新开始</p>', '提示', {
+                    dangerouslyUseHTMLString: true,
+                    callback: action => {
+                        this.clearSessionData();
+
+                        this.$router.push('/chooseIdentity');
+                        location.reload()
+                    }
+                });
+                return true;
+            }
+            return false;
         }
     }
 }
