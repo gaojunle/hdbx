@@ -276,7 +276,7 @@ const myMixin = {
         //切换账号，当前用户id与sdata内的id不一致时处理；
         changeUserCheck() {
             let cookieUserInfo = getCookie('webUserInfo');
-            if (!cookieUserInfo || (this.user.id && (cookieUserInfo.id != this.user.id))) {
+            if ((cookieUserInfo && this.user.id && (cookieUserInfo.id != this.user.id))) {
                 this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">您已切换用户，需要首页重新开始</p>', '提示', {
                     dangerouslyUseHTMLString: true,
                     callback: action => {
