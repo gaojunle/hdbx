@@ -69,7 +69,7 @@
             })
 
             setInterval(() => {
-                console.log('changeUserCheck', this.changeUserCheck());
+                this.changeUserCheck();
             }, 3000)
         }
     }
