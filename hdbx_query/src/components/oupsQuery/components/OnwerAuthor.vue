@@ -187,14 +187,14 @@
                             <!--大陆身份证，香港，澳门，台湾的所有证都做成正反面的，其他证件做成单面的-->
                             <FileUpload
                                     ref="UP_cardFront"
-                                    :disabled="isDisabled('owners')"
+                                    :disabled="isDisabled('owners')||(disableds.cardFront&&idx==0)"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
                                     theme="idcard"
                                     :path="sdata.owners[idx].cardFront"
                                     uptext="请上传证件正面"></FileUpload>
                             <FileUpload
                                     ref="UP_cardBack"
-                                    :disabled="isDisabled('owners')"
+                                    :disabled="isDisabled('owners')||(disableds.cardBack&&idx==0)"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardBack')})"
                                     theme="idcard"
                                     :path="sdata.owners[idx].cardBack"
@@ -203,7 +203,7 @@
                         <div v-else>
                             <FileUpload
                                     ref="UP_cardFront"
-                                    :disabled="isDisabled('owners')"
+                                    :disabled="isDisabled('owners')||(disableds.certificatePath&&idx==0)"
                                     @idcardFileSuccess="((params)=>{idcardFileSuccess(params,idx,'cardFront')})"
                                     theme="idcard"
                                     :path="sdata.owners[idx].cardFront"
@@ -358,6 +358,9 @@
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
                             idNumber: !!this.ownerInfo.idNumber,
+                            cardFront: !!this.ownerInfo.cardFront,
+                            cardBack: !!this.ownerInfo.cardBack,
+                            certificatePath: !!this.ownerInfo.certificatePath,
                             ownerDel: true,
                         }
                         break;
@@ -373,7 +376,10 @@
                             peopleKind: true,
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
-                            idNumber: !!this.ownerInfo.idNumber
+                            idNumber: !!this.ownerInfo.idNumber,
+                            cardFront: !!this.ownerInfo.cardFront,
+                            cardBack: !!this.ownerInfo.cardBack,
+                            certificatePath: !!this.ownerInfo.certificatePath,
                         }
                         break;
                     case '124': //职务作品[1,2,4]
@@ -388,7 +394,10 @@
                             peopleKind: true,
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
-                            idNumber: !!this.ownerInfo.idNumber
+                            idNumber: !!this.ownerInfo.idNumber,
+                            cardFront: !!this.ownerInfo.cardFront,
+                            cardBack: !!this.ownerInfo.cardBack,
+                            certificatePath: !!this.ownerInfo.certificatePath,
                         }
                         break;
                     case '112'://合作作品[1,1 ,2], [1,2,2]
@@ -406,6 +415,9 @@
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
                             idNumber: !!this.ownerInfo.idNumber,
+                            cardFront: !!this.ownerInfo.cardFront,
+                            cardBack: !!this.ownerInfo.cardBack,
+                            certificatePath: !!this.ownerInfo.certificatePath,
                             ownerDel: true,
                             authorName: true,
                             authorDel: true,
@@ -426,7 +438,10 @@
                             peopleKind: true,
                             ownerName: true,
                             idType: !!this.ownerInfo.idType,
-                            idNumber: !!this.ownerInfo.idNumber
+                            idNumber: !!this.ownerInfo.idNumber,
+                            cardFront: !!this.ownerInfo.cardFront,
+                            cardBack: !!this.ownerInfo.cardBack,
+                            certificatePath: !!this.ownerInfo.certificatePath,
                         }
                         break;
                     case '211'://[2,1 ,1], [2,2,1]
@@ -535,7 +550,10 @@
                     this.sdata.owners[0].name = this.ownerInfo.name;
                     this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
                     this.sdata.owners[0].mobile = this.user.phone;
+                    this.sdata.owners[0].cardFront = this.ownerInfo.cardFront||this.ownerInfo.certificatePath;
+                    this.sdata.owners[0].cardBack = this.ownerInfo.cardBack;
                     this.sdata.authors[0].name = this.ownerInfo.name;
+
                     setTimeout(() => {
                         //受著作人类型个人/机构影响
                         this.sdata.owners[0].idType = this.ownerInfo.idType;
@@ -602,7 +620,7 @@
                     "applyCopy": "0",
                     "cardBack": "",
                     "cardFront": "",
-                    "country": "001",
+                    "country": "",
                     "province": "",
                     "city": "",
                     "idNumber": "",

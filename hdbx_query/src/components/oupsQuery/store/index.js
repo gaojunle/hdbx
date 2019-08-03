@@ -1,8 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
 function validateId(rule, value, callback) {
     if (value === '') {
         callback(new Error('请输入证件号码'));
@@ -31,16 +26,6 @@ function getNowDate() {
     return nowDate
 }
 
-const store1 = new Vuex.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment(state) {
-            state.count++
-        }
-    }
-})
 const store = {
     debug: true,
     flowNumber: null,
