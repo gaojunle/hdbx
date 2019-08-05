@@ -335,6 +335,7 @@
                 } else {
                     item.peopleKind = val.toString()
                 }
+                item.idType = ''
             },
 
             //权限归属切换行为

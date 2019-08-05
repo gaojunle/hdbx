@@ -1,5 +1,6 @@
 <template>
     <uploader
+            ref="uploader"
             :options="options"
             @file-added="onFileAdded"
             @file-success="onFileSuccess"
@@ -134,6 +135,7 @@
         },
         methods: {
             onFileAdded(evt) {
+                console.log(evt)
                 //TODO 此处为无接口测试代码
                 /*const reader = new FileReader()
                 reader.onload = (e) => {
@@ -146,6 +148,7 @@
                 reader.readAsDataURL(evt.file)*/
             },
             onFileSuccess(rootFile, file, response, chunk) {
+                console.log(rootFile)
                 let res = JSON.parse(response);
                 //TODO 此外为显示外面，替换原host地址
                 res.data.filePath = res.data.filePath.replace('http://10.10.202.82:9090', 'http://210.14.147.108:8002/resource')
@@ -162,7 +165,7 @@
                     })
                 }
 
-                this.filePath = res.data.filePath
+                this.filePath = res.data.filePath;
             },
 
             onFileError(rootFile, file, response, chunk) {
