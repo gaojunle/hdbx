@@ -260,7 +260,7 @@ const store = {
     reFillin: [
         "agentDesc",
         "accountId",
-        "applyType",
+        //"applyType",
         "authAttachment",
         "opusName",
         "opusType",

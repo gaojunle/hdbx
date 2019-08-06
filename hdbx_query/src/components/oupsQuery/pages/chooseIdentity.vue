@@ -1,13 +1,17 @@
 <template>
     <div class="step step_0">
         <div class="mbox">
-            <div class="person" :class="{on:sdata.applyType=='1'}" @click="stepNext(1)">
+            <div class="person"
+                 :class="{on:sdata.applyType=='1',disabled:(sdata.applyType!='1'&&isDisabled('applyType'))}"
+                 @click="selOnwer(sdata.applyType!='1'&&isDisabled('applyType'))">
                 <div class="s_icon s_per"></div>
                 <div class="type">我是著作权人</div>
                 <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
             </div>
 
-            <div class="company" :class="{on:sdata.applyType=='2'}" @click="sdata.applyType=2;showAuthPaper=true">
+            <div class="company"
+                 :class="{on:sdata.applyType=='2',disabled:(sdata.applyType!='2'&&isDisabled('applyType'))}"
+                 @click="selProxy(sdata.applyType!='2'&&isDisabled('applyType'))">
                 <div class="s_icon s_paper"></div>
                 <div class="type">我是代理人</div>
                 <div class="desc">办理本人所属机构业务或以本人所属机构名义代理他人办理业务</div>
@@ -66,7 +70,19 @@
             }
         },
 
-        methods: {},
+        methods: {
+            selOnwer(flag) {
+                if (!flag) {
+                    this.stepNext(1)
+                }
+            },
+            selProxy(flag) {
+                if (!flag) {
+                    this.sdata.applyType = 2;
+                    this.showAuthPaper = true;
+                }
+            }
+        },
         async created() {
             //首页获取回填数据，后面步骤从session中获取
             if (getCookie('webUserInfo') && !this.getSessionData() && this.flowNumber) {

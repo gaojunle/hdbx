@@ -364,6 +364,7 @@
                             cardBack: !!this.ownerInfo.cardBack,
                             certificatePath: !!this.ownerInfo.certificatePath,
                             ownerDel: true,
+                            authorName: true
                         }
                         break;
                     case '123'://法人作品[1,2,3]
@@ -382,6 +383,7 @@
                             cardFront: !!this.ownerInfo.cardFront,
                             cardBack: !!this.ownerInfo.cardBack,
                             certificatePath: !!this.ownerInfo.certificatePath,
+                            authorName: true
                         }
                         break;
                     case '124': //职务作品[1,2,4]
@@ -540,7 +542,6 @@
             _applyOwnerInfo(opts, owner0) {
                 this.ownerNum = opts.ownerNum || 1;
                 this.authorNum = opts.authorNum || 1;
-                console.log(this.ownerNum)
                 if (!this.flowNumber) {
                     this.sdata.owners = this.sdata.owners.splice(0, 1)
                     this.sdata.authors = this.sdata.authors.splice(0, 1)
