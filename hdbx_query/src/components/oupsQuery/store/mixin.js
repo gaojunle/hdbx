@@ -21,6 +21,8 @@ const myMixin = {
             if (['confirmApplication', 'creativeInfo', 'ownershipInfo'].indexOf(this.$route.name) > -1 && !this.getSessionData()) {
                 this.$router.replace('/chooseIdentity')
             }
+            this.flowNumber = this.$route.query.flowNumber;
+            store.flowNumber = this.$route.query.flowNumber;
             this.noLoginCheck();
         }
     },
@@ -33,18 +35,20 @@ const myMixin = {
         },
         //下一步
         async stepNext(applyType) {
+            //判断用户是否切换或未登录
             if (this.changeUserCheck()) {
                 return false;
             }
 
             let step = this.$route.name;
             canNextFlag = true;
+            let flowNumber = this.flowNumber;
             console.log(JSON.parse(JSON.stringify(this.sdata)), step, this.flowNumber)
             //return false
 
             //校验填写
-            var t = await this.validate();
-            if (!t) {
+            var isValid = await this.validate();
+            if (!isValid) {
                 return false
             }
 
@@ -81,17 +85,20 @@ const myMixin = {
                             this.sdata.agentDesc = agentDesc;
                             store.sdata.agentDesc = agentDesc;
                         }
-                        this.$router.push('/creativeInfo');
+                        this.$router.push('/creativeInfo' + pathFlowNumber());
                         this.setSessionData();
                     }
                     this.sdata.applyType = applyType.toString();
-                    this.$router.push('/creativeInfo')
+                    this.$router.push('/creativeInfo' + pathFlowNumber())
+                    this.setSessionData();
                     break;
                 case 'creativeInfo':
-                    this.$router.push('/ownershipInfo')
+                    this.$router.push('/ownershipInfo' + pathFlowNumber())
+                    this.setSessionData();
                     break;
                 case 'ownershipInfo':
-                    this.$router.push('/confirmApplication')
+                    this.$router.push('/confirmApplication' + pathFlowNumber())
+                    this.setSessionData();
                     break;
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
@@ -107,17 +114,24 @@ const myMixin = {
                             this.$router.push('/submitMaterial?submitFlowNumber=' + ret.data)
                         })
                     }
+                    this.setSessionData();
                     break;
                 case 'submitMaterial':
-                    this.$router.push('/submitSuccess')
+                    this.$router.push('/submitSuccess');
+                    this.setSessionData();
                     break;
                 default:
                     this.clearSessionData();
                     this.flowNumber = null;
+                    store.flowNumber = null;
                     this.$router.push('/chooseIdentity');
                     location.reload()
             }
-            this.setSessionData();
+
+
+            function pathFlowNumber() {
+                return flowNumber ? '?flowNumber=' + flowNumber : '';
+            }
         },
 
         //验证
@@ -202,13 +216,13 @@ const myMixin = {
 
         //移除上传文件
         removeUploadFile(dataRef, idx) {
-            console.log(dataRef)
+            //console.log(dataRef)
             dataRef.splice(idx, 1);
         },
 
         //文件上传成功回调
         onFileUploaded(uploadedParams, dataRef, type) {
-            console.log(uploadedParams, dataRef, type)
+            //console.log(uploadedParams, dataRef, type)
             let path = uploadedParams.filePath
 
             let item = {
@@ -242,7 +256,7 @@ const myMixin = {
             if (!this.user.id) {
                 return false;
             }
-            console.log('setSessionData', this.sdata.opusName);
+            //console.log('setSessionData', this.sdata.opusName);
             sessionStorage.setItem('hdbx_' + this.user.id, JSON.stringify(this.sdata))
         },
         getSessionData() {
@@ -258,6 +272,7 @@ const myMixin = {
 
             //清掉所有登录账号session
             for (var skey in sessionStorage) {
+                console.log(skey, skey.substring(0, 5) == 'hdbx_')
                 if (skey.substring(0, 5) == 'hdbx_') {
                     sessionStorage.removeItem(skey)
                 }

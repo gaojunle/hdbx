@@ -66,11 +66,10 @@
             }
         },
 
-        methods: {
-
-        },
+        methods: {},
         async created() {
-            if (getCookie('webUserInfo') && !this.getSessionData() && this.flowNumber){
+            //首页获取回填数据，后面步骤从session中获取
+            if (getCookie('webUserInfo') && !this.getSessionData() && this.flowNumber) {
                 await api.z11InfoAndReFillInfo({flowNumber: this.flowNumber}).then((ret) => {
                     var _sdata = ret.data.z11RegisterApplyInfoVo;
                     if (!_sdata.authAttachment) {
@@ -100,6 +99,7 @@
                     this.sdata = _sdata;
                     store.sdata = _sdata;
                     store.reFillin = ret.data.reFillin;
+                    sessionStorage.setItem('hdbx_reFillin_' + this.user.id, JSON.stringify(ret.data.reFillin))
                     this.setSessionData();
                     //location.reload();
                 })

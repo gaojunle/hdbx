@@ -36,7 +36,7 @@
                         <div class="flex">
                             <el-radio-group v-model="item.applyType"
                                             @change="(val)=>{applyTypeChange(val,idx)}"
-                                            :disabled="disableds.owner_applyType && idx==0">
+                                            :disabled="isDisabled('owners')||(disableds.owner_applyType && idx==0)">
                                 <el-radio-button
                                         v-for="(_item,index) in options.options_applyType"
                                         :key="_item.val"
@@ -346,6 +346,7 @@
                 if (!this.flowNumber && !this.getSessionData()) {
                     this._initData();
                 }
+
                 switch (this.typeGroup) {
                     case '111'://个人作品[1、1、1]
                         this._applyOwnerInfo({
@@ -537,28 +538,28 @@
                 this.sdata.authors[0].name = '';
             },
             _applyOwnerInfo(opts, owner0) {
+                this.ownerNum = opts.ownerNum || 1;
+                this.authorNum = opts.authorNum || 1;
+                console.log(this.ownerNum)
                 if (!this.flowNumber) {
                     this.sdata.owners = this.sdata.owners.splice(0, 1)
                     this.sdata.authors = this.sdata.authors.splice(0, 1)
-                }
-                this.ownerNum = opts.ownerNum || 1;
-                this.authorNum = opts.authorNum || 1;
-                this.sdata.owners[0].applyType = opts.applyType || '1';
+                    this.sdata.owners[0].applyType = opts.applyType || '1';
+                    if (!owner0) {
+                        this.sdata.owners[0].country = this.ownerInfo.country;
+                        this.sdata.owners[0].peopleKind = this.ownerInfo.peopleKind;
+                        this.sdata.owners[0].name = this.ownerInfo.name;
+                        this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
+                        this.sdata.owners[0].mobile = this.user.phone;
+                        this.sdata.owners[0].cardFront = this.ownerInfo.cardFront || this.ownerInfo.certificatePath;
+                        this.sdata.owners[0].cardBack = this.ownerInfo.cardBack;
+                        this.sdata.authors[0].name = this.ownerInfo.name;
 
-                if (!owner0) {
-                    this.sdata.owners[0].country = this.ownerInfo.country;
-                    this.sdata.owners[0].peopleKind = this.ownerInfo.peopleKind;
-                    this.sdata.owners[0].name = this.ownerInfo.name;
-                    this.sdata.owners[0].idNumber = this.ownerInfo.idNumber;
-                    this.sdata.owners[0].mobile = this.user.phone;
-                    this.sdata.owners[0].cardFront = this.ownerInfo.cardFront||this.ownerInfo.certificatePath;
-                    this.sdata.owners[0].cardBack = this.ownerInfo.cardBack;
-                    this.sdata.authors[0].name = this.ownerInfo.name;
-
-                    setTimeout(() => {
-                        //受著作人类型个人/机构影响
-                        this.sdata.owners[0].idType = this.ownerInfo.idType;
-                    }, 100)
+                        setTimeout(() => {
+                            //受著作人类型个人/机构影响
+                            this.sdata.owners[0].idType = this.ownerInfo.idType;
+                        }, 100)
+                    }
                 }
             },
 
@@ -616,24 +617,26 @@
             },
             //添加拥有者
             addOwner() {
-                this.sdata.owners.push({
-                    "applyType": "1",
-                    "applyCopy": "0",
-                    "cardBack": "",
-                    "cardFront": "",
-                    "country": "",
-                    "province": "",
-                    "city": "",
-                    "idNumber": "",
-                    "idType": "",
-                    "mobile": "",
-                    "name": "",
-                    "peopleKind": "1",
-                    "role": "OWN"
-                })
+                if (!this.flowNumber) {
+                    this.sdata.owners.push({
+                        "applyType": "1",
+                        "applyCopy": "0",
+                        "cardBack": "",
+                        "cardFront": "",
+                        "country": "",
+                        "province": "",
+                        "city": "",
+                        "idNumber": "",
+                        "idType": "",
+                        "mobile": "",
+                        "name": "",
+                        "peopleKind": "1",
+                        "role": "OWN"
+                    })
 
-                if (['112', '122', '212', '222'].indexOf(this.typeGroup) > -1) {
-                    this.addAuthor();
+                    if (['112', '122', '212', '222'].indexOf(this.typeGroup) > -1) {
+                        this.addAuthor();
+                    }
                 }
             },
             //权属人名修改事件处理

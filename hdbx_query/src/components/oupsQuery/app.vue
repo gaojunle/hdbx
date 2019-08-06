@@ -34,13 +34,18 @@
                 store.sdata.accountId = this.user.id;
                 this.sdata.accountType = (parseInt(this.user.accountType) + 1);//accountType：用户类型，0：个人、1：机构
                 store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
+            },
+            setRefillIn() {
+                if (this.user.id && sessionStorage.getItem('hdbx_reFillin_' + this.user.id)) {
+                    store.reFillin = sessionStorage.getItem('hdbx_reFillin_' + this.user.id);
+                }
             }
         },
         created() {
             //TODO 登录后，调用setUser方法，此外测试用户登录后刷新即可；
             autoToLogin()
             this.setUserInfo();
-
+            this.setRefillIn();
             this.noLoginCheck();
 
             //获取是否回显标记；
