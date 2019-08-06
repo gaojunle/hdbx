@@ -2,16 +2,16 @@
     <div class="step step_0">
         <div class="mbox">
             <div class="person"
-                 :class="{on:sdata.applyType=='1',disabled:(sdata.applyType!='1'&&isDisabled('applyType'))}"
-                 @click="selOnwer(sdata.applyType!='1'&&isDisabled('applyType'))">
+                 :class="{on:sdata.applyType=='1',disabled:selOnwerDisabled}"
+                 @click="selOnwer()">
                 <div class="s_icon s_per"></div>
                 <div class="type">我是著作权人</div>
                 <div class="desc">办理本人业务或以个人名义代理他人办理业务</div>
             </div>
 
             <div class="company"
-                 :class="{on:sdata.applyType=='2',disabled:(sdata.applyType!='2'&&isDisabled('applyType'))}"
-                 @click="selProxy(sdata.applyType!='2'&&isDisabled('applyType'))">
+                 :class="{on:sdata.applyType=='2',disabled:selProxyDisabled}"
+                 @click="selProxy">
                 <div class="s_icon s_paper"></div>
                 <div class="type">我是代理人</div>
                 <div class="desc">办理本人所属机构业务或以本人所属机构名义代理他人办理业务</div>
@@ -63,6 +63,9 @@
         mixins: [myMixin],
         data() {
             return {
+                flowNumber: this.$route.query.flowNumber,
+                selOnwerDisabled: false,
+                selProxyDisabled: false,
                 options: options,
                 showAuthPaper: false,
                 sdata: store.sdata,
@@ -71,13 +74,14 @@
         },
 
         methods: {
-            selOnwer(flag) {
-                if (!flag) {
+            selOnwer() {
+                if (!this.selOnwerDisabled) {
+                    this.sdata.applyType = 1;
                     this.stepNext(1)
                 }
             },
-            selProxy(flag) {
-                if (!flag) {
+            selProxy() {
+                if (!this.selProxyDisabled) {
                     this.sdata.applyType = 2;
                     this.showAuthPaper = true;
                 }
@@ -123,6 +127,8 @@
         },
         mounted() {
             //console.log('this.user', JSON.parse(JSON.stringify(this.user)));
+            this.selOnwerDisabled = this.flowNumber && this.sdata.applyType != '1' && this.isDisabled('applyType');
+            this.selProxyDisabled = this.flowNumber && this.sdata.applyType != '2' && this.isDisabled('applyType');
             //TODO 测试判断用户是否登录
             if (!getCookie('webUserInfo')) {
                 this.$alert('<p style="text-align: center;color: red;padding: 10px 40px;">用户未登录，请先登录，并刷新</p>', '提示', {

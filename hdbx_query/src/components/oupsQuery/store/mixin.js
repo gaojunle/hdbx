@@ -272,7 +272,6 @@ const myMixin = {
 
             //清掉所有登录账号session
             for (var skey in sessionStorage) {
-                console.log(skey, skey.substring(0, 5) == 'hdbx_')
                 if (skey.substring(0, 5) == 'hdbx_') {
                     sessionStorage.removeItem(skey)
                 }
