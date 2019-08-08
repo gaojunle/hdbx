@@ -138,7 +138,7 @@
                     this.retParam.province = locationArr[0];
                     this.retParam.city = locationArr[1];
                     this.retParam.area = locationArr[2]
-                    this.$emit('countryCityChange', this.retParam)
+                    //this.$emit('countryCityChange', this.retParam)
                     //console.log(this.retParam);
                 }, 100)
             },

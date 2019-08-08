@@ -189,10 +189,8 @@ const myMixin = {
                 item['city'] = params.city;
                 item['area'] = params.area;
 
-                //切换国家时对身份类型及证件类型影响
-                if (this.user.accountType != '0') { //登陆人是个人，身份信息从实名数据取；不要重置
-                    item.idType = '';
-                }
+                //切换国家时对身份类型及证件类型影响1
+                item.idType = '';//证件类型重置
                 if (item.peopleKind == '其它') {
                     item.peopleKind = ''
                 }

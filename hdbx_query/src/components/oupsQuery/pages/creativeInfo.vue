@@ -133,7 +133,7 @@
                         v-if="'AM'.indexOf(sdata.opusType)>-1">作品字数：</span><span
                         v-if="'IH'.indexOf(sdata.opusType)>-1">作品时长：</span>
                 </div>
-                <div class="flex" v-if="'AM'.indexOf(sdata.opusType)>-1">
+                <div class="flex 1" v-show="'AM'.indexOf(sdata.opusType)>-1">
                     <el-form-item prop="opusInfo" :rules="rules.opusInfo">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="sdata.opusInfo"
@@ -141,7 +141,7 @@
                     </el-form-item>
                     <span class="label">字</span>
                 </div>
-                <div class="flex" v-if="sdata.opusType=='H'||sdata.opusType=='I'">
+                <div class="flex 2" v-show="sdata.opusType=='H'||sdata.opusType=='I'">
                     <el-form-item prop="opusInfo" :rules="[{validator: checkOpusInfo, trigger: 'blur'}]">
                         <el-input :disabled="isDisabled('opusInfo')"
                                   v-model.number="timeLength.h" max="60" class="w220" type="number"

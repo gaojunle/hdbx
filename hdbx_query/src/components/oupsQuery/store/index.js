@@ -302,6 +302,9 @@ const store = {
         opusTypeDesc: [
             {required: true, message: '请输入作品类型描述', trigger: 'blur'}
         ],
+        opusInfo:[
+            {required: true, message: '请输入作品字数', trigger: 'blur'}
+        ],
         segmentName: [
             {required: true, message: '请输入样本名称', trigger: 'blur'}
         ],
