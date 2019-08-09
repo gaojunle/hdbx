@@ -36,8 +36,8 @@
                 store.sdata.accountType = (parseInt(this.user.accountType) + 1).toString();
             },
             setRefillIn() {
-                if (this.user.id && sessionStorage.getItem('hdbx_reFillin_' + this.user.id)) {
-                    store.reFillin = sessionStorage.getItem('hdbx_reFillin_' + this.user.id);
+                if (this.user.id && this.getSessionData('reFillin')) {
+                    store.reFillin = this.getSessionData('reFillin');
                 }
             }
         },

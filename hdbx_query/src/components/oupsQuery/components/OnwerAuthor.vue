@@ -343,7 +343,7 @@
                 //console.log('this.$route.query', this.$route.query)
                 this.sdata.rightOwnTypeAttachment.relevantFileName = this.options.options_rightOwnType[this.sdata.rightOwnType - 1].relevantFileName;
                 //如果没有flowNumer参数并且是非编辑状态，表示非回填，则初始化数据
-                if (!this.flowNumber && !this.getSessionData()) {
+                if (!this.flowNumber && !this.getSessionData('ownershipInfoApplyed')) {
                     this._initData();
                 }
 
@@ -542,7 +542,7 @@
             _applyOwnerInfo(opts, owner0) {
                 this.ownerNum = opts.ownerNum || 1;
                 this.authorNum = opts.authorNum || 1;
-                if (!this.flowNumber) {
+                if (!this.flowNumber && !this.getSessionData('ownershipInfoApplyed')) {
                     this.sdata.owners = this.sdata.owners.splice(0, 1)
                     this.sdata.authors = this.sdata.authors.splice(0, 1)
                     this.sdata.owners[0].applyType = opts.applyType || '1';
@@ -618,7 +618,7 @@
             },
             //添加拥有者
             addOwner() {
-                if (!this.flowNumber) {
+                if (!this.flowNumber && !this.getSessionData('ownershipInfoApplyed')) {
                     this.sdata.owners.push({
                         "applyType": "1",
                         "applyCopy": "0",
@@ -648,20 +648,15 @@
             },
         },
         mounted() {
-            if (!this.flowNumber) {//获取著作权人信息
-                api.ownerInfo({
-                    "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
-                    "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
-                    "accountId": this.user.id
-                }).then(ret => {
-                    this.ownerInfo = ret.data;
-                    console.log('this.ownerInfo', JSON.parse(JSON.stringify(this.ownerInfo)))
-                    this.changeRightOwnType();
-                })
-            } else {
+            api.ownerInfo({
+                "applyType": "1",//"申请类型 固定为1：著作权人申请，（代理人申请的时候著作权人信息由用户填写）",
+                "rightOwnType": "1",//"权力归属方式（1：个人作品 2：合作作品 3：法人作品 4：职务作品 5： 委托作品）",
+                "accountId": this.user.id
+            }).then(ret => {
+                this.ownerInfo = ret.data;
+                console.log('this.ownerInfo', JSON.parse(JSON.stringify(this.ownerInfo)))
                 this.changeRightOwnType();
-            }
-
+            })
         }
     }
 </script>

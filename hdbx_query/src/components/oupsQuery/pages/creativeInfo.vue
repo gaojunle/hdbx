@@ -67,7 +67,7 @@
                         :country="sdata.completeCountry"
                         :province="sdata.completeProvince"
                         :city="sdata.completeCity"
-                        :area="sdata.appearCity"
+                        :area="sdata.completeCity"
                         @countryCityChange="((param)=>{countryCityChange(param,sdata,'complete')})"
                 ></CountryCitySelect>
             </div>
@@ -280,7 +280,6 @@
                 this.sdata.attachments.splice(idx, 1)
             },
             checkOpusInfo(rule, value, callback) {
-                console.log(this.sdata)
                 //输入文字
                 if ('A'.indexOf(this.sdata.opusType) > -1) {
                     if (!value) {

@@ -14,7 +14,7 @@
                         :value="item.id">
                 </el-option>
             </el-select>
-            <div class="error_tip error_country" v-show="validateFlag&&!validateCountry()">请输选择国家</div>
+            <div class="error_tip error_country" v-show="validateFlag&&!validateCountry()">请选择国家</div>
         </div>
         <div class="city-box">
             <el-cascader
@@ -23,10 +23,10 @@
                     v-if="selCountry || initNullFlag"
                     placeholder="省/市区/街道"
                     @change="onCityChange"
-                    value="location"
+                    v-model="location"
                     :props="props">
             </el-cascader>
-            <div class="error_tip error_location" v-show="validateFlag&&!validate()">请输选择城市</div>
+            <div class="error_tip error_location" v-show="validateFlag&&!validate()">请选择城市</div>
         </div>
     </div>
 </template>
@@ -36,7 +36,6 @@
     import {API_HOST} from '@share/api/config'
     import areaFun from '@share/js/common/area'
 
-    var selCountry = ''
     export default {
         props: {
             countryDisabled: {
@@ -58,34 +57,59 @@
                 initNullFlag: true,
                 props: {
                     lazy: true,
-                    async lazyLoad(node, resolve) {
-                        setTimeout(async () => {
-                            let citys = null;
+                    lazyLoad: async (node, resolve) => {
+                        //console.log('lazyLoad', this);
+                        let citys = null;
 
-                            //console.log(selCountry);
-                            if (!selCountry) {
-                                resolve([])
-                                return;
+                        if (!this.selCountry) {
+                            resolve([])
+                            return;
+                        } else {
+                            if (node.root == true) {
+                                citys = await areaFun.getArea('Province', this.selCountry);
                             } else {
-                                if (node.root == true) {
-                                    citys = await areaFun.getArea('Province', selCountry);
-                                } else {
-                                    var {id, lvl} = node.data._d;
-                                    let apiName = (lvl == 2 ? 'City' : 'Area')
-                                    citys = await areaFun.getArea(apiName, id);
-                                }
-
-                                const nodes = citys.map(item => ({
-                                    value: item.id,
-                                    label: item.name,
-                                    leaf: item.hasChildren == 0,
-                                    _d: item
-                                }));
-                                // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-                                that.citys = nodes;
-                                resolve(nodes);
+                                var {id, lvl} = node.data._d;
+                                let apiName = (lvl == 2 ? 'City' : 'Area')
+                                citys = await areaFun.getArea(apiName, id);
                             }
-                        }, 100);
+
+                            const nodes = citys.map(item => ({
+                                value: item.id,
+                                label: item.name,
+                                leaf: item.hasChildren == 0,
+                                _d: item
+                            }));
+                            // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                            that.citys = nodes;
+                            resolve(nodes);
+                        }
+
+                        /* setTimeout(async () => {
+                             let citys = null;
+
+                             if (!this.selCountry) {
+                                 resolve([])
+                                 return;
+                             } else {
+                                 if (node.root == true) {
+                                     citys = await areaFun.getArea('Province', this.selCountry);
+                                 } else {
+                                     var {id, lvl} = node.data._d;
+                                     let apiName = (lvl == 2 ? 'City' : 'Area')
+                                     citys = await areaFun.getArea(apiName, id);
+                                 }
+
+                                 const nodes = citys.map(item => ({
+                                     value: item.id,
+                                     label: item.name,
+                                     leaf: item.hasChildren == 0,
+                                     _d: item
+                                 }));
+                                 // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+                                 that.citys = nodes;
+                                 resolve(nodes);
+                             }
+                         }, 100);*/
                     }
                 },
                 countrys: [],
@@ -97,22 +121,13 @@
                     city: '',
                     area: ''
                 },
+                location: '',
                 validateFlag: false //是否要对组件进行校验标记
-            }
-        },
-        watch: {
-            async country(newVal, oldVal) {
-                if (this.country == '中国大陆') {
-                    this.selCountry = this.country;
-                    selCountry = this.selCountry
-                    this.countrys = await areaFun.getArea('Country');
-                    this.selCountryChange('001')
-                }
             }
         },
         methods: {
             //选择国家
-            selCountryChange(val) {
+            selCountryChange(val, isEmit = true) {
                 let obj = {}
                 obj = this.countrys.find((item) => {
                     return item.id === val
@@ -120,26 +135,27 @@
 
                 this.initNullFlag = false;
                 this.selCountry = '';
-                selCountry = '';
 
                 setTimeout(() => {
                     this.selCountry = val;
-                    selCountry = val;
                 }, 100)
 
                 this.retParam.country = obj.name;
-                this.$emit('countryCityChange', this.retParam)
+                this.retParam.type = 'country';
+                if (isEmit) {
+                    this.$emit('countryCityChange', this.retParam)
+                }
                 //console.log(this.retParam);
             },
             //选择城市
-            onCityChange(val) {
+            onCityChange() {
                 setTimeout(() => {
-                    var locationArr = this.$refs.cityBox.inputValue.split(' / ');
+                    var locationArr = this.$refs.cityBox.$el.querySelector('.el-input__inner').value.split('/');
                     this.retParam.province = locationArr[0];
                     this.retParam.city = locationArr[1];
                     this.retParam.area = locationArr[2]
-                    //this.$emit('countryCityChange', this.retParam)
-                    //console.log(this.retParam);
+                    this.retParam.type = 'city';
+                    this.$emit('countryCityChange', this.retParam);
                 }, 100)
             },
             //初始化地址
@@ -148,9 +164,22 @@
                 this.province && loction.push(this.province)
                 this.city && loction.push(this.city)
                 this.area && loction.push(this.area)
-                if (loction.length > 0) {
-                    var cIpt = this.$refs.cityBox.$el.querySelector('.el-input__inner');
-                    cIpt.value = loction.join('/')
+                this.location = loction.join('/');
+
+                if (this.location) {
+                    setTimeout(() => {
+                        let cIpt = this.$refs.cityBox.$el.querySelector('.el-input__inner');
+                        cIpt.value = this.location;
+                        this.onCityChange()
+                    }, 300)
+                }
+                if (this.country) {
+                    this.countrys.forEach((val, idx) => {
+                        if (val.name == this.country) {
+                            this.selCountryChange(val.id, false);
+                            return;
+                        }
+                    })
                 }
             },
             //验证有效性（是否选择）
@@ -186,7 +215,6 @@
                     }
                 }
 
-                //console.log(flag)
                 return flag;
             },
             validateCountry() {
@@ -199,13 +227,10 @@
             }
         },
         async mounted() {
-            var countrys = JSON.parse(sessionStorage.getItem('Country'));
             this.selCountry = this.country;
-           // console.log('selCountry', this.selCountry)
-            selCountry = this.selCountry
+            //console.log('selCountry', this.selCountry)
             this.countrys = await areaFun.getArea('Country');
-
-            this.initLocation()
+            this.initLocation();
         }
     }
 

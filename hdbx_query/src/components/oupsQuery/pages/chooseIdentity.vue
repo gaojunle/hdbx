@@ -119,7 +119,7 @@
                     this.sdata = _sdata;
                     store.sdata = _sdata;
                     store.reFillin = ret.data.reFillin;
-                    sessionStorage.setItem('hdbx_reFillin_' + this.user.id, JSON.stringify(ret.data.reFillin))
+                    this.setSessionData('reFillin', ret.data.reFillin);
                     this.setSessionData();
                     //location.reload();
                 })

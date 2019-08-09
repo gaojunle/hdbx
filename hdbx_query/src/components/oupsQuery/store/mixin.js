@@ -48,6 +48,7 @@ const myMixin = {
 
             //校验填写
             var isValid = await this.validate();
+
             if (!isValid) {
                 return false
             }
@@ -99,6 +100,7 @@ const myMixin = {
                 case 'ownershipInfo':
                     this.$router.push('/confirmApplication' + pathFlowNumber())
                     this.setSessionData();
+                    this.setSessionData('ownershipInfoApplyed', true);
                     break;
                 case 'confirmApplication':
                     //确认填写完成后，判断是否回显，调用对应接口，成功后清掉缓存
@@ -127,7 +129,6 @@ const myMixin = {
                     this.$router.push('/chooseIdentity');
                     location.reload()
             }
-
 
             function pathFlowNumber() {
                 return flowNumber ? '?flowNumber=' + flowNumber : '';
@@ -190,12 +191,14 @@ const myMixin = {
                 item['area'] = params.area;
 
                 //切换国家时对身份类型及证件类型影响1
-                item.idType = '';//证件类型重置
-                if (item.peopleKind == '其它') {
-                    item.peopleKind = ''
-                }
-                if (item.country != '中国大陆' && item.applyType == '2') {
-                    item.peopleKind = '4'
+                if (params.type == 'country') {
+                    item.idType = '';//证件类型重置
+                    if (item.peopleKind == '其它') {
+                        item.peopleKind = ''
+                    }
+                    if (item.country != '中国大陆' && item.applyType == '2') {
+                        item.peopleKind = '4'
+                    }
                 }
             }
         },
@@ -250,18 +253,18 @@ const myMixin = {
             return Y + M + D;
         },
 
-        setSessionData() {
+        setSessionData(type = '', data = null) {
             if (!this.user.id) {
                 return false;
             }
             //console.log('setSessionData', this.sdata.opusName);
-            sessionStorage.setItem('hdbx_' + this.user.id, JSON.stringify(this.sdata))
+            sessionStorage.setItem('hdbx_' + (type ? (type + '_') : '') + this.user.id, JSON.stringify(data || this.sdata))
         },
-        getSessionData() {
+        getSessionData(type = '') {
             if (!this.user.id) {
                 return false;
             }
-            return JSON.parse(sessionStorage.getItem('hdbx_' + this.user.id))
+            return JSON.parse(sessionStorage.getItem('hdbx_' + (type ? (type + '_') : '') + this.user.id))
         },
         clearSessionData() {
             var sdata_init = JSON.parse(JSON.stringify(store.sdata_init));
