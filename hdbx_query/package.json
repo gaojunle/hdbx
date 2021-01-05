@@ -20,7 +20,7 @@
     "test": "cross-env NODE_ENV=production npm_config_report=true webpack --config bin/webpack.test.conf.js  "
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "element-ui": "^2.9.1",
     "hdbx-component": "^1.0.1",
     "jquery": "^3.4.1",
